@@ -5,7 +5,7 @@ from plotly.graph_objs import *
 import plotly.graph_objects as go
 
 # TODO: add seqclass_names to github and directly link
-seqclass_names = pd.read_csv("../gwas/seqclass-names.txt", header=None, sep="\n").to_numpy()
+seqclass_names = pd.read_csv("model_data/seqclass-names.txt", header=None, sep="\n").to_numpy()
 color_map = {
     'E': "#984ef3",
     'CTCF': "#fdb462",

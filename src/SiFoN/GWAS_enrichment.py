@@ -17,7 +17,7 @@ def find_enrichment(ccv, ref_bed):
     intersect_ref2 = _sort_intersection(intersect_ref1)
     intersect_ref2 = intersect_bed.intersect(ref_bed).as_df()
     intersect_ref2 = _sort_intersection(intersect_ref2)
-    seqclass_names = pd.read_csv("../gwas/seqclass-names.txt", header=None, sep="\n").to_numpy()
+    seqclass_names = pd.read_csv("model_data/seqclass-names.txt", header=None, sep="\n").to_numpy()
     seqclass_names = np.append(seqclass_names, 21*["NA"])
     intersect_ref2["Sequence Identity"] = intersect_ref1["Name"]
     intersect_ref2['Sei Sequence Annotation'] = [seqclass_names[name] for name in intersect_ref2["Sequence Identity"]]
