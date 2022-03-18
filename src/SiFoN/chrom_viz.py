@@ -22,7 +22,7 @@ def preprocess_diff(diff, row_labels):
     return diff[indices, :], row_labels.iloc[indices, :]
 
 def rank_scatter_plot(diff, row_labels, loc, loc_index, figname, fontsize=18):
-    chrom_names = pd.read_csv("model_data/target_names.txt", header=None, sep="\n").to_numpy()
+    chrom_names = pd.read_csv("../model_data/target_names.txt", header=None, sep="\n").to_numpy()
     chrom_names = [name[0].split("|") for name in chrom_names]
     name_df = pd.DataFrame(chrom_names, columns=["Tissue", "Class", "ID", "none"])
     df = pd.DataFrame(diff[loc_index, :], columns=["Diff"])
@@ -54,7 +54,7 @@ plot. There will be `top_X` * `pos_window` rows and pos_window columns.
 `window`: the number of to the right and left of `loc` that will be plotted. 
 `fontsize`: fontsize for graph."""
 def chromatin_profile_heatmap(data, row_labels, loc, loc_index, figname, top_X=5, pos_window=5, fontsize=8):
-    chrom_names = pd.read_csv("model_data/target_names.txt", header=None, sep="\n").to_numpy()
+    chrom_names = pd.read_csv("../model_data/target_names.txt", header=None, sep="\n").to_numpy()
     chrom_names = [name[0].split("|") for name in chrom_names]
     heat_data = data[loc_index - pos_window : loc_index + pos_window, :]
     top_vals = np.apply_along_axis(lambda x: np.abs(x).argsort()[-top_X:], 1, heat_data)
