@@ -127,6 +127,6 @@ dmypy.json
 
 output.bed
 test
-
+chr10_89580225_89633389_diffs.h5
 # Pyre type checker
 .pyre/

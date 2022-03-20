@@ -43,5 +43,5 @@ def seq_class_t_tests(df, filename, fontsize=18, markersize=7):
     fig.update_traces(marker={'size': markersize})
     viz.white_bg(fig)
     fig.write_html("filename")
-    fig.show()
+    fig.show("png")
     return pvals_df

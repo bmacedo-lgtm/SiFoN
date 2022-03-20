@@ -4,6 +4,7 @@ import seaborn as sns
 import pyranges as pr
 import pandas as pd
 import numpy as np
+%matplotlib inline
 
 def _sort_intersection(intersect_ref):
     intersect_ref.sort_values(by="End", inplace=True, kind='mergesort')

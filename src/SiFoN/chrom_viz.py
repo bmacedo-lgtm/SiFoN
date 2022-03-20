@@ -43,7 +43,7 @@ def rank_scatter_plot(diff, row_labels, loc, loc_index, figname, fontsize=18):
     fig.update_layout(font=dict(size=fontsize), xaxis_title="Rank")
     white_bg(fig)
     fig.write_html(figname)
-    fig.show()
+    fig.show("png")
 
 """TODO: define the expected chromosome names.
 `data`: `row_labels`:
