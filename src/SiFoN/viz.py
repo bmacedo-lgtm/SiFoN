@@ -139,8 +139,8 @@ def plot_max(filename, scores_prune, TSS):
     fig.write_html(filename)
     fig.show()
     
-def plot_from_scores(filename, file, vcf, TSS, signed=True, plot_by="class"):
-    scores = preprocess(file, vcf, signed=signed)
+def plot_from_scores(filename, file, vcf, TSS, signed=True, plot_by="class", preprocess=False):
+    if preprocess: scores = preprocess(file, vcf, signed=signed)
     if "category":
         max_scores = find_max_by_category(scores, signed=True)
     elif "class":
