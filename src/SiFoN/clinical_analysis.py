@@ -29,8 +29,7 @@ def seq_class_t_tests(df, filename, fontsize=18, markersize=7):
     for ind, seq_class in enumerate(seqclass_names):
         pval = stats.ttest_ind(df[df["Case/Control"] == "Case"][seq_class], 
                     df[df["Case/Control"] == "Control"][seq_class]).pvalue
-        pvals[ind] = pval
-        
+        pvals[ind] = pval   
     pvals_df = pd.DataFrame({"Sequence Class" : seqclass_names.flatten(), "P-value" : pvals})
     pvals_df.sort_values(by="P-value", ascending=True, inplace=True)
     pvals_df["Class"] =  [viz.get_category(index) for index in pvals_df["Sequence Class"]]
