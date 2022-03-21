@@ -138,7 +138,7 @@ def find_max(scores, signed=True, seqclass_names=seqclass_names):
     ----------
     scores : NumPy array
         Takes the (abs) max sequence class score for each position/alteration. Should run the `preprocessing` function first. The output array has columns [“Max Score", "Sequence Name"] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the `post_processing` function.
-    signed : Boolean, optional.
+    signed : Boolean, optional
         signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
     seqclass_names : list of strings, optional
         List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
@@ -167,7 +167,7 @@ def find_max_by_category(scores, signed=True, seqclass_names=seqclass_names):
     ----------
     scores : NumPy array
         Takes the (abs) max sequence class score within a category for each position/alteration. Should run the `preprocessing` function first. The output array has columns [“Max Score", "Sequence Name"] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the `post_processing` function.
-    signed : Boolean, optional.
+    signed : Boolean, optional
         signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
     seqclass_names : list of strings, optional
         List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
@@ -233,7 +233,7 @@ def plot_max_from_scores(filename, file, vcf, TSS={}, signed=True, plot_by="clas
         VCF of SNPs of interest, including “Position” column.
     TSS : Dict[str, list[int, int]], optional
         Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated, defaults to an empty dictionary
-    signed : Boolean, optional.
+    signed : Boolean, optional
         signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
     plot_by : string, optional
         Specifies whether the maximum of sequence class is plotted ("class") or the maximim within each sequence category ("category). Should be either "class" (calls `find_max`) or "category" (calls `find_max_by_category`), defaults to "class"
