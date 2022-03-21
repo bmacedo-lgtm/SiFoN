@@ -76,7 +76,7 @@ def post_processing(scores_max, seqclass_names=seqclass_names):
     ----------
     scores_max :
         type scores_max: NumPy Array
-    seqclass_names : list of strings, optional
+    seqclass_names : list of strings (optional)
         List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
 
     Returns
@@ -103,7 +103,7 @@ def preprocess(file, vcf, seqclass_names=seqclass_names, signed=True):
         filename of NumPy sequence class scores
     vcf : Pandas DataFrame
         VCF of SNPs of interest, including “Position” column.
-    seqclass_names : list of strings, optional
+    seqclass_names : list of strings (optional)
         List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
     signed : Boolean, optional
         signifies whether parameters are evaluated by absolute value (False) or not (True), default is True
@@ -140,7 +140,7 @@ def find_max(scores, signed=True, seqclass_names=seqclass_names):
         Takes the (abs) max sequence class score for each position/alteration. Should run the `preprocessing` function first. The output array has columns [“Max Score", "Sequence Name"] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the `post_processing` function.
     signed : Boolean, optional
         signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
-    seqclass_names : list of strings, optional
+    seqclass_names : list of strings (optional)
         List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
 
     Returns
@@ -169,7 +169,7 @@ def find_max_by_category(scores, signed=True, seqclass_names=seqclass_names):
         Takes the (abs) max sequence class score within a category for each position/alteration. Should run the `preprocessing` function first. The output array has columns [“Max Score", "Sequence Name"] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the `post_processing` function.
     signed : Boolean, optional
         signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
-    seqclass_names : list of strings, optional
+    seqclass_names : list of strings (optional)
         List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
 
     Returns
@@ -239,7 +239,7 @@ def plot_max_from_scores(filename, file, vcf, TSS={}, signed=True, plot_by="clas
         Specifies whether the maximum of sequence class is plotted ("class") or the maximim within each sequence category ("category). Should be either "class" (calls `find_max`) or "category" (calls `find_max_by_category`), defaults to "class"
     pre : Boolean, optional
         determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.
-    seqclass_names : list of strings, optional
+    seqclass_names : list of strings (optional)
         List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
 
     Returns
