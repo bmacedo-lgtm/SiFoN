@@ -9,16 +9,21 @@ seqclass_names = pd.read_csv("../model_data/seqclass-names.txt", header=None, se
 
 def cdot_to_VCF(data, chrm, start=0):
     """Converts alterations from the c-dot (c. pos ref > alt) format to a VCF file.
-    
-    :param data: Clinical data. Must contain a column "Alteration" in c. notation that describes SNP's genomic coordinates.
-    :type data: Pandas DataFrame
-    :param chrm: Chromosome of alterations. Should be in the form "chr" + the chromosome number (e.g. chr10).
-    :type chrm: string
-    :param start: Reference genomic position for alterations, default is 0
-    :type start: int, optional
 
-    :return: Input data stored in a VCF format dataframe.
-    :rtype: Pandas DataFrame
+    Parameters
+    ----------
+    data : Pandas DataFrame
+        Clinical data. Must contain a column "Alteration" in c. notation that describes SNP's genomic coordinates.
+    chrm : string
+        Chromosome of alterations. Should be in the form "chr" + the chromosome number (e.g. chr10).
+    start : int, optional
+        Reference genomic position for alterations, default is 0
+
+    Returns
+    -------
+    Pandas DataFrame
+        Input data stored in a VCF format dataframe.
+
     """
     output = pd.DataFrame(columns = ["#CHROM", "POS", "ID", "REF", "ALT"])
     output["#CHROM"] = [chrm for a in data["Alteration"]]
@@ -32,50 +37,67 @@ def cdot_to_VCF(data, chrm, start=0):
 
 def odds_ratio(df, control_col, case_col, num_cases, num_controls, correction):
     """Calculates the odds ratio of case and control counts. Adds a new column to your dataframe `df` called "Odds Ratio"
-    
-    :param df: Contains case and control counts and any other metadata.
-    :type df: Pandas DataFrame
-    :param control_col: name of DataFrame column with control counts
-    :type control_col: string
-    :param case_col: name of DataFrame column with case counts
-    :type case_col: string
-    :param num_cases: number of total cases
-    :type num_cases: int
-    :param num_controls: number of total controls
-    :type num_controls: int
-    :param correction: added to all counts to prevent division by zero in the case of zero counts.
-    :type correction: float
+
+    Parameters
+    ----------
+    df : Pandas DataFrame
+        Contains case and control counts and any other metadata.
+    control_col : string
+        name of DataFrame column with control counts
+    case_col : string
+        name of DataFrame column with case counts
+    num_cases : int
+        number of total cases
+    num_controls : int
+        number of total controls
+    correction : float
+        added to all counts to prevent division by zero in the case of zero counts.
+
+    Returns
+    -------
+
     """
     df["Odds Ratio"] = [((case + correction)/num_cases)/((control + correction)/num_controls)
                          for case, control in zip(df[control_col], df[case_col])]
       
 def add_case_control_label(df, case_cuttoff, control_cutoff):    
     """Assigns each SNP as a "Case", "Control", or "Equal" based on odds ratio scores. Adds dataframe column "Case/Control" to `df`.
-    
-    :param df: Contains case and control counts and any other metadata. Must have an "Odds Ratio" column.
-    :type df: Pandas DataFrame
-    :param case_cuttoff: cutoff odds ratio to consider something a "Case" SNP
-    :type case_cuttoff: int
-    :param control_cutoff: cutoff odds ratio to consider something a "Control" SNP
-    :type control_cutoff: int
-    """   
+
+    Parameters
+    ----------
+    df : Pandas DataFrame
+        Contains case and control counts and any other metadata. Must have an "Odds Ratio" column.
+    case_cuttoff : int
+        cutoff odds ratio to consider something a "Case" SNP
+    control_cutoff : int
+        cutoff odds ratio to consider something a "Control" SNP
+
+    Returns
+    -------
+
+    """
     df["Case/Control"] = ["Case" if OR > case_cuttoff else "Control" if OR < control_cutoff else "Equal"
                               for OR in df["Odds Ratio"]]
 
 def seq_class_t_tests(df, figname, fontsize=18, markersize=7):
     """Runs t-tests to compare sequence class scores in case and control populations. Returns p-vals and plots ranked p-vals.
-    
-    :param df: Contains case and control counts and any other metadata. Must have scores for all 40 Sei sequence classes. Column names must correspond to sequence class names. 
-    :type df: Pandas DataFrame
-    :param figname: name of file that figure will be saves as.
-    :type figname: string
-    :param fontsize: fontsize for graph, defaults to 18
-    :type fontsize: int, optional.
-    :param markersize: markersize for graph, defaults to 7
-    :type markersize: int, optional.
 
-    :return: P-values for all 40 sequence class, ordered by ascending p-value. 
-    :rtype: Pandas DataFrame
+    Parameters
+    ----------
+    df : Pandas DataFrame
+        Contains case and control counts and any other metadata. Must have scores for all 40 Sei sequence classes. Column names must correspond to sequence class names.
+    figname : string
+        name of file that figure will be saves as.
+    fontsize : int, optional.
+        fontsize for graph, defaults to 18
+    markersize : int, optional.
+        markersize for graph, defaults to 7
+
+    Returns
+    -------
+    Pandas DataFrame
+        P-values for all 40 sequence class, ordered by ascending p-value.
+
     """
     pvals = np.zeros(len(seqclass_names))
     for ind, seq_class in enumerate(seqclass_names):

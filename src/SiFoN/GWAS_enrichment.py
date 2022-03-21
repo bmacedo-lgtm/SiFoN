@@ -6,26 +6,43 @@ import pandas as pd
 import numpy as np
 
 def _sort_intersection(intersect_ref):
+    """
+
+    Parameters
+    ----------
+    intersect_ref :
+        
+
+    Returns
+    -------
+
+    """
     intersect_ref.sort_values(by="End", inplace=True, kind='mergesort')
     intersect_ref.sort_values(by="Start", inplace=True, kind='mergesort' )
     intersect_ref.sort_values(by="Chromosome", inplace=True, kind='mergesort')
     return intersect_ref
     
 def find_and_plot_enrichment(ccv, ref_bed, figname, vmin=0.1, vmax=10^1):
-    """ Calculates sequence class enrichment in genomic sequences compared to the entire genome and then creates a heatmap to visualize results. 
-    
-    :param ccv: Pandas DataFrame in BED format of loci with credible causal variants. Must include at least the following columns: Chrom, Start, End, SNP [identifier/name of sequence])
-    :type ccv: Pandas DataFrame
-    :param ref_bed: Should contain sequence class labels across (nearly) the entire genome to allow for background sequence class proportion calculations. Should use the same genomic coordinate system (e.g. hg19 or hg38) as `ccv`.
-    :type ref_bed: pyranges BED object
-    :param figname: name of file that figure will be saves as.
-    :type figname: string
-    :param vmin: value corresponding to minimum color in heatmap, default is 0.1
-    :type vmin: float, optional
-    :param vmax: value corresponding to minimum color in heatmap, default is 10^1
-    :type vmax: float, optional
-    :return: Sequence class enrichment dataframe. Rows correspond to risk loci sequence and the indices are the "SNP" column of `ccv` (the name/ID for each sequence). Columns correspond to the 40 sequence classes. 
-    :rtype: Pandas DataFrame
+    """Calculates sequence class enrichment in genomic sequences compared to the entire genome and then creates a heatmap to visualize results.
+
+    Parameters
+    ----------
+    ccv : Pandas DataFrame
+        Pandas DataFrame in BED format of loci with credible causal variants. Must include at least the following columns: Chrom, Start, End, SNP [identifier/name of sequence])
+    ref_bed : pyranges BED object
+        Should contain sequence class labels across (nearly) the entire genome to allow for background sequence class proportion calculations. Should use the same genomic coordinate system (e.g. hg19 or hg38) as `ccv`.
+    figname : string
+        name of file that figure will be saves as.
+    vmin : float, optional
+        value corresponding to minimum color in heatmap, default is 0.1
+    vmax : float, optional
+        value corresponding to minimum color in heatmap, default is 10^1
+
+    Returns
+    -------
+    Pandas DataFrame
+        Sequence class enrichment dataframe. Rows correspond to risk loci sequence and the indices are the "SNP" column of `ccv` (the name/ID for each sequence). Columns correspond to the 40 sequence classes.
+
     """
     intersect_bed = pr.PyRanges(ccv)
     intersect_ref1 = ref_bed.intersect(intersect_bed).as_df()

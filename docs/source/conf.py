@@ -13,8 +13,11 @@ author = 'Briana Macedo'
 release = '0.0.1'
 
 # -- General configuration ---------------------------------------------------
-extensions = ['sphinx.ext.autodoc']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon']
 templates_path = ['_templates']
 exclude_patterns = []
 html_theme = 'classic'
 html_static_path = ['_static']
+
+napoleon_google_docstring = False
+napoleon_numpy_docstring = True
