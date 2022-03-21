@@ -13,6 +13,7 @@ def _sort_intersection(intersect_ref):
     
 def find_and_plot_enrichment(ccv, ref_bed, figname, vmin=0.1, vmax=10^1):
     """ Calculates sequence class enrichment in genomic sequences compared to the entire genome and then creates a heatmap to visualize results. 
+    
     :param ccv: Pandas DataFrame in BED format of loci with credible causal variants. Must include at least the following columns: Chrom, Start, End, SNP [identifier/name of sequence])
     :type ccv: Pandas DataFrame
     :param ref_bed: Should contain sequence class labels across (nearly) the entire genome to allow for background sequence class proportion calculations. Should use the same genomic coordinate system (e.g. hg19 or hg38) as `ccv`.

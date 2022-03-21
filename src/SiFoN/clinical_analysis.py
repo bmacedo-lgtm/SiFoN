@@ -9,6 +9,7 @@ seqclass_names = pd.read_csv("../model_data/seqclass-names.txt", header=None, se
 
 def cdot_to_VCF(data, chrm, start=0):
     """Converts alterations from the c-dot (c. pos ref > alt) format to a VCF file.
+    
     :param data: Clinical data. Must contain a column "Alteration" in c. notation that describes SNP's genomic coordinates.
     :type data: Pandas DataFrame
     :param chrm: Chromosome of alterations. Should be in the form "chr" + the chromosome number (e.g. chr10).
@@ -31,6 +32,7 @@ def cdot_to_VCF(data, chrm, start=0):
 
 def odds_ratio(df, control_col, case_col, num_cases, num_controls, correction):
     """Calculates the odds ratio of case and control counts. Adds a new column to your dataframe `df` called "Odds Ratio"
+    
     :param df: Contains case and control counts and any other metadata.
     :type df: Pandas DataFrame
     :param control_col: name of DataFrame column with control counts
@@ -49,6 +51,7 @@ def odds_ratio(df, control_col, case_col, num_cases, num_controls, correction):
       
 def add_case_control_label(df, case_cuttoff, control_cutoff):    
     """Assigns each SNP as a "Case", "Control", or "Equal" based on odds ratio scores. Adds dataframe column "Case/Control" to `df`.
+    
     :param df: Contains case and control counts and any other metadata. Must have an "Odds Ratio" column.
     :type df: Pandas DataFrame
     :param case_cuttoff: cutoff odds ratio to consider something a "Case" SNP
@@ -61,6 +64,7 @@ def add_case_control_label(df, case_cuttoff, control_cutoff):
 
 def seq_class_t_tests(df, figname, fontsize=18, markersize=7):
     """Runs t-tests to compare sequence class scores in case and control populations. Returns p-vals and plots ranked p-vals.
+    
     :param df: Contains case and control counts and any other metadata. Must have scores for all 40 Sei sequence classes. Column names must correspond to sequence class names. 
     :type df: Pandas DataFrame
     :param figname: name of file that figure will be saves as.

@@ -9,6 +9,7 @@ from matplotlib.colors import LogNorm, Normalize, SymLogNorm
 ### Heatmap
 def white_bg(fig):
     """This function changes a plotly figure `fig` to have a white background. Changes the figure object. 
+    
     :param fig: plotly figure
     :type fig: plotly figure
     """
@@ -20,6 +21,7 @@ def white_bg(fig):
 
 def preprocess_diff(diff, row_labels): 
     """ Returns a filtered chromatin class score array and corresponding row labels. For any particular genomic loci (e.g.chr10:89623103), Sei outputs three scores corresponding to each potential alteration at that position (e.g. G>A, G>C, and G>T). For each position, this function selects the alteration that has the highest average absolute score across all chromatin classes. 
+    
     :param diff: NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.
     :type diff: NumPy array
     :param row_labels: contains metadata about the rows (and the SNPs described by the rows) in the `diff` array. 
@@ -38,6 +40,7 @@ def preprocess_diff(diff, row_labels):
 
 def rank_scatter_plot(diff, row_labels, loc, loc_index, figname, fontsize=18, static=False):
     """ Creates, displays, and saves a scatter plot of ranked chromatin profiles at for a particular SNP. Each point corresponds to a chromatin profile, with hover data specifying: rank, score, profile name, and tissue of origin.
+    
     :param diff: NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.
     :type diff: NumPy array
     :param row_labels: contains metadata to describe the SNPs being analyzed. Should have at least the following columns: ["chrom", "pos", "name", "ref", "alt"]. Must have the same number of rows as `data`. 
@@ -79,6 +82,7 @@ def rank_scatter_plot(diff, row_labels, loc, loc_index, figname, fontsize=18, st
 
 def chromatin_profile_heatmap(data, row_labels, loc, loc_index, figname, top_X=5, pos_window=5, fontsize=8):
     """ Creates, displays, and saves a heatmap of the top chromatin profile scores within a short genomic sequence. The y axis shows the top chromatin profiles for each of the user-defined SNPs of interest. The profile labels are in the following format: chromatin profile | tissue of origin | genomic position of associated SNP. The x axis shows genomic positions. 
+    
     :param data: NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.
     :type data: NumPy array
     :param row_labels: contains metadata to describe the SNPs being analyzed. Should have at least the following columns: ["chrom", "pos", "name", "ref", "alt"]. Must have the same number of rows as `data`. 
