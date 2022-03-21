@@ -14,15 +14,15 @@ Indices and tables
 
 chrom_viz API
 ==================
-.. automodule:: chrom_viz
+.. automodule:: SiFoN.chrom_viz
     :members:
  
 clinical_analysis API
 ======================
-.. automodule:: clinical_analysis
+.. automodule:: SiFoN.clinical_analysis
     :members:
    
 GWAS_enrichment API
 ====================
-.. automodule:: GWAS_enrichment
+.. automodule:: SiFoN.GWAS_enrichment
     :members:
