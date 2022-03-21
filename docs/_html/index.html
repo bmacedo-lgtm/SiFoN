@@ -54,16 +54,12 @@
 <li><p><strong>loc</strong> (<em>int</em>) – the chromosomal position of the SNP of interest.</p></li>
 <li><p><strong>loc_index</strong> (<em>int</em>) – the index of the SNP of interest in the <cite>data</cite> array.</p></li>
 <li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
-<li><p><strong>top_X</strong> – the number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of</p></li>
+<li><p><strong>top_X</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be <cite>top_X</cite> * <cite>pos_window</cite> rows and pos_window columns, defaults to 5.</p></li>
+<li><p><strong>window</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of to the right and left of <cite>loc</cite> that will be plotted, defaults to 5</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – fontsize for graph, defaults to 8</p></li>
 </ul>
 </dd>
 </dl>
-<p>plot. There will be <cite>top_X</cite> * <cite>pos_window</cite> rows and pos_window columns, defaults to 5.
-:type top_X: int, optional
-:param window: the number of to the right and left of <cite>loc</cite> that will be plotted, defaults to 5
-:type window: int, optional
-:param fontsize: fontsize for graph, defaults to 8
-:type fontsize: int, optional.</p>
 </dd></dl>
 
 <dl class="py function">

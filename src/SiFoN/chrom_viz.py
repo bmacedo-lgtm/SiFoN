@@ -93,8 +93,7 @@ def chromatin_profile_heatmap(data, row_labels, loc, loc_index, figname, top_X=5
     :type loc_index: int
     :param figname: name of file that figure will be saves as.
     :type figname: string
-    :param top_X: the number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of
-    plot. There will be `top_X` * `pos_window` rows and pos_window columns, defaults to 5.
+    :param top_X: the number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be `top_X` * `pos_window` rows and pos_window columns, defaults to 5.
     :type top_X: int, optional
     :param window: the number of to the right and left of `loc` that will be plotted, defaults to 5
     :type window: int, optional
