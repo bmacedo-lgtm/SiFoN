@@ -8,17 +8,26 @@ from matplotlib.colors import LogNorm, Normalize, SymLogNorm
 
 ### Heatmap
 def white_bg(fig):
+    """This function changes a plotly figure `fig` to have a white background. Changes the figure object. 
+    :param fig: plotly figure
+    :type fig: plotly figure
+    """
     fig.update_layout({"plot_bgcolor": "rgba(0, 0, 0, 0)",
                     "paper_bgcolor": "rgba(0, 0, 0, 0)"})
     fig.update_xaxes(showline=True, linewidth=2, linecolor='black', gridcolor="#DCDCDC")
     fig.update_yaxes(showline=True, linewidth=2, linecolor='black', gridcolor="#DCDCDC")
     
-"""This function changes a plotly figure `fig` to have a white background. Changes the figure object. 
-:param fig: plotly figure
-:type fig: plotly figure
-"""
+
+def preprocess_diff(diff, row_labels): 
+    """ Returns a filtered chromatin class score array and corresponding row labels. For any particular genomic loci (e.g.chr10:89623103), Sei outputs three scores corresponding to each potential alteration at that position (e.g. G>A, G>C, and G>T). For each position, this function selects the alteration that has the highest average absolute score across all chromatin classes. 
+    :param diff: NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.
+    :type diff: NumPy array
+    :param row_labels: contains metadata about the rows (and the SNPs described by the rows) in the `diff` array. 
+    :type row_labels: Pandas DataFrame
+    :return: Returns filtered `diff` and `row_labels`
+    :rtype: NumPy array, Pandas DataFrame
+    """
     
-def preprocess_diff(diff, row_labels):   
     diff_avg = np.max(diff, axis=1) # take the max score across all the profiles
     diff_avg = diff_avg.reshape(int(diff_avg.size/3), 3) # reshape -> columns represent different alts.
     indices = [np.argmax(mut) for mut in diff_avg] # select alt with highest average score. 
@@ -26,17 +35,24 @@ def preprocess_diff(diff, row_labels):
     indices = [a+b for a,b in zip(starts, indices)] 
     return diff[indices, :], row_labels.iloc[indices, :]
 
-""" Returns a filtered chromatin class score array and corresponding row labels. For any particular genomic loci (e.g. chr10:89623103), Sei outputs three scores corresponding to each potential alteration at that position (e.g. G>A, G>C, and G>T). For each position, this function selects the alteration that has the highest average absolute score across all chromatin classes. 
-
-:param diff: NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.
-:type diff: NumPy array
-:param row_labels: contains metadata about the rows (and the SNPs described by the rows) in the `diff` array. 
-:type row_labels: Pandas DataFrame
-:return: Returns filtered `diff` and `row_labels`
-:rtype: NumPy array, Pandas DataFrame
-"""
 
 def rank_scatter_plot(diff, row_labels, loc, loc_index, figname, fontsize=18, static=False):
+    """ Creates, displays, and saves a scatter plot of ranked chromatin profiles at for a particular SNP. Each point corresponds to a chromatin profile, with hover data specifying: rank, score, profile name, and tissue of origin.
+    :param diff: NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.
+    :type diff: NumPy array
+    :param row_labels: contains metadata to describe the SNPs being analyzed. Should have at least the following columns: ["chrom", "pos", "name", "ref", "alt"]. Must have the same number of rows as `data`. 
+    :type row_labels: Pandas DataFrame
+    :param loc: the chromosomal position of the SNP of interest.
+    :type loc: int
+    :param loc_index: the index of the SNP of interest in the `data` array.
+    :type loc_index: int
+    :param figname: name of file that figure will be saves as.
+    :type figname: string
+    :param fontsize: fontsize for graph, defaults to 8
+    :type fontsize: int, optional.
+    :param static: species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False
+    :type boolean, optional
+    """
     chrom_names = pd.read_csv("../model_data/target_names.txt", header=None, sep="\n").to_numpy()
     chrom_names = [name[0].split("|") for name in chrom_names]
     name_df = pd.DataFrame(chrom_names, columns=["Tissue", "Class", "ID", "none"])
@@ -60,26 +76,27 @@ def rank_scatter_plot(diff, row_labels, loc, loc_index, figname, fontsize=18, st
     fig.write_html(figname)
     if static: fig.show("png")
     else: fig.show()
-    
-""" Creates, displays, and saves a scatter plot of ranked chromatin profiles at for a particular SNP. Each point corresponds to a chromatin profile, with hover data specifying: rank, score, profile name, and tissue of origin.
-
-:param diff: NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.
-:type diff: NumPy array
-:param row_labels: contains metadata to describe the SNPs being analyzed. Should have at least the following columns: ["chrom", "pos", "name", "ref", "alt"]. Must have the same number of rows as `data`. 
-:type row_labels: Pandas DataFrame
-:param loc: the chromosomal position of the SNP of interest.
-:type loc: int
-:param loc_index: the index of the SNP of interest in the `data` array.
-:type loc_index: int
-:param figname: name of file that figure will be saves as.
-:type figname: string
-:param fontsize: fontsize for graph, defaults to 8
-:type fontsize: int, optional.
-:param static: species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False
-:type boolean, optional
-"""
 
 def chromatin_profile_heatmap(data, row_labels, loc, loc_index, figname, top_X=5, pos_window=5, fontsize=8):
+    """ Creates, displays, and saves a heatmap of the top chromatin profile scores within a short genomic sequence. The y axis shows the top chromatin profiles for each of the user-defined SNPs of interest. The profile labels are in the following format: chromatin profile | tissue of origin | genomic position of associated SNP. The x axis shows genomic positions. 
+    :param data: NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.
+    :type data: NumPy array
+    :param row_labels: contains metadata to describe the SNPs being analyzed. Should have at least the following columns: ["chrom", "pos", "name", "ref", "alt"]. Must have the same number of rows as `data`. 
+    :type row_labels: Pandas DataFrame
+    :param loc: the chromosomal position of the SNP of interest.
+    :type loc: int
+    :param loc_index: the index of the SNP of interest in the `data` array.
+    :type loc_index: int
+    :param figname: name of file that figure will be saves as.
+    :type figname: string
+    :param top_X: the number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of
+    plot. There will be `top_X` * `pos_window` rows and pos_window columns, defaults to 5.
+    :type top_X: int, optional
+    :param window: the number of to the right and left of `loc` that will be plotted, defaults to 5
+    :type window: int, optional
+    :param fontsize: fontsize for graph, defaults to 8
+    :type fontsize: int, optional.
+    """
     chrom_names = pd.read_csv("../model_data/target_names.txt", header=None, sep="\n").to_numpy()
     chrom_names = [name[0].split("|") for name in chrom_names]
     heat_data = data[loc_index - pos_window : loc_index + pos_window, :]
@@ -110,23 +127,3 @@ def chromatin_profile_heatmap(data, row_labels, loc, loc_index, figname, top_X=5
     plt.savefig(figname)
     plt.show()
     
-""" Creates, displays, and saves a heatmap of the top chromatin profile scores within a short genomic sequence. The y axis shows the top chromatin profiles for each of the user-defined SNPs of interest. The profile labels are in the following format: chromatin profile | tissue of origin | genomic position of associated SNP. The x axis shows genomic positions. 
-
-:param data: NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.
-:type data: NumPy array
-:param row_labels: contains metadata to describe the SNPs being analyzed. Should have at least the following columns: ["chrom", "pos", "name", "ref", "alt"]. Must have the same number of rows as `data`. 
-:type row_labels: Pandas DataFrame
-:param loc: the chromosomal position of the SNP of interest.
-:type loc: int
-:param loc_index: the index of the SNP of interest in the `data` array.
-:type loc_index: int
-:param figname: name of file that figure will be saves as.
-:type figname: string
-:param top_X: the number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of
-plot. There will be `top_X` * `pos_window` rows and pos_window columns, defaults to 5.
-:type top_X: int, optional
-:param window: the number of to the right and left of `loc` that will be plotted, defaults to 5
-:type window: int, optional
-:param fontsize: fontsize for graph, defaults to 8
-:type fontsize: int, optional.
-"""
