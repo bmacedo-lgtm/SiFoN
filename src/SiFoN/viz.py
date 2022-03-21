@@ -57,30 +57,6 @@ def post_processing(scores_max, seqclass_names=seqclass_names):
     scores_max = scores_max.reset_index()
     return scores_max
 
-# If you run `preprocess_unsigned`, you should run `find_max_unsigned`.
-def preprocess_unsigned(file, vcf, seqclass_names=seqclass_names):
-    scores = pd.DataFrame(np.load(file), columns=seqclass_names)
-    scores.index = vcf["Position"]
-    scores = scores.abs()
-    scores.sort_index(kind="mergesort", inplace=True) # sort by position
-    scores = scores.apply(lambda x: x.rolling(window=3).max()) # find maximum prediction from in silico mut
-    scores = scores.iloc[::3, :]
-    scores = scores.iloc[1:,:]
-    scores.columns = [str(col)[2:-3] for col in scores.columns]
-    return scores
-
-# If you run `preprocess_signed`, you should run `find_max_signed`.
-def preprocess_signed(file, vcf, seqclass_names=seqclass_names):
-    scores = pd.DataFrame(np.load(file), columns=seqclass_names)
-    scores.index = vcf["Position"]
-    scores.sort_index(kind="mergesort", inplace=True) # sort by position
-    scores_min, scores_max = scores.apply(lambda x: x.rolling(window=3).min()), scores.apply(lambda x: x.rolling(window=3).max()) 
-    scores_min, scores_max = scores_min.iloc[::3, :], scores_max.iloc[::3, :]
-    scores_min, scores_max = scores_min.iloc[1:,:], scores_max.iloc[1:,:]
-    scores = scores_max.where(abs(scores_max) > abs(scores_min), scores_min)
-    scores.columns = [str(col)[2:-3] for col in scores.columns]
-    return scores
-
 def preprocess(file, vcf, seqclass_names=seqclass_names, signed=True):
     scores = pd.DataFrame(np.load(file), columns=seqclass_names)
     scores.index = vcf["Position"]

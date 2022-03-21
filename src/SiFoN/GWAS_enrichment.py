@@ -4,7 +4,6 @@ import seaborn as sns
 import pyranges as pr
 import pandas as pd
 import numpy as np
-%matplotlib inline
 
 def _sort_intersection(intersect_ref):
     intersect_ref.sort_values(by="End", inplace=True, kind='mergesort')
@@ -12,7 +11,7 @@ def _sort_intersection(intersect_ref):
     intersect_ref.sort_values(by="Chromosome", inplace=True, kind='mergesort')
     return intersect_ref
     
-def find_enrichment(ccv, ref_bed):
+def find_and_plot_enrichment(ccv, ref_bed, figname, vmin=0.1, vmax=10^1):
     intersect_bed = pr.PyRanges(ccv)
     intersect_ref1 = ref_bed.intersect(intersect_bed).as_df()
     intersect_ref2 = _sort_intersection(intersect_ref1)
@@ -34,14 +33,30 @@ def find_enrichment(ccv, ref_bed):
     counts_in_loci = counts_in_loci.div(counts_in_loci.sum(axis=1), axis=0)  # calculate proportion of each label per region
     counts_in_loci = counts_in_loci.div(total_counts["counts"].values, axis=1) # normalize by proportion across the full genome
     counts_in_loci = counts_in_loci + 0.00000001
-    return counts_in_loci
-
-def plot_enrichment(counts_in_loci, figname, vmin=0.1, vmax=10^1):
     sns.set(rc = {'figure.figsize':(24,16)})
     cmap = sns.diverging_palette(255, 0, sep=8, n=256)
     g = sns.clustermap(counts_in_loci, cmap=cmap, 
                    vmin=vmin, vmax=vmax, xticklabels=1,  norm=LogNorm())
-    g.ax_col_dendrogram.set_xlim([0,0])
+    g.ax_col_dendrogram.set_xlim([0,0.0001])
     g.ax_row_dendrogram.set_visible(False)
     g.savefig(figname)
     plt.show()
+    
+    return counts_in_loci
+
+""" Calculates sequence class enrichment in genomic sequences compared to the entire genome and then creates a heatmap to visualize results. 
+:param ccv: Pandas DataFrame in BED format of loci with credible causal variants. Must include at least the following columns: Chrom, Start, End, SNP [identifier/name of sequence])
+:type ccv: Pandas DataFrame
+:param ref_bed: Should contain sequence class labels across (nearly) the entire genome to allow for background sequence class proportion calculations. Should use the same genomic coordinate system (e.g. hg19 or hg38) as `ccv`.
+:type ref_bed: pyranges BED object
+:param figname: name of file that figure will be saves as.
+:type figname: string
+:param vmin: value corresponding to minimum color in heatmap, default is 0.1
+:type vmin: float, optional
+:param vmax: value corresponding to minimum color in heatmap, default is 10^1
+:type vmax: float, optional
+:return: Sequence class enrichment dataframe. Rows correspond to risk loci sequence and the indices are the "SNP" column of `ccv` (the name/ID for each sequence). Columns correspond to the 40 sequence classes. 
+:rtype: Pandas DataFrame
+"""
+    
+ 
