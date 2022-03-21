@@ -18,11 +18,17 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+chrom_viz API
+==================
 .. automodule:: chrom_viz
-   :members:
-   
+    :members:
+ 
+clinical_analysis API
+======================
 .. automodule:: clinical_analysis
-   :members:
+    :members:
    
+GWAS_enrichment API
+====================
 .. automodule:: GWAS_enrichment
-   :members:
+    :members:
