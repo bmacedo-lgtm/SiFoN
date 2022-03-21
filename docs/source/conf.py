@@ -1,7 +1,7 @@
 # -- Path setup --------------------------------------------------------------
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../src/SiFoN'))
+sys.path.insert(0, os.path.abspath('../SiFoN'))
 
 # -- Project information -----------------------------------------------------
 

@@ -1,2 +1,3 @@
 recursive-include tutorials/*
 recursive-include model_data/*
+recursive-include docs/*
