@@ -42,8 +42,195 @@
 <div class="toctree-wrapper compound">
 </div>
 </section>
+<section id="sifon-package">
+<h1>SiFoN package<a class="headerlink" href="#sifon-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-SiFoN.GWAS_enrichment">
+<span id="sifon-gwas-enrichment-module"></span><h2>SiFoN.GWAS_enrichment module<a class="headerlink" href="#module-SiFoN.GWAS_enrichment" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.GWAS_enrichment.find_and_plot_enrichment">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.GWAS_enrichment.</span></span><span class="sig-name descname"><span class="pre">find_and_plot_enrichment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ccv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_bed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.GWAS_enrichment.find_and_plot_enrichment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates sequence class enrichment in genomic sequences compared to the entire genome and then creates a heatmap to visualize results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ccv</strong> (<em>Pandas DataFrame</em>) – Pandas DataFrame in BED format of loci with credible causal variants. Must include at least the following columns: Chrom, Start, End, SNP [identifier/name of sequence])</p></li>
+<li><p><strong>ref_bed</strong> (<em>pyranges BED object</em>) – Should contain sequence class labels across (nearly) the entire genome to allow for background sequence class proportion calculations. Should use the same genomic coordinate system (e.g. hg19 or hg38) as <cite>ccv</cite>.</p></li>
+<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
+<li><p><strong>vmin</strong> (<em>float</em><em>, </em><em>optional</em>) – value corresponding to minimum color in heatmap, default is 0.1</p></li>
+<li><p><strong>vmax</strong> (<em>float</em><em>, </em><em>optional</em>) – value corresponding to minimum color in heatmap, default is 10^1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Sequence class enrichment dataframe. Rows correspond to risk loci sequence and the indices are the “SNP” column of <cite>ccv</cite> (the name/ID for each sequence). Columns correspond to the 40 sequence classes.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Pandas DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-SiFoN.chrom_viz">
+<span id="sifon-chrom-viz-module"></span><h2>SiFoN.chrom_viz module<a class="headerlink" href="#module-SiFoN.chrom_viz" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.chrom_viz.chromatin_profile_heatmap">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.chrom_viz.</span></span><span class="sig-name descname"><span class="pre">chromatin_profile_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.chrom_viz.chromatin_profile_heatmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates, displays, and saves a heatmap of the top chromatin profile scores within a short genomic sequence. The y axis shows the top chromatin profiles for each of the user-defined SNPs of interest. The profile labels are in the following format: chromatin profile | tissue of origin | genomic position of associated SNP. The x axis shows genomic positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>NumPy array</em>) – NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</p></li>
+<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [“chrom”, “pos”, “name”, “ref”, “alt”]. Must have the same number of rows as <cite>data</cite>.</p></li>
+<li><p><strong>loc</strong> (<em>int</em>) – the chromosomal position of the SNP of interest.</p></li>
+<li><p><strong>loc_index</strong> (<em>int</em>) – the index of the SNP of interest in the <cite>data</cite> array.</p></li>
+<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
+<li><p><strong>top_X</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be <cite>top_X</cite> * <cite>pos_window</cite> rows and pos_window columns, defaults to 5.</p></li>
+<li><p><strong>window</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of to the right and left of <cite>loc</cite> that will be plotted, defaults to 5</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – fontsize for graph, defaults to 8</p></li>
+<li><p><strong>pos_window</strong> – Default value = 5)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.chrom_viz.preprocess_diff">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.chrom_viz.</span></span><span class="sig-name descname"><span class="pre">preprocess_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.chrom_viz.preprocess_diff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a filtered chromatin class score array and corresponding row labels. For any particular genomic loci (e.g.chr10:89623103), Sei outputs three scores corresponding to each potential alteration at that position (e.g. G&gt;A, G&gt;C, and G&gt;T). For each position, this function selects the alteration that has the highest average absolute score across all chromatin classes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diff</strong> (<em>NumPy array</em>) – NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</p></li>
+<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – contains metadata about the rows (and the SNPs described by the rows) in the <cite>diff</cite> array.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns filtered <cite>diff</cite> and <cite>row_labels</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>NumPy array, Pandas DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.chrom_viz.rank_scatter_plot">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.chrom_viz.</span></span><span class="sig-name descname"><span class="pre">rank_scatter_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">18</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.chrom_viz.rank_scatter_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates, displays, and saves a scatter plot of ranked chromatin profiles at for a particular SNP. Each point corresponds to a chromatin profile, with hover data specifying: rank, score, profile name, and tissue of origin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diff</strong> (<em>NumPy array</em>) – NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</p></li>
+<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [“chrom”, “pos”, “name”, “ref”, “alt”]. Must have the same number of rows as <cite>data</cite>.</p></li>
+<li><p><strong>loc</strong> (<em>int</em>) – the chromosomal position of the SNP of interest.</p></li>
+<li><p><strong>loc_index</strong> (<em>int</em>) – the index of the SNP of interest in the <cite>data</cite> array.</p></li>
+<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – fontsize for graph, defaults to 8</p></li>
+<li><p><strong>static</strong> – species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.chrom_viz.white_bg">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.chrom_viz.</span></span><span class="sig-name descname"><span class="pre">white_bg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.chrom_viz.white_bg" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function changes a plotly figure <cite>fig</cite> to have a white background. Changes the figure object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fig</strong> (<em>plotly figure</em>) – plotly figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-SiFoN.clinical_analysis">
+<span id="sifon-clinical-analysis-module"></span><h2>SiFoN.clinical_analysis module<a class="headerlink" href="#module-SiFoN.clinical_analysis" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.clinical_analysis.add_case_control_label">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.clinical_analysis.</span></span><span class="sig-name descname"><span class="pre">add_case_control_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_cuttoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_cutoff</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.clinical_analysis.add_case_control_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assigns each SNP as a “Case”, “Control”, or “Equal” based on odds ratio scores. Adds dataframe column “Case/Control” to <cite>df</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – Contains case and control counts and any other metadata. Must have an “Odds Ratio” column.</p></li>
+<li><p><strong>case_cuttoff</strong> (<em>int</em>) – cutoff odds ratio to consider something a “Case” SNP</p></li>
+<li><p><strong>control_cutoff</strong> (<em>int</em>) – cutoff odds ratio to consider something a “Control” SNP</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.clinical_analysis.cdot_to_VCF">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.clinical_analysis.</span></span><span class="sig-name descname"><span class="pre">cdot_to_VCF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chrm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.clinical_analysis.cdot_to_VCF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts alterations from the c-dot (c. pos ref &gt; alt) format to a VCF file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Pandas DataFrame</em>) – Clinical data. Must contain a column “Alteration” in c. notation that describes SNP’s genomic coordinates.</p></li>
+<li><p><strong>chrm</strong> (<em>string</em>) – Chromosome of alterations. Should be in the form “chr” + the chromosome number (e.g. chr10).</p></li>
+<li><p><strong>start</strong> (<em>int</em><em>, </em><em>optional</em>) – Reference genomic position for alterations, default is 0</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Input data stored in a VCF format dataframe.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Pandas DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.clinical_analysis.odds_ratio">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.clinical_analysis.</span></span><span class="sig-name descname"><span class="pre">odds_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_cases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_controls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.clinical_analysis.odds_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the odds ratio of case and control counts. Adds a new column to your dataframe <cite>df</cite> called “Odds Ratio”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – Contains case and control counts and any other metadata.</p></li>
+<li><p><strong>control_col</strong> (<em>string</em>) – name of DataFrame column with control counts</p></li>
+<li><p><strong>case_col</strong> (<em>string</em>) – name of DataFrame column with case counts</p></li>
+<li><p><strong>num_cases</strong> (<em>int</em>) – number of total cases</p></li>
+<li><p><strong>num_controls</strong> (<em>int</em>) – number of total controls</p></li>
+<li><p><strong>correction</strong> (<em>float</em>) – added to all counts to prevent division by zero in the case of zero counts.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.clinical_analysis.seq_class_t_tests">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.clinical_analysis.</span></span><span class="sig-name descname"><span class="pre">seq_class_t_tests</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">18</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markersize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.clinical_analysis.seq_class_t_tests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs t-tests to compare sequence class scores in case and control populations. Returns p-vals and plots ranked p-vals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – Contains case and control counts and any other metadata. Must have scores for all 40 Sei sequence classes. Column names must correspond to sequence class names.</p></li>
+<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – fontsize for graph, defaults to 18</p></li>
+<li><p><strong>markersize</strong> (<em>int</em><em>, </em><em>optional.</em>) – markersize for graph, defaults to 7</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>P-values for all 40 sequence class, ordered by ascending p-value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Pandas DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="sifon-construst-fasta-module">
+<h2>SiFoN.construst_FASTA module<a class="headerlink" href="#sifon-construst-fasta-module" title="Permalink to this headline">¶</a></h2>
+</section>
 <section id="module-SiFoN.viz">
-<span id="viz-api"></span><h1>viz API<a class="headerlink" href="#module-SiFoN.viz" title="Permalink to this headline">¶</a></h1>
+<span id="sifon-viz-module"></span><h2>SiFoN.viz module<a class="headerlink" href="#module-SiFoN.viz" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="SiFoN.viz.find_max">
 <span class="sig-prename descclassname"><span class="pre">SiFoN.viz.</span></span><span class="sig-name descname"><span class="pre">find_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seqclass_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.viz.find_max" title="Permalink to this definition">¶</a></dt>
@@ -98,7 +285,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SiFoN.viz.plot_max">
-<span class="sig-prename descclassname"><span class="pre">SiFoN.viz.</span></span><span class="sig-name descname"><span class="pre">plot_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scores_prune</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TSS</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.viz.plot_max" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">SiFoN.viz.</span></span><span class="sig-name descname"><span class="pre">plot_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scores_prune</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TSS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.viz.plot_max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots the maximum Sei classes along a genomic sequence.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -184,184 +371,9 @@
 </dd></dl>
 
 </section>
-<section id="module-SiFoN.chrom_viz">
-<span id="chrom-viz-api"></span><h1>chrom_viz API<a class="headerlink" href="#module-SiFoN.chrom_viz" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="SiFoN.chrom_viz.chromatin_profile_heatmap">
-<span class="sig-prename descclassname"><span class="pre">SiFoN.chrom_viz.</span></span><span class="sig-name descname"><span class="pre">chromatin_profile_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.chrom_viz.chromatin_profile_heatmap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates, displays, and saves a heatmap of the top chromatin profile scores within a short genomic sequence. The y axis shows the top chromatin profiles for each of the user-defined SNPs of interest. The profile labels are in the following format: chromatin profile | tissue of origin | genomic position of associated SNP. The x axis shows genomic positions.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>NumPy array</em>) – NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</p></li>
-<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [“chrom”, “pos”, “name”, “ref”, “alt”]. Must have the same number of rows as <cite>data</cite>.</p></li>
-<li><p><strong>loc</strong> (<em>int</em>) – the chromosomal position of the SNP of interest.</p></li>
-<li><p><strong>loc_index</strong> (<em>int</em>) – the index of the SNP of interest in the <cite>data</cite> array.</p></li>
-<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
-<li><p><strong>top_X</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be <cite>top_X</cite> * <cite>pos_window</cite> rows and pos_window columns, defaults to 5.</p></li>
-<li><p><strong>window</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of to the right and left of <cite>loc</cite> that will be plotted, defaults to 5</p></li>
-<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – fontsize for graph, defaults to 8</p></li>
-<li><p><strong>pos_window</strong> – Default value = 5)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="SiFoN.chrom_viz.preprocess_diff">
-<span class="sig-prename descclassname"><span class="pre">SiFoN.chrom_viz.</span></span><span class="sig-name descname"><span class="pre">preprocess_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.chrom_viz.preprocess_diff" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a filtered chromatin class score array and corresponding row labels. For any particular genomic loci (e.g.chr10:89623103), Sei outputs three scores corresponding to each potential alteration at that position (e.g. G&gt;A, G&gt;C, and G&gt;T). For each position, this function selects the alteration that has the highest average absolute score across all chromatin classes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>diff</strong> (<em>NumPy array</em>) – NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</p></li>
-<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – contains metadata about the rows (and the SNPs described by the rows) in the <cite>diff</cite> array.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Returns filtered <cite>diff</cite> and <cite>row_labels</cite></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>NumPy array, Pandas DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="SiFoN.chrom_viz.rank_scatter_plot">
-<span class="sig-prename descclassname"><span class="pre">SiFoN.chrom_viz.</span></span><span class="sig-name descname"><span class="pre">rank_scatter_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">18</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.chrom_viz.rank_scatter_plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates, displays, and saves a scatter plot of ranked chromatin profiles at for a particular SNP. Each point corresponds to a chromatin profile, with hover data specifying: rank, score, profile name, and tissue of origin.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>diff</strong> (<em>NumPy array</em>) – NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</p></li>
-<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [“chrom”, “pos”, “name”, “ref”, “alt”]. Must have the same number of rows as <cite>data</cite>.</p></li>
-<li><p><strong>loc</strong> (<em>int</em>) – the chromosomal position of the SNP of interest.</p></li>
-<li><p><strong>loc_index</strong> (<em>int</em>) – the index of the SNP of interest in the <cite>data</cite> array.</p></li>
-<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
-<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – fontsize for graph, defaults to 8</p></li>
-<li><p><strong>static</strong> – species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="SiFoN.chrom_viz.white_bg">
-<span class="sig-prename descclassname"><span class="pre">SiFoN.chrom_viz.</span></span><span class="sig-name descname"><span class="pre">white_bg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.chrom_viz.white_bg" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function changes a plotly figure <cite>fig</cite> to have a white background. Changes the figure object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>fig</strong> (<em>plotly figure</em>) – plotly figure</p>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="module-SiFoN">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-SiFoN" title="Permalink to this headline">¶</a></h2>
 </section>
-<section id="module-SiFoN.clinical_analysis">
-<span id="clinical-analysis-api"></span><h1>clinical_analysis API<a class="headerlink" href="#module-SiFoN.clinical_analysis" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="SiFoN.clinical_analysis.add_case_control_label">
-<span class="sig-prename descclassname"><span class="pre">SiFoN.clinical_analysis.</span></span><span class="sig-name descname"><span class="pre">add_case_control_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_cuttoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_cutoff</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.clinical_analysis.add_case_control_label" title="Permalink to this definition">¶</a></dt>
-<dd><p>Assigns each SNP as a “Case”, “Control”, or “Equal” based on odds ratio scores. Adds dataframe column “Case/Control” to <cite>df</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – Contains case and control counts and any other metadata. Must have an “Odds Ratio” column.</p></li>
-<li><p><strong>case_cuttoff</strong> (<em>int</em>) – cutoff odds ratio to consider something a “Case” SNP</p></li>
-<li><p><strong>control_cutoff</strong> (<em>int</em>) – cutoff odds ratio to consider something a “Control” SNP</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="SiFoN.clinical_analysis.cdot_to_VCF">
-<span class="sig-prename descclassname"><span class="pre">SiFoN.clinical_analysis.</span></span><span class="sig-name descname"><span class="pre">cdot_to_VCF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chrm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.clinical_analysis.cdot_to_VCF" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts alterations from the c-dot (c. pos ref &gt; alt) format to a VCF file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>Pandas DataFrame</em>) – Clinical data. Must contain a column “Alteration” in c. notation that describes SNP’s genomic coordinates.</p></li>
-<li><p><strong>chrm</strong> (<em>string</em>) – Chromosome of alterations. Should be in the form “chr” + the chromosome number (e.g. chr10).</p></li>
-<li><p><strong>start</strong> (<em>int</em><em>, </em><em>optional</em>) – Reference genomic position for alterations, default is 0</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Input data stored in a VCF format dataframe.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Pandas DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="SiFoN.clinical_analysis.odds_ratio">
-<span class="sig-prename descclassname"><span class="pre">SiFoN.clinical_analysis.</span></span><span class="sig-name descname"><span class="pre">odds_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_cases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_controls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.clinical_analysis.odds_ratio" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the odds ratio of case and control counts. Adds a new column to your dataframe <cite>df</cite> called “Odds Ratio”</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – Contains case and control counts and any other metadata.</p></li>
-<li><p><strong>control_col</strong> (<em>string</em>) – name of DataFrame column with control counts</p></li>
-<li><p><strong>case_col</strong> (<em>string</em>) – name of DataFrame column with case counts</p></li>
-<li><p><strong>num_cases</strong> (<em>int</em>) – number of total cases</p></li>
-<li><p><strong>num_controls</strong> (<em>int</em>) – number of total controls</p></li>
-<li><p><strong>correction</strong> (<em>float</em>) – added to all counts to prevent division by zero in the case of zero counts.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="SiFoN.clinical_analysis.seq_class_t_tests">
-<span class="sig-prename descclassname"><span class="pre">SiFoN.clinical_analysis.</span></span><span class="sig-name descname"><span class="pre">seq_class_t_tests</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">18</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markersize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.clinical_analysis.seq_class_t_tests" title="Permalink to this definition">¶</a></dt>
-<dd><p>Runs t-tests to compare sequence class scores in case and control populations. Returns p-vals and plots ranked p-vals.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – Contains case and control counts and any other metadata. Must have scores for all 40 Sei sequence classes. Column names must correspond to sequence class names.</p></li>
-<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
-<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – fontsize for graph, defaults to 18</p></li>
-<li><p><strong>markersize</strong> (<em>int</em><em>, </em><em>optional.</em>) – markersize for graph, defaults to 7</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>P-values for all 40 sequence class, ordered by ascending p-value.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Pandas DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-SiFoN.GWAS_enrichment">
-<span id="gwas-enrichment-api"></span><h1>GWAS_enrichment API<a class="headerlink" href="#module-SiFoN.GWAS_enrichment" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="SiFoN.GWAS_enrichment.find_and_plot_enrichment">
-<span class="sig-prename descclassname"><span class="pre">SiFoN.GWAS_enrichment.</span></span><span class="sig-name descname"><span class="pre">find_and_plot_enrichment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ccv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_bed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SiFoN.GWAS_enrichment.find_and_plot_enrichment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates sequence class enrichment in genomic sequences compared to the entire genome and then creates a heatmap to visualize results.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ccv</strong> (<em>Pandas DataFrame</em>) – Pandas DataFrame in BED format of loci with credible causal variants. Must include at least the following columns: Chrom, Start, End, SNP [identifier/name of sequence])</p></li>
-<li><p><strong>ref_bed</strong> (<em>pyranges BED object</em>) – Should contain sequence class labels across (nearly) the entire genome to allow for background sequence class proportion calculations. Should use the same genomic coordinate system (e.g. hg19 or hg38) as <cite>ccv</cite>.</p></li>
-<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
-<li><p><strong>vmin</strong> (<em>float</em><em>, </em><em>optional</em>) – value corresponding to minimum color in heatmap, default is 0.1</p></li>
-<li><p><strong>vmax</strong> (<em>float</em><em>, </em><em>optional</em>) – value corresponding to minimum color in heatmap, default is 10^1</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Sequence class enrichment dataframe. Rows correspond to risk loci sequence and the indices are the “SNP” column of <cite>ccv</cite> (the name/ID for each sequence). Columns correspond to the 40 sequence classes.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Pandas DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
 </section>
 
 
@@ -375,10 +387,16 @@
     <h3><a href="#">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Welcome to SiFoN’s documentation!</a></li>
-<li><a class="reference internal" href="#module-SiFoN.viz">viz API</a></li>
-<li><a class="reference internal" href="#module-SiFoN.chrom_viz">chrom_viz API</a></li>
-<li><a class="reference internal" href="#module-SiFoN.clinical_analysis">clinical_analysis API</a></li>
-<li><a class="reference internal" href="#module-SiFoN.GWAS_enrichment">GWAS_enrichment API</a></li>
+<li><a class="reference internal" href="#sifon-package">SiFoN package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-SiFoN.GWAS_enrichment">SiFoN.GWAS_enrichment module</a></li>
+<li><a class="reference internal" href="#module-SiFoN.chrom_viz">SiFoN.chrom_viz module</a></li>
+<li><a class="reference internal" href="#module-SiFoN.clinical_analysis">SiFoN.clinical_analysis module</a></li>
+<li><a class="reference internal" href="#sifon-construst-fasta-module">SiFoN.construst_FASTA module</a></li>
+<li><a class="reference internal" href="#module-SiFoN.viz">SiFoN.viz module</a></li>
+<li><a class="reference internal" href="#module-SiFoN">Module contents</a></li>
+</ul>
+</li>
 </ul>
 
   </div>

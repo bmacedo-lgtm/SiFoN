@@ -193,7 +193,7 @@ def find_max_by_category(scores, signed=True, seqclass_names=[]):
             max_by_cat = pd.concat([max_by_cat, find_max(df, signed)])
     return max_by_cat
 
-def plot_max(filename, scores_prune, TSS):
+def plot_max(filename, scores_prune, TSS={}):
     """Plots the maximum Sei classes along a genomic sequence.
 
     Parameters
