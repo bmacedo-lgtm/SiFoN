@@ -6,6 +6,5 @@ sphinx:
 python:
   version: 3.8
   install:
-    - method: pip
     - requirements: docs/requirements.txt
     
