@@ -14,7 +14,7 @@ setuptools.setup(
     description="",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",
+    url="https://github.com/bmacedo-lgtm/SiFoN",
     project_urls={
         "Bug Tracker": "https://github.com/pypa/sampleproject/issues",
     },
