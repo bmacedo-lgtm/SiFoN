@@ -7,3 +7,9 @@ python:
   version: 3.8
   install:
     - requirements: requirements.txt
+    
+install:
+ - method: pip
+   path: .
+   extra_requirements:
+     - docs
