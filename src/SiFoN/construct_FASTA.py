@@ -58,7 +58,7 @@ def write_to_file(snp1, snp2, chrm,
                                  end = snp1 + offset)
     preface = str(str(snp1) +  "_" + str(snp2) + "_" + id1 + "_" + id2)
     ref_file.write(">" + str(preface) + "\n" + seq + "\n")
-    seq_list = list(seq)
+    seq_list = list(seq) 
     
     # add shifted reference 
     seq_list[offset + snp1 - snp2] = ID_to_alt_dict[id2]
