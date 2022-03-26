@@ -8,4 +8,4 @@ that highlight what regulatory roles are important to a risk loci of interest an
 
 `test.ipynb` is a walkthrough of all the functions available in SiFoN with accompanying test data and outputs. Large outputs are available in the `test_output_plots` folder.
 
-https://sifon.readthedocs.io/
+https://bmacedo-lgtm.github.io/SiFoN/
