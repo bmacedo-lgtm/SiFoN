@@ -3,7 +3,6 @@
 
 * smoothing 
 * fasta module
-* tree structure of docs
 * upload data to zenodo dropbox
 * fix readthedocs/gitpages
 * any notebooks/scripts importing need to be in tutorial folder currently. fix this.
