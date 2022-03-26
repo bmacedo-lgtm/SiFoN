@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SiFoN.clinical_analysis &#8212; SiFoN 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SiFoN 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SiFoN.clinical_analysis</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for SiFoN.clinical_analysis</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module makes it easy to combine clinical data with Sei sequence class predictions. In particular, this module includes functions to convert common clinical file formats to VCF for Sei; it includes a function to calculate odds ratios and assign SNPs to case or control labels based on these odds ratios; and it includes a method for compare sequence class scores between cases and controls. </span>
+
+<span class="sd">Functions:</span>
+<span class="sd">    cdot_to_VC</span>
+<span class="sd">    </span>
+<span class="sd">    odds_ratio</span>
+<span class="sd">    </span>
+<span class="sd">    add_case_control_label</span>
+<span class="sd">    </span>
+<span class="sd">    seq_class_t_tests</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span> <span class="nn">SiFoN</span> <span class="kn">import</span> <span class="n">viz</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">seqclass_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../model_data/seqclass-names.txt&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<div class="viewcode-block" id="cdot_to_VCF"><a class="viewcode-back" href="../../SiFoN.clinical_analysis.html#SiFoN.clinical_analysis.cdot_to_VCF">[docs]</a><span class="k">def</span> <span class="nf">cdot_to_VCF</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">chrm</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Converts alterations from the c-dot (c. pos ref &gt; alt) format to a VCF file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : Pandas DataFrame</span>
+<span class="sd">        Clinical data. Must contain a column &quot;Alteration&quot; in c. notation that describes SNP&#39;s genomic coordinates.</span>
+<span class="sd">    chrm : string</span>
+<span class="sd">        Chromosome of alterations. Should be in the form &quot;chr&quot; + the chromosome number (e.g. chr10).</span>
+<span class="sd">    start : int, optional</span>
+<span class="sd">        Reference genomic position for alterations, default is 0</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Pandas DataFrame</span>
+<span class="sd">        Input data stored in a VCF format dataframe.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#CHROM&quot;</span><span class="p">,</span> <span class="s2">&quot;POS&quot;</span><span class="p">,</span> <span class="s2">&quot;ID&quot;</span><span class="p">,</span> <span class="s2">&quot;REF&quot;</span><span class="p">,</span> <span class="s2">&quot;ALT&quot;</span><span class="p">])</span>
+    <span class="n">output</span><span class="p">[</span><span class="s2">&quot;#CHROM&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">chrm</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Alteration&quot;</span><span class="p">]]</span>
+    <span class="n">output</span><span class="p">[</span><span class="s2">&quot;POS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;-?[0-9]+&#39;</span><span class="p">,</span> <span class="n">alt</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">alt</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Alteration&quot;</span><span class="p">]]</span>
+    <span class="n">output</span><span class="p">[</span><span class="s2">&quot;ID&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Alteration&quot;</span><span class="p">]</span>
+    <span class="n">output</span><span class="p">[</span><span class="s2">&quot;REF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;(?&lt;=[0-9])(.*)(?=&gt;)&#39;</span><span class="p">,</span> <span class="n">alt</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">alt</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Alteration&quot;</span><span class="p">]]</span>
+    <span class="n">output</span><span class="p">[</span><span class="s2">&quot;ALT&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;&gt;.*&#39;</span><span class="p">,</span> <span class="n">alt</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">alt</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Alteration&quot;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">output</span></div>
+
+
+
+<div class="viewcode-block" id="odds_ratio"><a class="viewcode-back" href="../../SiFoN.clinical_analysis.html#SiFoN.clinical_analysis.odds_ratio">[docs]</a><span class="k">def</span> <span class="nf">odds_ratio</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">control_col</span><span class="p">,</span> <span class="n">case_col</span><span class="p">,</span> <span class="n">num_cases</span><span class="p">,</span> <span class="n">num_controls</span><span class="p">,</span> <span class="n">correction</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculates the odds ratio of case and control counts. Adds a new column to your dataframe `df` called &quot;Odds Ratio&quot;</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : Pandas DataFrame</span>
+<span class="sd">        Contains case and control counts and any other metadata.</span>
+<span class="sd">    control_col : string</span>
+<span class="sd">        name of DataFrame column with control counts</span>
+<span class="sd">    case_col : string</span>
+<span class="sd">        name of DataFrame column with case counts</span>
+<span class="sd">    num_cases : int</span>
+<span class="sd">        number of total cases</span>
+<span class="sd">    num_controls : int</span>
+<span class="sd">        number of total controls</span>
+<span class="sd">    correction : float</span>
+<span class="sd">        added to all counts to prevent division by zero in the case of zero counts.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Odds Ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[((</span><span class="n">case</span> <span class="o">+</span> <span class="n">correction</span><span class="p">)</span><span class="o">/</span><span class="n">num_cases</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">control</span> <span class="o">+</span> <span class="n">correction</span><span class="p">)</span><span class="o">/</span><span class="n">num_controls</span><span class="p">)</span>
+                         <span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">control</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">control_col</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">case_col</span><span class="p">])]</span></div>
+      
+<div class="viewcode-block" id="add_case_control_label"><a class="viewcode-back" href="../../SiFoN.clinical_analysis.html#SiFoN.clinical_analysis.add_case_control_label">[docs]</a><span class="k">def</span> <span class="nf">add_case_control_label</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">case_cuttoff</span><span class="p">,</span> <span class="n">control_cutoff</span><span class="p">):</span>    
+    <span class="sd">&quot;&quot;&quot;Assigns each SNP as a &quot;Case&quot;, &quot;Control&quot;, or &quot;Equal&quot; based on odds ratio scores. Adds dataframe column &quot;Case/Control&quot; to `df`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : Pandas DataFrame</span>
+<span class="sd">        Contains case and control counts and any other metadata. Must have an &quot;Odds Ratio&quot; column.</span>
+<span class="sd">    case_cuttoff : int</span>
+<span class="sd">        cutoff odds ratio to consider something a &quot;Case&quot; SNP</span>
+<span class="sd">    control_cutoff : int</span>
+<span class="sd">        cutoff odds ratio to consider something a &quot;Control&quot; SNP</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Case/Control&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Case&quot;</span> <span class="k">if</span> <span class="n">OR</span> <span class="o">&gt;</span> <span class="n">case_cuttoff</span> <span class="k">else</span> <span class="s2">&quot;Control&quot;</span> <span class="k">if</span> <span class="n">OR</span> <span class="o">&lt;</span> <span class="n">control_cutoff</span> <span class="k">else</span> <span class="s2">&quot;Equal&quot;</span>
+                              <span class="k">for</span> <span class="n">OR</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Odds Ratio&quot;</span><span class="p">]]</span></div>
+
+<div class="viewcode-block" id="seq_class_t_tests"><a class="viewcode-back" href="../../SiFoN.clinical_analysis.html#SiFoN.clinical_analysis.seq_class_t_tests">[docs]</a><span class="k">def</span> <span class="nf">seq_class_t_tests</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">figname</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">7</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Runs t-tests to compare sequence class scores in case and control populations. Returns p-vals and plots ranked p-vals.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : Pandas DataFrame</span>
+<span class="sd">        Contains case and control counts and any other metadata. Must have scores for all 40 Sei sequence classes. Column names must correspond to sequence class names.</span>
+<span class="sd">    figname : string</span>
+<span class="sd">        name of file that figure will be saves as.</span>
+<span class="sd">    fontsize : int, optional.</span>
+<span class="sd">        fontsize for graph, defaults to 18</span>
+<span class="sd">    markersize : int, optional.</span>
+<span class="sd">        markersize for graph, defaults to 7</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Pandas DataFrame</span>
+<span class="sd">        P-values for all 40 sequence class, ordered by ascending p-value.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">seqclass_names</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">seq_class</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">seqclass_names</span><span class="p">):</span>
+        <span class="n">pval</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Case/Control&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Case&quot;</span><span class="p">][</span><span class="n">seq_class</span><span class="p">],</span> 
+                    <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Case/Control&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Control&quot;</span><span class="p">][</span><span class="n">seq_class</span><span class="p">])</span><span class="o">.</span><span class="n">pvalue</span>
+        <span class="n">pvals</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">pval</span>   
+    <span class="n">pvals_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;Sequence Class&quot;</span> <span class="p">:</span> <span class="n">seqclass_names</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="s2">&quot;P-value&quot;</span> <span class="p">:</span> <span class="n">pvals</span><span class="p">})</span>
+    <span class="n">pvals_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;P-value&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pvals_df</span><span class="p">[</span><span class="s2">&quot;Class&quot;</span><span class="p">]</span> <span class="o">=</span>  <span class="p">[</span><span class="n">viz</span><span class="o">.</span><span class="n">get_category</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">pvals_df</span><span class="p">[</span><span class="s2">&quot;Sequence Class&quot;</span><span class="p">]]</span>
+    <span class="n">pvals_df</span><span class="p">[</span><span class="s2">&quot;Color&quot;</span><span class="p">]</span> <span class="o">=</span>  <span class="p">[</span><span class="n">viz</span><span class="o">.</span><span class="n">color_map</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">pvals_df</span><span class="p">[</span><span class="s2">&quot;Class&quot;</span><span class="p">]]</span>
+    <span class="n">pvals_df</span><span class="p">[</span><span class="s2">&quot;Rank&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pvals_df</span><span class="p">))</span>
+    <span class="n">pvals_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">pvals_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Rank&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;P-value&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;Class&quot;</span><span class="p">,</span> <span class="n">hover_data</span><span class="o">=</span><span class="n">pvals_df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+              <span class="n">color_discrete_sequence</span> <span class="o">=</span> <span class="n">pvals_df</span><span class="p">[</span><span class="s2">&quot;Color&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">fontsize</span><span class="p">),</span> <span class="n">yaxis_title</span> <span class="o">=</span> <span class="s2">&quot;T-test P-values&quot;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="n">markersize</span><span class="p">})</span>
+    <span class="n">viz</span><span class="o">.</span><span class="n">white_bg</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">write_html</span><span class="p">(</span><span class="n">figname</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;png&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pvals_df</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SiFoN 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SiFoN.clinical_analysis</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Briana Macedo.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>
