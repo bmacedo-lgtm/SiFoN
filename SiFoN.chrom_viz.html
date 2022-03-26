@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+      <title>SiFoN.chrom_viz module</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="SiFoN.clinical_analysis module" href="SiFoN.clinical_analysis.html" />
+  <link rel="prev" title="SiFoN.GWAS_enrichment module" href="SiFoN.GWAS_enrichment.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">SiFoN</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="SiFoN.html#submodules">submodules</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="SiFoN.GWAS_enrichment.html" class="reference internal ">SiFoN.GWAS_enrichment module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current">
+            
+              <a href="#" class="reference internal current">SiFoN.chrom_viz module</a>
+            
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#sifon-chrom-viz-module" class="reference internal">SiFoN.chrom_viz module</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="SiFoN.clinical_analysis.html" class="reference internal ">SiFoN.clinical_analysis module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="SiFoN.construst_FASTA.html" class="reference internal ">SiFoN.construst_FASTA module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="SiFoN.viz.html" class="reference internal ">SiFoN.viz module</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="SiFoN.html">SiFoN package</a> &raquo;</li>
+    
+    <li>SiFoN.chrom_viz module</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="SiFoN.GWAS_enrichment.html"
+       title="previous chapter">← SiFoN.GWAS_enrichment module</a>
+  </li>
+  <li class="next">
+    <a href="SiFoN.clinical_analysis.html"
+       title="next chapter">SiFoN.clinical_analysis module →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="sifon-chrom-viz-module">
+<h1>SiFoN.chrom_viz module<a class="headerlink" href="#sifon-chrom-viz-module" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-SiFoN.chrom_viz"></span><p>This module includes functions for visualizing chromatin profile scores along genomic regions. This module require Sei chromatin profile scoes as input, and therefore assumes that predictions have already been calculated.</p>
+<dl>
+<dt>Functions:</dt><dd><p>white_bg</p>
+<p>preprocess_diff</p>
+<p>rank_scatter_plot</p>
+<p>chromatin_profile_heatmap</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.chrom_viz.chromatin_profile_heatmap">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.chrom_viz.</span></span><span class="sig-name descname"><span class="pre">chromatin_profile_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/chrom_viz.html#chromatin_profile_heatmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.chrom_viz.chromatin_profile_heatmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates, displays, and saves a heatmap of the top chromatin profile scores within a short genomic sequence. The y axis shows the top chromatin profiles for each of the user-defined SNPs of interest. The profile labels are in the following format: chromatin profile | tissue of origin | genomic position of associated SNP. The x axis shows genomic positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>NumPy array</em>) – NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</p></li>
+<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [“chrom”, “pos”, “name”, “ref”, “alt”]. Must have the same number of rows as <cite>data</cite>.</p></li>
+<li><p><strong>loc</strong> (<em>int</em>) – the chromosomal position of the SNP of interest.</p></li>
+<li><p><strong>loc_index</strong> (<em>int</em>) – the index of the SNP of interest in the <cite>data</cite> array.</p></li>
+<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
+<li><p><strong>top_X</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be <cite>top_X</cite> * <cite>pos_window</cite> rows and pos_window columns, defaults to 5.</p></li>
+<li><p><strong>window</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of to the right and left of <cite>loc</cite> that will be plotted, defaults to 5</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – fontsize for graph, defaults to 8</p></li>
+<li><p><strong>pos_window</strong> – Default value = 5)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.chrom_viz.preprocess_diff">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.chrom_viz.</span></span><span class="sig-name descname"><span class="pre">preprocess_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/chrom_viz.html#preprocess_diff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.chrom_viz.preprocess_diff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a filtered chromatin class score array and corresponding row labels. For any particular genomic loci (e.g.chr10:89623103), Sei outputs three scores corresponding to each potential alteration at that position (e.g. G&gt;A, G&gt;C, and G&gt;T). For each position, this function selects the alteration that has the highest average absolute score across all chromatin classes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diff</strong> (<em>NumPy array</em>) – NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</p></li>
+<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – contains metadata about the rows (and the SNPs described by the rows) in the <cite>diff</cite> array.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns filtered <cite>diff</cite> and <cite>row_labels</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>NumPy array, Pandas DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.chrom_viz.rank_scatter_plot">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.chrom_viz.</span></span><span class="sig-name descname"><span class="pre">rank_scatter_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">18</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/chrom_viz.html#rank_scatter_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.chrom_viz.rank_scatter_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates, displays, and saves a scatter plot of ranked chromatin profiles at for a particular SNP. Each point corresponds to a chromatin profile, with hover data specifying: rank, score, profile name, and tissue of origin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diff</strong> (<em>NumPy array</em>) – NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</p></li>
+<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [“chrom”, “pos”, “name”, “ref”, “alt”]. Must have the same number of rows as <cite>data</cite>.</p></li>
+<li><p><strong>loc</strong> (<em>int</em>) – the chromosomal position of the SNP of interest.</p></li>
+<li><p><strong>loc_index</strong> (<em>int</em>) – the index of the SNP of interest in the <cite>data</cite> array.</p></li>
+<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – fontsize for graph, defaults to 8</p></li>
+<li><p><strong>static</strong> – species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.chrom_viz.white_bg">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.chrom_viz.</span></span><span class="sig-name descname"><span class="pre">white_bg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/chrom_viz.html#white_bg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.chrom_viz.white_bg" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function changes a plotly figure <cite>fig</cite> to have a white background. Changes the figure object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fig</strong> (<em>plotly figure</em>) – plotly figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="SiFoN.GWAS_enrichment.html"
+       title="previous chapter">← SiFoN.GWAS_enrichment module</a>
+  </li>
+  <li class="next">
+    <a href="SiFoN.clinical_analysis.html"
+       title="next chapter">SiFoN.clinical_analysis module →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2022, Briana Macedo.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

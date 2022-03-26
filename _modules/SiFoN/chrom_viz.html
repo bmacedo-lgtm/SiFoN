@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SiFoN.chrom_viz &#8212; SiFoN 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SiFoN 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SiFoN.chrom_viz</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for SiFoN.chrom_viz</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module includes functions for visualizing chromatin profile scores along genomic regions. This module require Sei chromatin profile scoes as input, and therefore assumes that predictions have already been calculated. </span>
+
+<span class="sd">Functions:</span>
+<span class="sd">    white_bg</span>
+<span class="sd">    </span>
+<span class="sd">    preprocess_diff</span>
+<span class="sd">    </span>
+<span class="sd">    rank_scatter_plot</span>
+<span class="sd">    </span>
+<span class="sd">    chromatin_profile_heatmap</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LogNorm</span><span class="p">,</span> <span class="n">Normalize</span><span class="p">,</span> <span class="n">SymLogNorm</span>
+
+<span class="c1">### Heatmap</span>
+<div class="viewcode-block" id="white_bg"><a class="viewcode-back" href="../../SiFoN.chrom_viz.html#SiFoN.chrom_viz.white_bg">[docs]</a><span class="k">def</span> <span class="nf">white_bg</span><span class="p">(</span><span class="n">fig</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This function changes a plotly figure `fig` to have a white background. Changes the figure object.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fig : plotly figure</span>
+<span class="sd">        plotly figure</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">({</span><span class="s2">&quot;plot_bgcolor&quot;</span><span class="p">:</span> <span class="s2">&quot;rgba(0, 0, 0, 0)&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;paper_bgcolor&quot;</span><span class="p">:</span> <span class="s2">&quot;rgba(0, 0, 0, 0)&quot;</span><span class="p">})</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">showline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s2">&quot;#DCDCDC&quot;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">showline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s2">&quot;#DCDCDC&quot;</span><span class="p">)</span></div>
+    
+
+<div class="viewcode-block" id="preprocess_diff"><a class="viewcode-back" href="../../SiFoN.chrom_viz.html#SiFoN.chrom_viz.preprocess_diff">[docs]</a><span class="k">def</span> <span class="nf">preprocess_diff</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="n">row_labels</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;Returns a filtered chromatin class score array and corresponding row labels. For any particular genomic loci (e.g.chr10:89623103), Sei outputs three scores corresponding to each potential alteration at that position (e.g. G&gt;A, G&gt;C, and G&gt;T). For each position, this function selects the alteration that has the highest average absolute score across all chromatin classes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    diff : NumPy array</span>
+<span class="sd">        NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</span>
+<span class="sd">    row_labels : Pandas DataFrame</span>
+<span class="sd">        contains metadata about the rows (and the SNPs described by the rows) in the `diff` array.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    NumPy array, Pandas DataFrame</span>
+<span class="sd">        Returns filtered `diff` and `row_labels`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">diff_avg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># take the max score across all the profiles</span>
+    <span class="n">diff_avg</span> <span class="o">=</span> <span class="n">diff_avg</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">diff_avg</span><span class="o">.</span><span class="n">size</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># reshape -&gt; columns represent different alts.</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">mut</span><span class="p">)</span> <span class="k">for</span> <span class="n">mut</span> <span class="ow">in</span> <span class="n">diff_avg</span><span class="p">]</span> <span class="c1"># select alt with highest average score. </span>
+    <span class="n">starts</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">diff</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="o">+</span><span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">starts</span><span class="p">,</span> <span class="n">indices</span><span class="p">)]</span> 
+    <span class="k">return</span> <span class="n">diff</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="p">:],</span> <span class="n">row_labels</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="p">:]</span></div>
+
+
+<div class="viewcode-block" id="rank_scatter_plot"><a class="viewcode-back" href="../../SiFoN.chrom_viz.html#SiFoN.chrom_viz.rank_scatter_plot">[docs]</a><span class="k">def</span> <span class="nf">rank_scatter_plot</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="n">row_labels</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">loc_index</span><span class="p">,</span> <span class="n">figname</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Creates, displays, and saves a scatter plot of ranked chromatin profiles at for a particular SNP. Each point corresponds to a chromatin profile, with hover data specifying: rank, score, profile name, and tissue of origin.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    diff : NumPy array</span>
+<span class="sd">        NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</span>
+<span class="sd">    row_labels : Pandas DataFrame</span>
+<span class="sd">        contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [&quot;chrom&quot;, &quot;pos&quot;, &quot;name&quot;, &quot;ref&quot;, &quot;alt&quot;]. Must have the same number of rows as `data`.</span>
+<span class="sd">    loc : int</span>
+<span class="sd">        the chromosomal position of the SNP of interest.</span>
+<span class="sd">    loc_index : int</span>
+<span class="sd">        the index of the SNP of interest in the `data` array.</span>
+<span class="sd">    figname : string</span>
+<span class="sd">        name of file that figure will be saves as.</span>
+<span class="sd">    fontsize : int, optional.</span>
+<span class="sd">        fontsize for graph, defaults to 8</span>
+<span class="sd">    static :</span>
+<span class="sd">        species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">chrom_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../model_data/target_names.txt&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">chrom_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">chrom_names</span><span class="p">]</span>
+    <span class="n">name_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">chrom_names</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Tissue&quot;</span><span class="p">,</span> <span class="s2">&quot;Class&quot;</span><span class="p">,</span> <span class="s2">&quot;ID&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">])</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">diff</span><span class="p">[</span><span class="n">loc_index</span><span class="p">,</span> <span class="p">:],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Diff&quot;</span><span class="p">])</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Abs Diff&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Diff&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">name_df</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;Diff&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">title_info</span> <span class="o">=</span> <span class="n">row_labels</span><span class="p">[</span><span class="n">row_labels</span><span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">loc</span><span class="p">]</span> 
+    <span class="n">title</span> <span class="o">=</span> <span class="n">title_info</span><span class="p">[</span><span class="s2">&quot;chrom&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">title_info</span><span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">title_info</span><span class="p">[</span><span class="s2">&quot;ref&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&gt;&quot;</span> <span class="o">+</span> <span class="n">title_info</span><span class="p">[</span><span class="s2">&quot;alt&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Diff&quot;</span><span class="p">]</span>
+    <span class="n">center</span> <span class="o">=</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="c1">## these lines make zero values white</span>
+    <span class="n">colorscale</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;rgba(0, 0, 150, 0.85)&#39;</span><span class="p">],</span>   
+                   <span class="p">[</span><span class="n">center</span><span class="p">,</span> <span class="s1">&#39;#D3D3D3&#39;</span><span class="p">],</span>  
+                   <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;rgba(150, 0, 0, 0.85)&#39;</span><span class="p">]]</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Diff&quot;</span><span class="p">,</span> <span class="n">color_continuous_scale</span><span class="o">=</span><span class="n">colorscale</span><span class="p">,</span> 
+           <span class="n">hover_data</span><span class="o">=</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;Diff&quot;</span><span class="p">,</span> <span class="s2">&quot;Class&quot;</span><span class="p">,</span> <span class="s2">&quot;Tissue&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;Diff&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">fontsize</span><span class="p">),</span> <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;Rank&quot;</span><span class="p">)</span>
+    <span class="n">white_bg</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">write_html</span><span class="p">(</span><span class="n">figname</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">static</span><span class="p">:</span> <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;png&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="chromatin_profile_heatmap"><a class="viewcode-back" href="../../SiFoN.chrom_viz.html#SiFoN.chrom_viz.chromatin_profile_heatmap">[docs]</a><span class="k">def</span> <span class="nf">chromatin_profile_heatmap</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">row_labels</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">loc_index</span><span class="p">,</span> <span class="n">figname</span><span class="p">,</span> <span class="n">top_X</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pos_window</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Creates, displays, and saves a heatmap of the top chromatin profile scores within a short genomic sequence. The y axis shows the top chromatin profiles for each of the user-defined SNPs of interest. The profile labels are in the following format: chromatin profile | tissue of origin | genomic position of associated SNP. The x axis shows genomic positions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : NumPy array</span>
+<span class="sd">        NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</span>
+<span class="sd">    row_labels : Pandas DataFrame</span>
+<span class="sd">        contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [&quot;chrom&quot;, &quot;pos&quot;, &quot;name&quot;, &quot;ref&quot;, &quot;alt&quot;]. Must have the same number of rows as `data`.</span>
+<span class="sd">    loc : int</span>
+<span class="sd">        the chromosomal position of the SNP of interest.</span>
+<span class="sd">    loc_index : int</span>
+<span class="sd">        the index of the SNP of interest in the `data` array.</span>
+<span class="sd">    figname : string</span>
+<span class="sd">        name of file that figure will be saves as.</span>
+<span class="sd">    top_X : int, optional</span>
+<span class="sd">        the number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be `top_X` * `pos_window` rows and pos_window columns, defaults to 5.</span>
+<span class="sd">    window : int, optional</span>
+<span class="sd">        the number of to the right and left of `loc` that will be plotted, defaults to 5</span>
+<span class="sd">    fontsize : int, optional.</span>
+<span class="sd">        fontsize for graph, defaults to 8</span>
+<span class="sd">    pos_window :</span>
+<span class="sd">        Default value = 5)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">chrom_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../model_data/target_names.txt&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">chrom_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">chrom_names</span><span class="p">]</span>
+    <span class="n">heat_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">loc_index</span> <span class="o">-</span> <span class="n">pos_window</span> <span class="p">:</span> <span class="n">loc_index</span> <span class="o">+</span> <span class="n">pos_window</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">top_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">apply_along_axis</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[</span><span class="o">-</span><span class="n">top_X</span><span class="p">:],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">heat_data</span><span class="p">)</span>
+    <span class="n">top_chromatin</span> <span class="o">=</span> <span class="n">top_vals</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">heat_data</span> <span class="o">=</span> <span class="n">heat_data</span><span class="p">[:,</span> <span class="n">top_chromatin</span><span class="p">]</span>
+
+    <span class="n">xticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">loc</span> <span class="o">-</span> <span class="n">pos_window</span><span class="p">,</span> <span class="n">loc</span> <span class="o">+</span> <span class="n">pos_window</span><span class="p">)]</span>
+    <span class="n">title_info</span> <span class="o">=</span> <span class="n">row_labels</span><span class="p">[</span><span class="n">row_labels</span><span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">loc</span><span class="p">]</span> <span class="c1"># information about SNPs</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">title_info</span><span class="p">[</span><span class="s2">&quot;chrom&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">xticklabels</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">xticklabels</span><span class="p">))</span>
+    <span class="n">yticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="nb">id</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; | &quot;</span> <span class="o">+</span> <span class="nb">id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">chrom_names</span><span class="p">)[</span><span class="n">top_chromatin</span><span class="p">]]</span>
+    <span class="n">yticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="s2">&quot; | &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">yticklabels</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">xticklabels</span><span class="p">,</span> <span class="n">top_X</span><span class="p">))]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">row_labels</span><span class="p">[</span><span class="n">row_labels</span><span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pos</span><span class="p">]</span> <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">xticklabels</span><span class="p">]</span>
+    <span class="n">xticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">title_info</span><span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">title_info</span><span class="p">[</span><span class="s2">&quot;ref&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&gt;&quot;</span> <span class="o">+</span> <span class="n">title_info</span><span class="p">[</span><span class="s2">&quot;alt&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                   <span class="k">for</span> <span class="n">title_info</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
+    <span class="n">bounds</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">heat_data</span><span class="o">.</span><span class="n">flatten</span><span class="p">())),</span> <span class="nb">max</span><span class="p">(</span><span class="n">heat_data</span><span class="o">.</span><span class="n">flatten</span><span class="p">()))</span>
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">diverging_palette</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+
+    <span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">heat_data</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="n">bounds</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span>
+                <span class="n">yticklabels</span><span class="o">=</span><span class="n">yticklabels</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="n">xticklabels</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shrink&quot;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">})</span>
+    <span class="c1"># sns.set(rc = {&#39;figure.figsize&#39;:(6,17)}, font_scale=0.08)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)})</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">get_xmajorticklabels</span><span class="p">(),</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="n">fontsize</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">get_ymajorticklabels</span><span class="p">(),</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="n">fontsize</span><span class="p">)</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="n">fontsize</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span> 
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">figname</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+    
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SiFoN 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SiFoN.chrom_viz</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Briana Macedo.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>
