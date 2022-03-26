@@ -27,8 +27,8 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # -- Options for HTML output -------------------------------------------------
 
-html_theme = 'classic'
-html_static_path = ['_static']
+html_theme = 'press'
+# html_static_path = ['_static']
 napoleon_google_docstring = False
 napoleon_numpy_docstring = True
 todo_include_todos = True
