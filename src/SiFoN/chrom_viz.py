@@ -1,3 +1,13 @@
+"""
+This module includes functions for visualizing chromatin profile scores along genomic regions. This module require Sei chromatin profile scoes as input, and therefore assumes that predictions have already been calculated. 
+
+Functions:
+    white_bg
+    preprocess_diff
+    rank_scatter_plot
+    chromatin_profile_heatmap
+"""
+
 import matplotlib
 import numpy as np
 import pandas as pd
@@ -14,9 +24,6 @@ def white_bg(fig):
     ----------
     fig : plotly figure
         plotly figure
-
-    Returns
-    -------
 
     """
     fig.update_layout({"plot_bgcolor": "rgba(0, 0, 0, 0)",
@@ -69,10 +76,6 @@ def rank_scatter_plot(diff, row_labels, loc, loc_index, figname, fontsize=18, st
         fontsize for graph, defaults to 8
     static :
         species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False
-
-    Returns
-    -------
-
     """
     chrom_names = pd.read_csv("../model_data/target_names.txt", header=None, sep="\n").to_numpy()
     chrom_names = [name[0].split("|") for name in chrom_names]
@@ -121,9 +124,6 @@ def chromatin_profile_heatmap(data, row_labels, loc, loc_index, figname, top_X=5
         fontsize for graph, defaults to 8
     pos_window :
         Default value = 5)
-
-    Returns
-    -------
 
     """
     chrom_names = pd.read_csv("../model_data/target_names.txt", header=None, sep="\n").to_numpy()

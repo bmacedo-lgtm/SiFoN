@@ -3,10 +3,6 @@
 
 * retrieving SNPs
 * smoothing 
-* vmin, vmax
-* add single sequence class plot
-* plot all the sequence classes
-* add module docstrings
 * fasta module
 * remove private functions from docs
 * tree structure of docs

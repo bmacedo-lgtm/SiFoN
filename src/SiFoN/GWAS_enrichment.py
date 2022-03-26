@@ -1,3 +1,9 @@
+"""
+This module helps prioritize risk loci based on sequence class enrichment.
+
+Functions:
+    find_and_plot_enrichment
+"""
 from matplotlib.colors import LogNorm, Normalize
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -6,17 +12,6 @@ import pandas as pd
 import numpy as np
 
 def _sort_intersection(intersect_ref):
-    """
-
-    Parameters
-    ----------
-    intersect_ref :
-        
-
-    Returns
-    -------
-
-    """
     intersect_ref.sort_values(by="End", inplace=True, kind='mergesort')
     intersect_ref.sort_values(by="Start", inplace=True, kind='mergesort' )
     intersect_ref.sort_values(by="Chromosome", inplace=True, kind='mergesort')

@@ -1,3 +1,13 @@
+"""
+This module makes it easy to combine clinical data with Sei sequence class predictions. In particular, this module includes functions to convert common clinical file formats to VCF for Sei; it includes a function to calculate odds ratios and assign SNPs to case or control labels based on these odds ratios; and it includes a method for compare sequence class scores between cases and controls. 
+
+Functions:
+    cdot_to_VC
+    odds_ratio
+    add_case_control_label
+    seq_class_t_tests
+"""
+
 import plotly.express as px
 from scipy import stats
 from SiFoN import viz
@@ -53,9 +63,6 @@ def odds_ratio(df, control_col, case_col, num_cases, num_controls, correction):
     correction : float
         added to all counts to prevent division by zero in the case of zero counts.
 
-    Returns
-    -------
-
     """
     df["Odds Ratio"] = [((case + correction)/num_cases)/((control + correction)/num_controls)
                          for case, control in zip(df[control_col], df[case_col])]
@@ -71,10 +78,6 @@ def add_case_control_label(df, case_cuttoff, control_cutoff):
         cutoff odds ratio to consider something a "Case" SNP
     control_cutoff : int
         cutoff odds ratio to consider something a "Control" SNP
-
-    Returns
-    -------
-
     """
     df["Case/Control"] = ["Case" if OR > case_cuttoff else "Control" if OR < control_cutoff else "Equal"
                               for OR in df["Odds Ratio"]]

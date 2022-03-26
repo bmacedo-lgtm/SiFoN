@@ -1,3 +1,25 @@
+"""
+This module includes functions for visualizing sequence class scores along genomic regions. This module require Sei sequence class scores as input, and therefore assumes that predictions have already been calculated. 
+
+Functions:
+
+    white_bg
+    preprocess
+    postprocess
+    find_max
+    find_max_by_category
+    plot_sequence_class
+    plot_max
+    plot_max_from_scores
+
+Misc variables:
+
+    seqclass
+    color_map
+    class_map
+
+"""
+
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -38,38 +60,16 @@ class_map = {'E': [12, 16, 36, 38, 5, 30, 7, 26, 6, 9, 17, 13,
              'NA':[40]}
 
 def white_bg(fig):
-    """
-
-    Parameters
-    ----------
-    fig :
-        
-
-    Returns
-    -------
-
-    """
     fig.update_layout({"plot_bgcolor": "rgba(0, 0, 0, 0)",
                     "paper_bgcolor": "rgba(0, 0, 0, 0)"})
     fig.update_xaxes(showline=True, linewidth=2, linecolor='black', gridcolor="#DCDCDC")
     fig.update_yaxes(showline=True, linewidth=2, linecolor='black', gridcolor="#DCDCDC")
 
-def get_category(index):
-    """
-
-    Parameters
-    ----------
-    index :
-        
-
-    Returns
-    -------
-
-    """
+def _get_category(index):
     for category in class_map.keys():
         if index in class_map[category]: return category
 
-def post_processing(scores_max, seqclass_names=[]):
+def postprocess(scores_max, seqclass_names=[]):
     """Processes the `scores_max` array to have information necessary for graphing, including sequence class category and color.
 
     Parameters
@@ -88,7 +88,7 @@ def post_processing(scores_max, seqclass_names=[]):
     if seqclass_names == []: seqclass_names=seqclass
     scores_max.columns = ["Max Score", "Sequence Name"]
     scores_max["Sequence Index"] = [np.where(seqclass_names == name)[0][0] for name in scores_max["Sequence Name"]]
-    scores_max["Class"] =  [get_category(index) for index in scores_max["Sequence Index"]]
+    scores_max["Class"] =  [_get_category(index) for index in scores_max["Sequence Index"]]
     scores_max["Color"] =  [color_map[index] for index in scores_max["Class"]]
     scores_max["Function"] = ["Repressed" if cl in ["PC", "HET"] else "Active" for cl in scores_max["Class"]]
     scores_max = scores_max[scores_max["Class"] != "L"]
@@ -139,7 +139,7 @@ def find_max(scores, signed=True, seqclass_names=[]):
     Parameters
     ----------
     scores : NumPy array
-        Takes the (abs) max sequence class score for each position/alteration. Should run the `preprocessing` function first. The output array has columns [“Max Score", "Sequence Name"] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the `post_processing` function.
+        Takes the (abs) max sequence class score for each position/alteration. Should run the `preprocessing` function first. The output array has columns [“Max Score", "Sequence Name"] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the `postprocess` function.
     signed : Boolean, optional
         signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
     seqclass_names : list of strings, optional
@@ -160,7 +160,7 @@ def find_max(scores, signed=True, seqclass_names=[]):
     else:
         scores_max = pd.concat((scores.max(axis = 1).to_frame(), scores.idxmax(axis = 1).to_frame()), axis=1)
         scores_max.columns = ["Max Score", "Sequence Name"]
-    scores_max = post_processing(scores_max, seqclass_names=seqclass_names)
+    scores_max = postprocess(scores_max, seqclass_names=seqclass_names)
     return scores_max
 
 def find_max_by_category(scores, signed=True, seqclass_names=[]):
@@ -169,7 +169,7 @@ def find_max_by_category(scores, signed=True, seqclass_names=[]):
     Parameters
     ----------
     scores : NumPy array
-        Takes the (abs) max sequence class score within a category for each position/alteration. Should run the `preprocessing` function first. The output array has columns [“Max Score", "Sequence Name"] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the `post_processing` function.
+        Takes the (abs) max sequence class score within a category for each position/alteration. Should run the `preprocessing` function first. The output array has columns [“Max Score", "Sequence Name"] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the `postprocess` function.
     signed : Boolean, optional
         signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
     seqclass_names : list of strings, optional
@@ -193,7 +193,44 @@ def find_max_by_category(scores, signed=True, seqclass_names=[]):
             max_by_cat = pd.concat([max_by_cat, find_max(df, signed)])
     return max_by_cat
 
-def plot_max(filename, scores_prune, TSS={}):
+def plot_sequence_class(filename, file, vcf, TSS={}, category="All", signed=True, pre=False, seqclass_names=[]):
+    """Preprocesses Sei prediction data and then plots the results. 
+
+    Parameters
+    ----------
+    filename : string
+        name of file that figure will be saved as.
+    file : string
+        filename of NumPy sequence class scores
+    vcf : Pandas DataFrame
+        VCF of SNPs of interest, including “Position” column.
+    TSS : Dict[str, list[int, int]], optional
+        Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated, defaults to an empty dictionary
+    category : string, optional
+        Determines which sets of predictions will be plotted. Should be one of the category names listed in the `color_map`. If set to "All" then the full set of predictions is plotted, default is "All"
+    signed : Boolean, optional
+        signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
+    pre : Boolean, optional
+        determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.
+    seqclass_names : list of strings, optional
+        List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
+    """
+    if seqclass_names == []: seqclass_names=seqclass
+    if pre: 
+        scores = preprocess(file, vcf, seqclass_names, signed=signed)
+    else: 
+        scores = pd.DataFrame(np.load(file), columns=seqclass_names)
+        scores.index = vcf["Position"]
+    scores = scores.melt(ignore_index=False)
+    scores.rename(columns={"variable":"Sequence Name", "value":"Score"}, inplace=True)
+    scores = scores[["Score", "Sequence Name"]]
+    if category != "All":
+        scores = scores[[_get_category(seq) == category for seq in scores["Sequence Name"]]]
+    scores = postprocess(scores, seqclass_names=seqclass_names)
+    plot_max(filename, scores, TSS, yaxis_title=category + " Scores")
+    return scores
+                
+def plot_max(filename, scores_prune, TSS={}, yaxis_title="Max Score"):
     """Plots the maximum Sei classes along a genomic sequence.
 
     Parameters
@@ -204,10 +241,6 @@ def plot_max(filename, scores_prune, TSS={}):
         Dataframe that denotes the maximum Sei sequence classes along some region of the genome. Must contain the following columns: ["Max Score", "Class", "Position", "Sequence Name"]. This is generated as output from the `find_max` and `find_max_by_category` functions.
     TSS : Dict[str, list[int, int]]
         Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated.
-
-    Returns
-    -------
-
     """
     y, color = "Max Score", "Class"   
     fig = px.scatter(scores_prune, x="Position", y=y, color=color,
@@ -218,7 +251,7 @@ def plot_max(filename, scores_prune, TSS={}):
     for num, (tss_desc, tss_pos) in enumerate(TSS.items()):
         val = -num*2 - 2 + bot
         fig.add_trace(go.Scatter(y=[val, val], x=tss_pos, mode="lines+text", name=tss_desc, line=dict(width=7)))
-    fig.update_layout(font=dict(size=18))
+    fig.update_layout(font=dict(size=18), yaxis_title=yaxis_title)
     fig.update_traces(marker={'size': 5, 'opacity':0.3})
     white_bg(fig)
     fig.write_html(filename)
@@ -245,13 +278,13 @@ def plot_max_from_scores(filename, file, vcf, TSS={}, signed=True, plot_by="clas
         determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.
     seqclass_names : list of strings, optional
         List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
-
-    Returns
-    -------
-
     """
     if seqclass_names == []: seqclass_names=seqclass
-    if pre: scores = preprocess(file, vcf, seqclass_names, signed=signed)
+    if pre: 
+        scores = preprocess(file, vcf, seqclass_names, signed=signed)
+    else: 
+        scores = pd.DataFrame(np.load(file), columns=seqclass_names)
+        scores.index = vcf["Position"]
     if "category":
         max_scores = find_max_by_category(scores, signed=True)
     elif "class":
