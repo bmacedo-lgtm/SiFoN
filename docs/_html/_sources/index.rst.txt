@@ -12,10 +12,8 @@ Welcome to SiFoN's documentation!
 
    SiFoN
 
-
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`

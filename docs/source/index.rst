@@ -12,7 +12,6 @@ Welcome to SiFoN's documentation!
 
    SiFoN
 
-
 Indices and tables
 ==================
 
