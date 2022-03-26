@@ -38,7 +38,17 @@
           <div class="body" role="main">
             
   <h1>Source code for SiFoN.chrom_viz</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">matplotlib</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module includes functions for visualizing chromatin profile scores along genomic regions. This module require Sei chromatin profile scoes as input, and therefore assumes that predictions have already been calculated. </span>
+
+<span class="sd">Functions:</span>
+<span class="sd">    white_bg</span>
+<span class="sd">    preprocess_diff</span>
+<span class="sd">    rank_scatter_plot</span>
+<span class="sd">    chromatin_profile_heatmap</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -54,9 +64,6 @@
 <span class="sd">    ----------</span>
 <span class="sd">    fig : plotly figure</span>
 <span class="sd">        plotly figure</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">({</span><span class="s2">&quot;plot_bgcolor&quot;</span><span class="p">:</span> <span class="s2">&quot;rgba(0, 0, 0, 0)&quot;</span><span class="p">,</span>
@@ -109,10 +116,6 @@
 <span class="sd">        fontsize for graph, defaults to 8</span>
 <span class="sd">    static :</span>
 <span class="sd">        species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">chrom_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../model_data/target_names.txt&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
     <span class="n">chrom_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">chrom_names</span><span class="p">]</span>
@@ -161,9 +164,6 @@
 <span class="sd">        fontsize for graph, defaults to 8</span>
 <span class="sd">    pos_window :</span>
 <span class="sd">        Default value = 5)</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">chrom_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../model_data/target_names.txt&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>

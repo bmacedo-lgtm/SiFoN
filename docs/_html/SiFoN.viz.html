@@ -44,6 +44,24 @@
             
   <section id="module-SiFoN.viz">
 <span id="sifon-viz-module"></span><h1>SiFoN.viz module<a class="headerlink" href="#module-SiFoN.viz" title="Permalink to this headline">¶</a></h1>
+<p>This module includes functions for visualizing sequence class scores along genomic regions. This module require Sei sequence class scores as input, and therefore assumes that predictions have already been calculated.</p>
+<p>Functions:</p>
+<blockquote>
+<div><p>white_bg
+preprocess
+postprocess
+find_max
+find_max_by_category
+plot_sequence_class
+plot_max
+plot_max_from_scores</p>
+</div></blockquote>
+<p>Misc variables:</p>
+<blockquote>
+<div><p>seqclass
+color_map
+class_map</p>
+</div></blockquote>
 <dl class="py function">
 <dt class="sig sig-object py" id="SiFoN.viz.find_max">
 <span class="sig-prename descclassname"><span class="pre">SiFoN.viz.</span></span><span class="sig-name descname"><span class="pre">find_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seqclass_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/viz.html#find_max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.viz.find_max" title="Permalink to this definition">¶</a></dt>
@@ -51,7 +69,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>scores</strong> (<em>NumPy array</em>) – Takes the (abs) max sequence class score for each position/alteration. Should run the <cite>preprocessing</cite> function first. The output array has columns [“Max Score”, “Sequence Name”] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the <cite>post_processing</cite> function.</p></li>
+<li><p><strong>scores</strong> (<em>NumPy array</em>) – Takes the (abs) max sequence class score for each position/alteration. Should run the <cite>preprocessing</cite> function first. The output array has columns [“Max Score”, “Sequence Name”] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the <cite>postprocess</cite> function.</p></li>
 <li><p><strong>signed</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the <cite>preprocessing</cite> function, default is True</p></li>
 <li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”</p></li>
 </ul>
@@ -72,7 +90,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>scores</strong> (<em>NumPy array</em>) – Takes the (abs) max sequence class score within a category for each position/alteration. Should run the <cite>preprocessing</cite> function first. The output array has columns [“Max Score”, “Sequence Name”] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the <cite>post_processing</cite> function.</p></li>
+<li><p><strong>scores</strong> (<em>NumPy array</em>) – Takes the (abs) max sequence class score within a category for each position/alteration. Should run the <cite>preprocessing</cite> function first. The output array has columns [“Max Score”, “Sequence Name”] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the <cite>postprocess</cite> function.</p></li>
 <li><p><strong>signed</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the <cite>preprocessing</cite> function, default is True</p></li>
 <li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”</p></li>
 </ul>
@@ -87,18 +105,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="SiFoN.viz.get_category">
-<span class="sig-prename descclassname"><span class="pre">SiFoN.viz.</span></span><span class="sig-name descname"><span class="pre">get_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/viz.html#get_category"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.viz.get_category" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>index</strong> – </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="SiFoN.viz.plot_max">
-<span class="sig-prename descclassname"><span class="pre">SiFoN.viz.</span></span><span class="sig-name descname"><span class="pre">plot_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scores_prune</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TSS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/viz.html#plot_max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.viz.plot_max" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">SiFoN.viz.</span></span><span class="sig-name descname"><span class="pre">plot_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scores_prune</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TSS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaxis_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Max</span> <span class="pre">Score'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/viz.html#plot_max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.viz.plot_max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots the maximum Sei classes along a genomic sequence.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -132,8 +140,28 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="SiFoN.viz.post_processing">
-<span class="sig-prename descclassname"><span class="pre">SiFoN.viz.</span></span><span class="sig-name descname"><span class="pre">post_processing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seqclass_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/viz.html#post_processing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.viz.post_processing" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="SiFoN.viz.plot_sequence_class">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.viz.</span></span><span class="sig-name descname"><span class="pre">plot_sequence_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vcf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TSS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'All'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seqclass_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/viz.html#plot_sequence_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.viz.plot_sequence_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preprocesses Sei prediction data and then plots the results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em>) – name of file that figure will be saved as.</p></li>
+<li><p><strong>file</strong> (<em>string</em>) – filename of NumPy sequence class scores</p></li>
+<li><p><strong>vcf</strong> (<em>Pandas DataFrame</em>) – VCF of SNPs of interest, including “Position” column.</p></li>
+<li><p><strong>TSS</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated, defaults to an empty dictionary</p></li>
+<li><p><strong>category</strong> (<em>string</em><em>, </em><em>optional</em>) – Determines which sets of predictions will be plotted. Should be one of the category names listed in the <cite>color_map</cite>. If set to “All” then the full set of predictions is plotted, default is “All”</p></li>
+<li><p><strong>signed</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the <cite>preprocessing</cite> function, default is True</p></li>
+<li><p><strong>pre</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.</p></li>
+<li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.viz.postprocess">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.viz.</span></span><span class="sig-name descname"><span class="pre">postprocess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seqclass_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/viz.html#postprocess"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.viz.postprocess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Processes the <cite>scores_max</cite> array to have information necessary for graphing, including sequence class category and color.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -176,12 +204,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="SiFoN.viz.white_bg">
 <span class="sig-prename descclassname"><span class="pre">SiFoN.viz.</span></span><span class="sig-name descname"><span class="pre">white_bg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/viz.html#white_bg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.viz.white_bg" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>fig</strong> – </p>
-</dd>
-</dl>
-</dd></dl>
+<dd></dd></dl>
 
 </section>
 

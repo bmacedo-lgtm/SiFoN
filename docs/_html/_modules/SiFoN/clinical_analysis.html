@@ -38,7 +38,17 @@
           <div class="body" role="main">
             
   <h1>Source code for SiFoN.clinical_analysis</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module makes it easy to combine clinical data with Sei sequence class predictions. In particular, this module includes functions to convert common clinical file formats to VCF for Sei; it includes a function to calculate odds ratios and assign SNPs to case or control labels based on these odds ratios; and it includes a method for compare sequence class scores between cases and controls. </span>
+
+<span class="sd">Functions:</span>
+<span class="sd">    cdot_to_VC</span>
+<span class="sd">    odds_ratio</span>
+<span class="sd">    add_case_control_label</span>
+<span class="sd">    seq_class_t_tests</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
 <span class="kn">from</span> <span class="nn">SiFoN</span> <span class="kn">import</span> <span class="n">viz</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -93,9 +103,6 @@
 <span class="sd">    correction : float</span>
 <span class="sd">        added to all counts to prevent division by zero in the case of zero counts.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Odds Ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[((</span><span class="n">case</span> <span class="o">+</span> <span class="n">correction</span><span class="p">)</span><span class="o">/</span><span class="n">num_cases</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">control</span> <span class="o">+</span> <span class="n">correction</span><span class="p">)</span><span class="o">/</span><span class="n">num_controls</span><span class="p">)</span>
                          <span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">control</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">control_col</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">case_col</span><span class="p">])]</span></div>
@@ -111,10 +118,6 @@
 <span class="sd">        cutoff odds ratio to consider something a &quot;Case&quot; SNP</span>
 <span class="sd">    control_cutoff : int</span>
 <span class="sd">        cutoff odds ratio to consider something a &quot;Control&quot; SNP</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Case/Control&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Case&quot;</span> <span class="k">if</span> <span class="n">OR</span> <span class="o">&gt;</span> <span class="n">case_cuttoff</span> <span class="k">else</span> <span class="s2">&quot;Control&quot;</span> <span class="k">if</span> <span class="n">OR</span> <span class="o">&lt;</span> <span class="n">control_cutoff</span> <span class="k">else</span> <span class="s2">&quot;Equal&quot;</span>
                               <span class="k">for</span> <span class="n">OR</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Odds Ratio&quot;</span><span class="p">]]</span></div>
