@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-* retrieving SNPs
 * smoothing 
 * fasta module
-* remove private functions from docs
 * tree structure of docs
 * upload data to zenodo dropbox
 * fix readthedocs/gitpages

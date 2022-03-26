@@ -3,8 +3,11 @@ This module makes it easy to combine clinical data with Sei sequence class predi
 
 Functions:
     cdot_to_VC
+    
     odds_ratio
+    
     add_case_control_label
+    
     seq_class_t_tests
 """
 

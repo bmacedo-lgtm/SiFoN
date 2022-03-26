@@ -3,8 +3,11 @@ This module includes functions for visualizing chromatin profile scores along ge
 
 Functions:
     white_bg
+    
     preprocess_diff
+    
     rank_scatter_plot
+    
     chromatin_profile_heatmap
 """
 

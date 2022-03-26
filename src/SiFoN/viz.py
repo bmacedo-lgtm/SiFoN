@@ -4,12 +4,19 @@ This module includes functions for visualizing sequence class scores along genom
 Functions:
 
     white_bg
+    
     preprocess
+    
     postprocess
+    
     find_max
+    
     find_max_by_category
+    
     plot_sequence_class
+    
     plot_max
+    
     plot_max_from_scores
 
 Misc variables:
