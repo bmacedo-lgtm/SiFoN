@@ -43,7 +43,7 @@ def preprocess_diff(diff, row_labels):
     diff : NumPy array
         NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.
     row_labels : Pandas DataFrame
-        contains metadata about the rows (and the SNPs described by the rows) in the `diff` array.
+        Contains metadata about the rows (and the SNPs described by the rows) in the `diff` array.
 
     Returns
     -------
@@ -68,17 +68,17 @@ def rank_scatter_plot(diff, row_labels, loc, loc_index, figname, fontsize=18, st
     diff : NumPy array
         NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.
     row_labels : Pandas DataFrame
-        contains metadata to describe the SNPs being analyzed. Should have at least the following columns: ["chrom", "pos", "name", "ref", "alt"]. Must have the same number of rows as `data`.
+        Contains metadata to describe the SNPs being analyzed. Should have at least the following columns: ["chrom", "pos", "name", "ref", "alt"]. Must have the same number of rows as `data`.
     loc : int
-        the chromosomal position of the SNP of interest.
+        The chromosomal position of the SNP of interest.
     loc_index : int
-        the index of the SNP of interest in the `data` array.
+        The index of the SNP of interest in the `data` array.
     figname : string
-        name of file that figure will be saves as.
+        Name of file that figure will be saves as.
     fontsize : int, optional.
-        fontsize for graph, defaults to 8
+        Fontsize for graph, defaults to 8
     static :
-        species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False
+        Species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False
     """
     chrom_names = pd.read_csv("../model_data/target_names.txt", header=None, sep="\n").to_numpy()
     chrom_names = [name[0].split("|") for name in chrom_names]
@@ -112,19 +112,19 @@ def chromatin_profile_heatmap(data, row_labels, loc, loc_index, figname, top_X=5
     data : NumPy array
         NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.
     row_labels : Pandas DataFrame
-        contains metadata to describe the SNPs being analyzed. Should have at least the following columns: ["chrom", "pos", "name", "ref", "alt"]. Must have the same number of rows as `data`.
+        Contains metadata to describe the SNPs being analyzed. Should have at least the following columns: ["chrom", "pos", "name", "ref", "alt"]. Must have the same number of rows as `data`.
     loc : int
-        the chromosomal position of the SNP of interest.
+        The chromosomal position of the SNP of interest.
     loc_index : int
-        the index of the SNP of interest in the `data` array.
+        The index of the SNP of interest in the `data` array.
     figname : string
-        name of file that figure will be saves as.
+        Name of file that figure will be saves as.
     top_X : int, optional
-        the number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be `top_X` * `pos_window` rows and pos_window columns, defaults to 5.
+        The number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be `top_X` * `pos_window` rows and pos_window columns, defaults to 5.
     window : int, optional
-        the number of to the right and left of `loc` that will be plotted, defaults to 5
+        The number of to the right and left of `loc` that will be plotted, defaults to 5
     fontsize : int, optional.
-        fontsize for graph, defaults to 8
+        Fontsize for graph, defaults to 8
     pos_window :
         Default value = 5)
 

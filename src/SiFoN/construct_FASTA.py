@@ -7,6 +7,27 @@ alt_allele = {"A":"G", "G":"A", "T":"C", "C":"T"}
     
 def write_haps_of_pairs(data, ref_filename, alt_filename, shift_filename, centered_filename,
          chrm, cutoff, gn):
+        """Give a VCF file of SNPs, this module will create a FASTA file containing haplotype sequences that consist of all pairs of SNPs within a `cutoff` distance from one another. These FASTA files are in a format that can be read by Sei.
+
+    Parameters
+    ----------
+    data : Pandas DataFrame 
+        NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of 
+    ref_filename : string
+        Filename for referance file
+    alt_filename : string
+        Filename for alternative file (containing all haplotype SNPs)
+    shift_filename : string
+        Filename for shifted file (only contains the off center SNP)
+    centered_filename : string
+        Filename for centered file (only contains the centered SNP)
+    chrm : string
+        Chromsome of haplotype. Should be in the format "chr" + number (e.g. chrm10).
+    cutoff : int
+        Specifies how far away two SNPs need to be to calculate a haplotype. The default is 2000. Since Sei works with 4kb input strings, this value should be <= 2000. 
+    gn : selene_sdk.sequences.Genome
+        Reference genome
+    """
     alt_file = open(alt_filename, "w")
     ref_file = open(ref_filename, "w")
     shift_file = open(shift_filename, "w") 

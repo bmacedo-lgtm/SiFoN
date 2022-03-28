@@ -56,15 +56,15 @@ def odds_ratio(df, control_col, case_col, num_cases, num_controls, correction):
     df : Pandas DataFrame
         Contains case and control counts and any other metadata.
     control_col : string
-        name of DataFrame column with control counts
+        Name of DataFrame column with control counts
     case_col : string
-        name of DataFrame column with case counts
+        Name of DataFrame column with case counts
     num_cases : int
-        number of total cases
+        Number of total cases
     num_controls : int
-        number of total controls
+        Number of total controls
     correction : float
-        added to all counts to prevent division by zero in the case of zero counts.
+        Added to all counts to prevent division by zero in the case of zero counts.
 
     """
     df["Odds Ratio"] = [((case + correction)/num_cases)/((control + correction)/num_controls)
@@ -78,9 +78,9 @@ def add_case_control_label(df, case_cuttoff, control_cutoff):
     df : Pandas DataFrame
         Contains case and control counts and any other metadata. Must have an "Odds Ratio" column.
     case_cuttoff : int
-        cutoff odds ratio to consider something a "Case" SNP
+        Cutoff odds ratio to consider something a "Case" SNP
     control_cutoff : int
-        cutoff odds ratio to consider something a "Control" SNP
+        Cutoff odds ratio to consider something a "Control" SNP
     """
     df["Case/Control"] = ["Case" if OR > case_cuttoff else "Control" if OR < control_cutoff else "Equal"
                               for OR in df["Odds Ratio"]]
@@ -93,11 +93,11 @@ def seq_class_t_tests(df, figname, fontsize=18, markersize=7):
     df : Pandas DataFrame
         Contains case and control counts and any other metadata. Must have scores for all 40 Sei sequence classes. Column names must correspond to sequence class names.
     figname : string
-        name of file that figure will be saves as.
+        Name of file that figure will be saves as.
     fontsize : int, optional.
-        fontsize for graph, defaults to 18
+        Fontsize for graph, defaults to 18
     markersize : int, optional.
-        markersize for graph, defaults to 7
+        Markersize for graph, defaults to 7
 
     Returns
     -------

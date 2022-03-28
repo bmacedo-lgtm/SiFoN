@@ -82,13 +82,13 @@ def postprocess(scores_max, seqclass_names=[]):
     Parameters
     ----------
     scores_max :
-        type scores_max: NumPy Array
+        Type scores_max: NumPy Array
     seqclass_names : list of strings, optional
         List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
 
     Returns
     -------
-    type
+    NumPy Array
         an updated version of `scores_max` that adds the columns “Sequence Index”, “Class” (e..g E, P, TF), “Color” (corresponding to the “Class” column), “Function” (whether a sequence class is associated with repressed or active chromatin). SNPs with a max score in the Low Impact category are also removed.
 
     """
@@ -108,13 +108,13 @@ def preprocess(file, vcf, seqclass_names=[], signed=True):
     Parameters
     ----------
     file : string
-        filename of NumPy sequence class scores
+        Filename of NumPy sequence class scores
     vcf : Pandas DataFrame
         VCF of SNPs of interest, including “Position” column.
     seqclass_names : list of strings, optional
         List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
     signed : Boolean, optional
-        signifies whether parameters are evaluated by absolute value (False) or not (True), default is True
+        Signifies whether parameters are evaluated by absolute value (False) or not (True), default is True
 
     Returns
     -------
@@ -148,7 +148,7 @@ def find_max(scores, signed=True, seqclass_names=[]):
     scores : NumPy array
         Takes the (abs) max sequence class score for each position/alteration. Should run the `preprocessing` function first. The output array has columns [“Max Score", "Sequence Name"] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the `postprocess` function.
     signed : Boolean, optional
-        signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
+        Signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
     seqclass_names : list of strings, optional
         List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
 
@@ -178,7 +178,7 @@ def find_max_by_category(scores, signed=True, seqclass_names=[]):
     scores : NumPy array
         Takes the (abs) max sequence class score within a category for each position/alteration. Should run the `preprocessing` function first. The output array has columns [“Max Score", "Sequence Name"] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the `postprocess` function.
     signed : Boolean, optional
-        signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
+        Signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
     seqclass_names : list of strings, optional
         List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
 
@@ -206,9 +206,9 @@ def plot_sequence_class(filename, file, vcf, TSS={}, category="All", signed=True
     Parameters
     ----------
     filename : string
-        name of file that figure will be saved as.
+        Name of file that figure will be saved as.
     file : string
-        filename of NumPy sequence class scores
+        Filename of NumPy sequence class scores
     vcf : Pandas DataFrame
         VCF of SNPs of interest, including “Position” column.
     TSS : Dict[str, list[int, int]], optional
@@ -216,9 +216,9 @@ def plot_sequence_class(filename, file, vcf, TSS={}, category="All", signed=True
     category : string, optional
         Determines which sets of predictions will be plotted. Should be one of the category names listed in the `color_map`. If set to "All" then the full set of predictions is plotted, default is "All"
     signed : Boolean, optional
-        signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
+        Signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
     pre : Boolean, optional
-        determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.
+        Determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.
     seqclass_names : list of strings, optional
         List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
     """
@@ -243,7 +243,7 @@ def plot_max(filename, scores_prune, TSS={}, yaxis_title="Max Score"):
     Parameters
     ----------
     filename : string
-        name of file that figure will be saved as.
+        Name of file that figure will be saved as.
     scores_prune : Pandas DataFrame
         Dataframe that denotes the maximum Sei sequence classes along some region of the genome. Must contain the following columns: ["Max Score", "Class", "Position", "Sequence Name"]. This is generated as output from the `find_max` and `find_max_by_category` functions.
     TSS : Dict[str, list[int, int]]
@@ -270,19 +270,19 @@ def plot_max_from_scores(filename, file, vcf, TSS={}, signed=True, plot_by="clas
     Parameters
     ----------
     filename : string
-        name of file that figure will be saved as.
+        Name of file that figure will be saved as.
     file : string
-        filename of NumPy sequence class scores
+        Filename of NumPy sequence class scores
     vcf : Pandas DataFrame
         VCF of SNPs of interest, including “Position” column.
     TSS : Dict[str, list[int, int]], optional
         Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated, defaults to an empty dictionary
     signed : Boolean, optional
-        signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
+        Signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True
     plot_by : string, optional
         Specifies whether the maximum of sequence class is plotted ("class") or the maximim within each sequence category ("category). Should be either "class" (calls `find_max`) or "category" (calls `find_max_by_category`), defaults to "class"
     pre : Boolean, optional
-        determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.
+        Determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.
     seqclass_names : list of strings, optional
         List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in "model_data/seqclass-names.txt"
     """

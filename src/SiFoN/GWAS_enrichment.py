@@ -27,11 +27,11 @@ def find_and_plot_enrichment(ccv, ref_bed, figname, vmin=0.1, vmax=10^1):
     ref_bed : pyranges BED object
         Should contain sequence class labels across (nearly) the entire genome to allow for background sequence class proportion calculations. Should use the same genomic coordinate system (e.g. hg19 or hg38) as `ccv`.
     figname : string
-        name of file that figure will be saves as.
+        Name of file that figure will be saves as.
     vmin : float, optional
-        value corresponding to minimum color in heatmap, default is 0.1
+        Value corresponding to minimum color in heatmap, default is 0.1
     vmax : float, optional
-        value corresponding to minimum color in heatmap, default is 10^1
+        Value corresponding to minimum color in heatmap, default is 10^1
 
     Returns
     -------
