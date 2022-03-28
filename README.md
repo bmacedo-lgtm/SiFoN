@@ -4,8 +4,8 @@ SiFoN is a framework built on top of [Sei](https://github.com/FunctionLab/sei-fr
 
 The source code is available in `src/SiFoN`. 
 * `tutorials` folder includes Jupyter notebook walkthroughs for each module. These walkthroughs provide examples of use cases and test data for each module. 
-* `test_input_data` includes input data for walkthroughs. 
-* `test_output_plots` includes plot outputs for the walkthroughs. 
+* `tutorials/test_input_data` includes input data for walkthroughs. 
+* `tutorials/test_output_plots` includes plot outputs for the walkthroughs. 
 * `model_data` includes Sei sequence class names and chromatin profile names. 
 * `requirments.txt` includes all packages required to run SiFoN. 
 
