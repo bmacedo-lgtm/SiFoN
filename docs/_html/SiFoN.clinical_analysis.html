@@ -22,8 +22,7 @@
     
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="SiFoN.construst_FASTA module" href="SiFoN.construst_FASTA.html" />
-  <link rel="prev" title="SiFoN.chrom_viz module" href="SiFoN.chrom_viz.html" /> 
+  <link rel="prev" title="SiFoN.smoothing module" href="SiFoN.smoothing.html" /> 
   </head>
 
   <body>
@@ -85,7 +84,25 @@
         
           <li class="toctree-l1 ">
             
+              <a href="SiFoN.viz.html" class="reference internal ">SiFoN.viz module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="SiFoN.chrom_viz.html" class="reference internal ">SiFoN.chrom_viz module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="SiFoN.smoothing.html" class="reference internal ">SiFoN.smoothing module</a>
             
 
             
@@ -103,24 +120,6 @@
                   <li class="toctree-l2"><a href="#module-SiFoN.clinical_analysis" class="reference internal">SiFoN.clinical_analysis module</a></li>
                 
               </ul>
-            
-          </li>
-
-        
-          <li class="toctree-l1 ">
-            
-              <a href="SiFoN.construst_FASTA.html" class="reference internal ">SiFoN.construst_FASTA module</a>
-            
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 ">
-            
-              <a href="SiFoN.viz.html" class="reference internal ">SiFoN.viz module</a>
-            
-
             
           </li>
 
@@ -145,12 +144,8 @@
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="SiFoN.chrom_viz.html"
-       title="previous chapter">← SiFoN.chrom_viz module</a>
-  </li>
-  <li class="next">
-    <a href="SiFoN.construst_FASTA.html"
-       title="next chapter">SiFoN.construst_FASTA module →</a>
+    <a href="SiFoN.smoothing.html"
+       title="previous chapter">← SiFoN.smoothing module</a>
   </li>
 </ul>
   
@@ -176,8 +171,8 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – Contains case and control counts and any other metadata. Must have an “Odds Ratio” column.</p></li>
-<li><p><strong>case_cuttoff</strong> (<em>int</em>) – cutoff odds ratio to consider something a “Case” SNP</p></li>
-<li><p><strong>control_cutoff</strong> (<em>int</em>) – cutoff odds ratio to consider something a “Control” SNP</p></li>
+<li><p><strong>case_cuttoff</strong> (<em>int</em>) – Cutoff odds ratio to consider something a “Case” SNP</p></li>
+<li><p><strong>control_cutoff</strong> (<em>int</em>) – Cutoff odds ratio to consider something a “Control” SNP</p></li>
 </ul>
 </dd>
 </dl>
@@ -212,11 +207,11 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – Contains case and control counts and any other metadata.</p></li>
-<li><p><strong>control_col</strong> (<em>string</em>) – name of DataFrame column with control counts</p></li>
-<li><p><strong>case_col</strong> (<em>string</em>) – name of DataFrame column with case counts</p></li>
-<li><p><strong>num_cases</strong> (<em>int</em>) – number of total cases</p></li>
-<li><p><strong>num_controls</strong> (<em>int</em>) – number of total controls</p></li>
-<li><p><strong>correction</strong> (<em>float</em>) – added to all counts to prevent division by zero in the case of zero counts.</p></li>
+<li><p><strong>control_col</strong> (<em>string</em>) – Name of DataFrame column with control counts</p></li>
+<li><p><strong>case_col</strong> (<em>string</em>) – Name of DataFrame column with case counts</p></li>
+<li><p><strong>num_cases</strong> (<em>int</em>) – Number of total cases</p></li>
+<li><p><strong>num_controls</strong> (<em>int</em>) – Number of total controls</p></li>
+<li><p><strong>correction</strong> (<em>float</em>) – Added to all counts to prevent division by zero in the case of zero counts.</p></li>
 </ul>
 </dd>
 </dl>
@@ -230,9 +225,9 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – Contains case and control counts and any other metadata. Must have scores for all 40 Sei sequence classes. Column names must correspond to sequence class names.</p></li>
-<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
-<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – fontsize for graph, defaults to 18</p></li>
-<li><p><strong>markersize</strong> (<em>int</em><em>, </em><em>optional.</em>) – markersize for graph, defaults to 7</p></li>
+<li><p><strong>figname</strong> (<em>string</em>) – Name of file that figure will be saves as.</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – Fontsize for graph, defaults to 18</p></li>
+<li><p><strong>markersize</strong> (<em>int</em><em>, </em><em>optional.</em>) – Markersize for graph, defaults to 7</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -251,12 +246,8 @@
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="SiFoN.chrom_viz.html"
-       title="previous chapter">← SiFoN.chrom_viz module</a>
-  </li>
-  <li class="next">
-    <a href="SiFoN.construst_FASTA.html"
-       title="next chapter">SiFoN.construst_FASTA module →</a>
+    <a href="SiFoN.smoothing.html"
+       title="previous chapter">← SiFoN.smoothing module</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2022, Briana Macedo.

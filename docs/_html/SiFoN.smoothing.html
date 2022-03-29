@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+      <title>SiFoN.smoothing module</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="SiFoN.clinical_analysis module" href="SiFoN.clinical_analysis.html" />
+  <link rel="prev" title="SiFoN.chrom_viz module" href="SiFoN.chrom_viz.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">SiFoN</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="SiFoN.html#submodules">submodules</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="SiFoN.GWAS_enrichment.html" class="reference internal ">SiFoN.GWAS_enrichment module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="SiFoN.viz.html" class="reference internal ">SiFoN.viz module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="SiFoN.chrom_viz.html" class="reference internal ">SiFoN.chrom_viz module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current">
+            
+              <a href="#" class="reference internal current">SiFoN.smoothing module</a>
+            
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#sifon-smoothing-module" class="reference internal">SiFoN.smoothing module</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="SiFoN.clinical_analysis.html" class="reference internal ">SiFoN.clinical_analysis module</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="SiFoN.html">SiFoN package</a> &raquo;</li>
+    
+    <li>SiFoN.smoothing module</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="SiFoN.chrom_viz.html"
+       title="previous chapter">← SiFoN.chrom_viz module</a>
+  </li>
+  <li class="next">
+    <a href="SiFoN.clinical_analysis.html"
+       title="next chapter">SiFoN.clinical_analysis module →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="sifon-smoothing-module">
+<h1>SiFoN.smoothing module<a class="headerlink" href="#sifon-smoothing-module" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-SiFoN.smoothing"></span><dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.smoothing.plot_smooth_v_raw">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.smoothing.</span></span><span class="sig-name descname"><span class="pre">plot_smooth_v_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence_class_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/smoothing.html#plot_smooth_v_raw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.smoothing.plot_smooth_v_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots smooth and raw sequence class scores side by side to compare visualizations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – dataframe with the columns “Raw Scores”, “Smoothed Scores”, and “Position”.</p></li>
+<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saved as.</p></li>
+<li><p><strong>sequence_class_name</strong> (<em>string</em>) – the name of the sequence class to apply rolling average to.</p></li>
+<li><p><strong>s</strong> (<em>float</em><em>, </em><em>optional</em>) – size of data points, default is 0.2</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.smoothing.smooth_all_scores">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.smoothing.</span></span><span class="sig-name descname"><span class="pre">smooth_all_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">801</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polyorder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sav</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/smoothing.html#smooth_all_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.smoothing.smooth_all_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots smooth and raw sequence class scores side by side to compare visualizations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – dataframe with the columns “Raw Scores”, “Smoothed Scores”, and “Position”.</p></li>
+<li><p><strong>window_length</strong> (<em>int</em><em>, </em><em>optional</em>) – the length of the Savitzy-Golay filter window, default is 801</p></li>
+<li><p><strong>polyorder</strong> (<em>int</em><em>, </em><em>optional</em>) – the order of the polynomial used to fit the samples in Savitzy-Golay filter, default is 4</p></li>
+<li><p><strong>sav</strong> (<em>Boolean</em>) – whether or not to apply Savitzy-Golay filtering, default is True</p></li>
+<li><p><strong>sm</strong> (<em>Boolean</em>) – whether or not to apply Softmax, default is True</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SiFoN.smoothing.smooth_class">
+<span class="sig-prename descclassname"><span class="pre">SiFoN.smoothing.</span></span><span class="sig-name descname"><span class="pre">smooth_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence_class_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/smoothing.html#smooth_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.smoothing.smooth_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies a rolling average on sequence claas scores for a particular class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – dataframe with the columns “Raw Scores”, “Sequence Class”, and “Position”. “Raw scores” are Sei sequence class scores and “Sequence Class” denotes the corresponding sequence class of the score. It is assumed that all SNPs are along the same chromosome, allowing for smoothing via adjacency. “Position” denotes the position of the SNP on the genome.</p></li>
+<li><p><strong>sequence_class_name</strong> (<em>string</em>) – the name of the sequence class to apply rolling average to.</p></li>
+<li><p><strong>window</strong> (<em>int</em><em>, </em><em>optional</em>) – window of rolling average, default is 15.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe containing scores for the <cite>sequence_class_name</cite> class after the application of a rolling average. Note that elements on the window edge are removed from the dataframe such that the output will have a smaller size than the input dataframe.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Pandas DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="SiFoN.chrom_viz.html"
+       title="previous chapter">← SiFoN.chrom_viz module</a>
+  </li>
+  <li class="next">
+    <a href="SiFoN.clinical_analysis.html"
+       title="next chapter">SiFoN.clinical_analysis module →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2022, Briana Macedo.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

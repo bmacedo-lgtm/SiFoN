@@ -7,11 +7,12 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   SiFoN.construct_FASTA
    SiFoN.GWAS_enrichment
-   SiFoN.chrom_viz
-   SiFoN.clinical_analysis
-   SiFoN.construst_FASTA
    SiFoN.viz
+   SiFoN.chrom_viz
+   SiFoN.smoothing
+   SiFoN.clinical_analysis
 
 Module contents
 ---------------

@@ -1,41 +1,145 @@
-
 <!DOCTYPE html>
-
-<html lang="en">
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SiFoN.chrom_viz &#8212; SiFoN 0.0.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>SiFoN.chrom_viz</title>
     
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
-  </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SiFoN 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">SiFoN.chrom_viz</a></li> 
-      </ul>
-    </div>  
+          <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../../_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../../_static/theme-vendors.js"></script> -->
+      <script src="../../_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="../../genindex.html" />
+  <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../index.html" class="home-link">
+    
+      <span class="site-name">SiFoN</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../SiFoN.html#submodules">submodules</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.GWAS_enrichment.html" class="reference internal ">SiFoN.GWAS_enrichment module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.viz.html" class="reference internal ">SiFoN.viz module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.chrom_viz.html" class="reference internal ">SiFoN.chrom_viz module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.smoothing.html" class="reference internal ">SiFoN.smoothing module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.clinical_analysis.html" class="reference internal ">SiFoN.clinical_analysis module</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../index.html">Module code</a> &raquo;</li>
+    
+    <li>SiFoN.chrom_viz</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
             
   <h1>Source code for SiFoN.chrom_viz</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -83,7 +187,7 @@
 <span class="sd">    diff : NumPy array</span>
 <span class="sd">        NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</span>
 <span class="sd">    row_labels : Pandas DataFrame</span>
-<span class="sd">        contains metadata about the rows (and the SNPs described by the rows) in the `diff` array.</span>
+<span class="sd">        Contains metadata about the rows (and the SNPs described by the rows) in the `diff` array.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -108,17 +212,17 @@
 <span class="sd">    diff : NumPy array</span>
 <span class="sd">        NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</span>
 <span class="sd">    row_labels : Pandas DataFrame</span>
-<span class="sd">        contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [&quot;chrom&quot;, &quot;pos&quot;, &quot;name&quot;, &quot;ref&quot;, &quot;alt&quot;]. Must have the same number of rows as `data`.</span>
+<span class="sd">        Contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [&quot;chrom&quot;, &quot;pos&quot;, &quot;name&quot;, &quot;ref&quot;, &quot;alt&quot;]. Must have the same number of rows as `data`.</span>
 <span class="sd">    loc : int</span>
-<span class="sd">        the chromosomal position of the SNP of interest.</span>
+<span class="sd">        The chromosomal position of the SNP of interest.</span>
 <span class="sd">    loc_index : int</span>
-<span class="sd">        the index of the SNP of interest in the `data` array.</span>
+<span class="sd">        The index of the SNP of interest in the `data` array.</span>
 <span class="sd">    figname : string</span>
-<span class="sd">        name of file that figure will be saves as.</span>
+<span class="sd">        Name of file that figure will be saves as.</span>
 <span class="sd">    fontsize : int, optional.</span>
-<span class="sd">        fontsize for graph, defaults to 8</span>
+<span class="sd">        Fontsize for graph, defaults to 8</span>
 <span class="sd">    static :</span>
-<span class="sd">        species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False</span>
+<span class="sd">        Species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">chrom_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../model_data/target_names.txt&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
     <span class="n">chrom_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">chrom_names</span><span class="p">]</span>
@@ -152,19 +256,19 @@
 <span class="sd">    data : NumPy array</span>
 <span class="sd">        NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</span>
 <span class="sd">    row_labels : Pandas DataFrame</span>
-<span class="sd">        contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [&quot;chrom&quot;, &quot;pos&quot;, &quot;name&quot;, &quot;ref&quot;, &quot;alt&quot;]. Must have the same number of rows as `data`.</span>
+<span class="sd">        Contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [&quot;chrom&quot;, &quot;pos&quot;, &quot;name&quot;, &quot;ref&quot;, &quot;alt&quot;]. Must have the same number of rows as `data`.</span>
 <span class="sd">    loc : int</span>
-<span class="sd">        the chromosomal position of the SNP of interest.</span>
+<span class="sd">        The chromosomal position of the SNP of interest.</span>
 <span class="sd">    loc_index : int</span>
-<span class="sd">        the index of the SNP of interest in the `data` array.</span>
+<span class="sd">        The index of the SNP of interest in the `data` array.</span>
 <span class="sd">    figname : string</span>
-<span class="sd">        name of file that figure will be saves as.</span>
+<span class="sd">        Name of file that figure will be saves as.</span>
 <span class="sd">    top_X : int, optional</span>
-<span class="sd">        the number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be `top_X` * `pos_window` rows and pos_window columns, defaults to 5.</span>
+<span class="sd">        The number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be `top_X` * `pos_window` rows and pos_window columns, defaults to 5.</span>
 <span class="sd">    window : int, optional</span>
-<span class="sd">        the number of to the right and left of `loc` that will be plotted, defaults to 5</span>
+<span class="sd">        The number of to the right and left of `loc` that will be plotted, defaults to 5</span>
 <span class="sd">    fontsize : int, optional.</span>
-<span class="sd">        fontsize for graph, defaults to 8</span>
+<span class="sd">        Fontsize for graph, defaults to 8</span>
 <span class="sd">    pos_window :</span>
 <span class="sd">        Default value = 5)</span>
 
@@ -201,43 +305,19 @@
     
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2022, Briana Macedo.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
-<script>$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SiFoN 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">SiFoN.chrom_viz</a></li> 
-      </ul>
-    </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2022, Briana Macedo.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
-    </div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
   </body>
 </html>

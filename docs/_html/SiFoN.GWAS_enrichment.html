@@ -22,7 +22,7 @@
     
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="SiFoN.chrom_viz module" href="SiFoN.chrom_viz.html" />
+  <link rel="next" title="SiFoN.viz module" href="SiFoN.viz.html" />
   <link rel="prev" title="SiFoN package" href="SiFoN.html" /> 
   </head>
 
@@ -91,6 +91,15 @@
         
           <li class="toctree-l1 ">
             
+              <a href="SiFoN.viz.html" class="reference internal ">SiFoN.viz module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="SiFoN.chrom_viz.html" class="reference internal ">SiFoN.chrom_viz module</a>
             
 
@@ -100,25 +109,16 @@
         
           <li class="toctree-l1 ">
             
+              <a href="SiFoN.smoothing.html" class="reference internal ">SiFoN.smoothing module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="SiFoN.clinical_analysis.html" class="reference internal ">SiFoN.clinical_analysis module</a>
-            
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 ">
-            
-              <a href="SiFoN.construst_FASTA.html" class="reference internal ">SiFoN.construst_FASTA module</a>
-            
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 ">
-            
-              <a href="SiFoN.viz.html" class="reference internal ">SiFoN.viz module</a>
             
 
             
@@ -149,8 +149,8 @@
        title="previous chapter">← SiFoN package</a>
   </li>
   <li class="next">
-    <a href="SiFoN.chrom_viz.html"
-       title="next chapter">SiFoN.chrom_viz module →</a>
+    <a href="SiFoN.viz.html"
+       title="next chapter">SiFoN.viz module →</a>
   </li>
 </ul>
   
@@ -174,9 +174,9 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ccv</strong> (<em>Pandas DataFrame</em>) – Pandas DataFrame in BED format of loci with credible causal variants. Must include at least the following columns: Chrom, Start, End, SNP [identifier/name of sequence])</p></li>
 <li><p><strong>ref_bed</strong> (<em>pyranges BED object</em>) – Should contain sequence class labels across (nearly) the entire genome to allow for background sequence class proportion calculations. Should use the same genomic coordinate system (e.g. hg19 or hg38) as <cite>ccv</cite>.</p></li>
-<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
-<li><p><strong>vmin</strong> (<em>float</em><em>, </em><em>optional</em>) – value corresponding to minimum color in heatmap, default is 0.1</p></li>
-<li><p><strong>vmax</strong> (<em>float</em><em>, </em><em>optional</em>) – value corresponding to minimum color in heatmap, default is 10^1</p></li>
+<li><p><strong>figname</strong> (<em>string</em>) – Name of file that figure will be saves as.</p></li>
+<li><p><strong>vmin</strong> (<em>float</em><em>, </em><em>optional</em>) – Value corresponding to minimum color in heatmap, default is 0.1</p></li>
+<li><p><strong>vmax</strong> (<em>float</em><em>, </em><em>optional</em>) – Value corresponding to minimum color in heatmap, default is 10^1</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -199,8 +199,8 @@
        title="previous chapter">← SiFoN package</a>
   </li>
   <li class="next">
-    <a href="SiFoN.chrom_viz.html"
-       title="next chapter">SiFoN.chrom_viz module →</a>
+    <a href="SiFoN.viz.html"
+       title="next chapter">SiFoN.viz module →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2022, Briana Macedo.
