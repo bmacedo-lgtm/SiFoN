@@ -1,4 +1,4 @@
-SiFoN.construst\_FASTA module
+SiFoN.construct\_FASTA module
 =============================
 
 .. automodule:: SiFoN.construct_FASTA
