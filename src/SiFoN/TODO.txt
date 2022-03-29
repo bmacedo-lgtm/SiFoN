@@ -3,8 +3,5 @@
 
 * fasta module
 * upload data to zenodo dropbox
-* any notebooks/scripts importing need to be in tutorial folder currently. fix this.
-* include what metadata is in plotly hover data
 * fix Sei DIS labels --> DeepSEA DIS or just DIS
 * add kaeledo to requirements.txt
-* explain where datasets came from

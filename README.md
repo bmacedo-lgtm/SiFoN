@@ -9,4 +9,12 @@ The source code is available in `src/SiFoN`.
 * `model_data` includes Sei sequence class names and chromatin profile names. 
 * `requirments.txt` includes all packages required to run SiFoN. 
 
+Note that the following file structure is assumed for SiFoN:
+``` bash
+├── src/
+│   ├── SiFoN
+├── directory/
+│   ├── notebook/script that imports SiFoN
+```
+
 Please visit the [SiFoN documentation page](https://bmacedo-lgtm.github.io/SiFoN/) for a detailed description of each module and their functions.
