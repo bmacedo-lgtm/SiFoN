@@ -17,7 +17,7 @@ Note that the following file structure is assumed for SiFoN:
 │   ├── notebook/script that imports SiFoN
 ```
 
-Also note that there are three files required for the tutorial that are available on [DropBox](https://www.dropbox.com/home/SiFoN_Input_Data). If you are running these tutorials, then please download them and include them in your copy of `tutorials/test_input_data`. You can also use your own test data (if it is in the correct format) by including the data in `tutorials/test_input_data` and changing the lines that read in the data.
+Also note that there are three files required for the tutorial that are available on [DropBox](https://www.dropbox.com/scl/fo/tz61l2a1kmxma4p10yc7d/h?dl=0&rlkey=jwz5avk5ara6im747x2od697o). If you are running these tutorials, then please download them and include them in your copy of `tutorials/test_input_data`. You can also use your own test data (if it is in the correct format) by including the data in `tutorials/test_input_data` and changing the lines that read in the data.
 * `output.bed` is used for `tutorials/GWAS_enrichment.ipynb` 
 * `chr12_115750000_116000000_sequence_class_scores.npy` is used for `tutorials/smoothing.ipynb`
 * `chr10_89580225_89633389_diffs` is used for `tutorials/chrom_viz.ipynb`
