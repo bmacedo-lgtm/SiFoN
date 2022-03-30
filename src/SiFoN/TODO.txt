@@ -2,6 +2,4 @@
 # coding: utf-8
 
 * fasta module
-* upload data to zenodo dropbox
 * fix Sei DIS labels --> DeepSEA DIS or just DIS
-* add kaeledo to requirements.txt
