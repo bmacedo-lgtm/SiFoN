@@ -1,5 +1,5 @@
 """
-This module includes functions for visualizing chromatin profile scores along genomic regions. This module require Sei chromatin profile scoes as input, and therefore assumes that predictions have already been calculated. 
+This module includes functions for visualizing chromatin profile scores along genomic regions. This module requires Sei chromatin profile scoes as input and therefore assumes that predictions have already been calculated. 
 
 Functions:
     white_bg
@@ -21,12 +21,12 @@ from matplotlib.colors import LogNorm, Normalize, SymLogNorm
 
 ### Heatmap
 def white_bg(fig):
-    """This function changes a plotly figure `fig` to have a white background. Changes the figure object.
+    """This function changes a plotly figure object `fig` to have a white background.
 
     Parameters
     ----------
-    fig : plotly figure
-        plotly figure
+    fig : Plotly figure
+        Plotly figure
 
     """
     fig.update_layout({"plot_bgcolor": "rgba(0, 0, 0, 0)",
@@ -48,7 +48,7 @@ def preprocess_diff(diff, row_labels):
     Returns
     -------
     NumPy array, Pandas DataFrame
-        Returns filtered `diff` and `row_labels`
+        Returns filtered `diff` and `row_labels` as (`diff`, `row_labels`)
 
     """
     
@@ -61,7 +61,7 @@ def preprocess_diff(diff, row_labels):
 
 
 def rank_scatter_plot(diff, row_labels, loc, loc_index, figname, fontsize=18, static=False):
-    """Creates, displays, and saves a scatter plot of ranked chromatin profiles at for a particular SNP. Each point corresponds to a chromatin profile, with hover data specifying: rank, score, profile name, and tissue of origin.
+    """Creates, displays, and saves a scatter plot of the ranked chromatin profiles of a particular SNP. Profiles are ranked by magnitude of score. Each point corresponds to a chromatin profile, with hover data specifying: rank, score, profile name, and tissue of origin.
 
     Parameters
     ----------
@@ -74,11 +74,11 @@ def rank_scatter_plot(diff, row_labels, loc, loc_index, figname, fontsize=18, st
     loc_index : int
         The index of the SNP of interest in the `data` array.
     figname : string
-        Name of file that figure will be saves as.
+        Name of file that figure will be saved as.
     fontsize : int, optional.
         Fontsize for graph, defaults to 8
     static :
-        Species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False
+        Specifies whether to output a static png image (True) or an interactive HTML image in your notebook (False), defaults to False
     """
     chrom_names = pd.read_csv("../model_data/target_names.txt", header=None, sep="\n").to_numpy()
     chrom_names = [name[0].split("|") for name in chrom_names]
@@ -118,15 +118,13 @@ def chromatin_profile_heatmap(data, row_labels, loc, loc_index, figname, top_X=5
     loc_index : int
         The index of the SNP of interest in the `data` array.
     figname : string
-        Name of file that figure will be saves as.
+        Name of file that figure will be saved as.
     top_X : int, optional
         The number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be `top_X` * `pos_window` rows and pos_window columns, defaults to 5.
-    window : int, optional
-        The number of to the right and left of `loc` that will be plotted, defaults to 5
+    pos_window : int, optional
+        The number of SNPs to the right and left of `loc` that will be plotted. For example, if window = 5, then 10 SNPs will be plotted, defaults to 5
     fontsize : int, optional.
         Fontsize for graph, defaults to 8
-    pos_window :
-        Default value = 5)
 
     """
     chrom_names = pd.read_csv("../model_data/target_names.txt", header=None, sep="\n").to_numpy()
