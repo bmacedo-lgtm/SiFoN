@@ -26,7 +26,7 @@ def white_bg(fig):
     Parameters
     ----------
     fig : Plotly figure
-        Plotly figure
+        Plotly figure.
 
     """
     fig.update_layout({"plot_bgcolor": "rgba(0, 0, 0, 0)",
@@ -76,9 +76,9 @@ def rank_scatter_plot(diff, row_labels, loc, loc_index, figname, fontsize=18, st
     figname : string
         Name of file that figure will be saved as.
     fontsize : int, optional.
-        Fontsize for graph, defaults to 8
+        Fontsize for graph, defaults to 8.
     static :
-        Specifies whether to output a static png image (True) or an interactive HTML image in your notebook (False), defaults to False
+        Specifies whether to output a static png image (True) or an interactive HTML image in your notebook (False), defaults to False.
     """
     chrom_names = pd.read_csv("../model_data/target_names.txt", header=None, sep="\n").to_numpy()
     chrom_names = [name[0].split("|") for name in chrom_names]
@@ -122,9 +122,9 @@ def chromatin_profile_heatmap(data, row_labels, loc, loc_index, figname, top_X=5
     top_X : int, optional
         The number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be `top_X` * `pos_window` rows and pos_window columns, defaults to 5.
     pos_window : int, optional
-        The number of SNPs to the right and left of `loc` that will be plotted. For example, if window = 5, then 10 SNPs will be plotted, defaults to 5
+        The number of SNPs to the right and left of `loc` that will be plotted. For example, if window = 5, then 10 SNPs will be plotted, defaults to 5.
     fontsize : int, optional.
-        Fontsize for graph, defaults to 8
+        Fontsize for graph, defaults to 8.
 
     """
     chrom_names = pd.read_csv("../model_data/target_names.txt", header=None, sep="\n").to_numpy()
