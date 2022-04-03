@@ -1,5 +1,12 @@
 """
 This module includes functions to smooth data and then visualize the effects of smoothing.
+
+Functions:
+    smooth_class
+    
+    plot_smooth_v_raw
+    
+    smooth_all_scores
 """
 
 from scipy.signal import savgol_filter
