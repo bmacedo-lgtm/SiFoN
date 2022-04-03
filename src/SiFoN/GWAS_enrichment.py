@@ -29,9 +29,9 @@ def find_and_plot_enrichment(ccv, ref_bed, figname, vmin=0.1, vmax=10^1):
     figname : string
         Name of file that figure will be saved as.
     vmin : float, optional
-        Value corresponding to minimum color in heatmap, default is 0.1
+        Value corresponding to minimum color in heatmap, default is 0.1.
     vmax : float, optional
-        Value corresponding to minimum color in heatmap, default is 10^1
+        Value corresponding to minimum color in heatmap, default is 10^1.
 
     Returns
     -------
