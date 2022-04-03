@@ -1,5 +1,0 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-* fasta module
-* fix Sei DIS labels --> DeepSEA DIS or just DIS
