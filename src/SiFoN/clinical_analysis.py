@@ -1,5 +1,5 @@
 """
-This module makes it easy to combine clinical data with Sei sequence class predictions. In particular, this module includes functions to convert common clinical file formats to VCF for Sei; it includes a function to calculate odds ratios and assign SNPs to case or control labels based on these odds ratios; and it includes a method for compare sequence class scores between cases and controls. 
+This module makes it easy to combine clinical data with Sei sequence class predictions. In particular, this module includes functions to convert common clinical file formats to VCF files, a function to calculate odds ratios and assign SNPs to case or control labels based on these odds ratios, and a function to compare sequence class scores between cases and controls. 
 
 Functions:
     cdot_to_VC
@@ -21,7 +21,7 @@ import re
 seqclass_names = pd.read_csv("../model_data/seqclass-names.txt", header=None, sep="\n").to_numpy()
 
 def cdot_to_VCF(data, chrm, start=0):
-    """Converts alterations from the c-dot (c. pos ref > alt) format to a VCF file.
+    """Converts alterations from the c-dot (c. pos ref > alt e.g. c.300A>G) format to a VCF file.
 
     Parameters
     ----------
@@ -30,7 +30,7 @@ def cdot_to_VCF(data, chrm, start=0):
     chrm : string
         Chromosome of alterations. Should be in the form "chr" + the chromosome number (e.g. chr10).
     start : int, optional
-        Reference genomic position for alterations, default is 0
+        Reference genomic position for alterations (e.g if all SNPs were in reference to position 1000 and you had a SNP c.300A>G than the true position would be 1300), default is 0.
 
     Returns
     -------
@@ -48,23 +48,23 @@ def cdot_to_VCF(data, chrm, start=0):
 
 
 
-def odds_ratio(df, control_col, case_col, num_cases, num_controls, correction):
-    """Calculates the odds ratio of case and control counts. Adds a new column to your dataframe `df` called "Odds Ratio"
+def odds_ratio(df, control_col, case_col, num_cases, num_controls, correction=0.01):
+    """Calculates the odds ratio of case and control counts. Adds a new column to your dataframe `df` called "Odds Ratio".
 
     Parameters
     ----------
     df : Pandas DataFrame
         Contains case and control counts and any other metadata.
     control_col : string
-        Name of DataFrame column with control counts
+        Name of DataFrame column with control counts.
     case_col : string
-        Name of DataFrame column with case counts
+        Name of DataFrame column with case counts.
     num_cases : int
-        Number of total cases
+        Number of total cases.
     num_controls : int
-        Number of total controls
-    correction : float
-        Added to all counts to prevent division by zero in the case of zero counts.
+        Number of total controls.
+    correction : float, optional
+        Added to all counts to prevent division by zero in the case of zero counts, default is 0.01.
 
     """
     df["Odds Ratio"] = [((case + correction)/num_cases)/((control + correction)/num_controls)
@@ -78,26 +78,26 @@ def add_case_control_label(df, case_cuttoff, control_cutoff):
     df : Pandas DataFrame
         Contains case and control counts and any other metadata. Must have an "Odds Ratio" column.
     case_cuttoff : int
-        Cutoff odds ratio to consider something a "Case" SNP
+        Cutoff odds ratio to consider something a "Case" SNP.
     control_cutoff : int
-        Cutoff odds ratio to consider something a "Control" SNP
+        Cutoff odds ratio to consider something a "Control" SNP.
     """
     df["Case/Control"] = ["Case" if OR > case_cuttoff else "Control" if OR < control_cutoff else "Equal"
                               for OR in df["Odds Ratio"]]
 
 def seq_class_t_tests(df, figname, fontsize=18, markersize=7):
-    """Runs t-tests to compare sequence class scores in case and control populations. Returns p-vals and plots ranked p-vals.
+    """Runs t-tests to compare sequence class scores in case and control populations. Returns p-values and then plots ranked p-values.
 
     Parameters
     ----------
     df : Pandas DataFrame
         Contains case and control counts and any other metadata. Must have scores for all 40 Sei sequence classes. Column names must correspond to sequence class names.
     figname : string
-        Name of file that figure will be saves as.
+        Name of file that figure will be saved as.
     fontsize : int, optional.
-        Fontsize for graph, defaults to 18
+        Fontsize for graph, defaults to 18,
     markersize : int, optional.
-        Markersize for graph, defaults to 7
+        Markersize for graph, defaults to 7,
 
     Returns
     -------
