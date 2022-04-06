@@ -23,20 +23,20 @@ def find_and_plot_enrichment(ccv, ref_bed, figname, vmin=0.1, vmax=10^1):
     Parameters
     ----------
     ccv : Pandas DataFrame
-        Pandas DataFrame in BED format of loci with credible causal variants. Must include at least the following columns: Chrom, Start, End, SNP [identifier/name of sequence])
+        Pandas DataFrame in BED format containing disease risk loci. Must include at least the following columns: Chrom, Start, End, SNP (identifier/name of sequence).
     ref_bed : pyranges BED object
         Should contain sequence class labels across (nearly) the entire genome to allow for background sequence class proportion calculations. Should use the same genomic coordinate system (e.g. hg19 or hg38) as `ccv`.
     figname : string
-        Name of file that figure will be saves as.
+        Name of file that figure will be saved as.
     vmin : float, optional
-        Value corresponding to minimum color in heatmap, default is 0.1
+        Value corresponding to minimum color in heatmap, default is 0.1.
     vmax : float, optional
-        Value corresponding to minimum color in heatmap, default is 10^1
+        Value corresponding to minimum color in heatmap, default is 10^1.
 
     Returns
     -------
     Pandas DataFrame
-        Sequence class enrichment dataframe. Rows correspond to risk loci sequence and the indices are the "SNP" column of `ccv` (the name/ID for each sequence). Columns correspond to the 40 sequence classes.
+        Sequence class enrichment dataframe. Rows correspond to risk loci and the indices are the "SNP" column of `ccv` (the name/ID for each sequence). Columns correspond to the 40 sequence classes.
 
     """
     intersect_bed = pr.PyRanges(ccv)
