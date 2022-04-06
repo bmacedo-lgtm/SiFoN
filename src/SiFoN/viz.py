@@ -237,17 +237,23 @@ def plot_sequence_class(filename, file, vcf, TSS={}, category="All", signed=True
     plot_max(filename, scores, TSS, yaxis_title=category + " Scores")
     return scores
                 
-def plot_max(filename, scores_prune, TSS={}, yaxis_title="Max Score"):
+def plot_max(filename, scores_prune, TSS={}, yaxis_title="Max Score", fontsize=18, pointsize=5, opacity=0.3):
     """Plots the maximum Sei classes along a genomic sequence.
 
     Parameters
     ----------
     filename : string
-        Name of file that figure will be saved as.
+        name of file that figure will be saved as.
     scores_prune : Pandas DataFrame
-        Dataframe that denotes the maximum Sei sequence classes along some region of the genome. Must contain the following columns: ["Max Score", "Class", "Position", "Sequence Name"]. This is generated as output from the `find_max` and `find_max_by_category` functions.
+        dataframe that denotes the maximum Sei sequence classes along some region of the genome. Must contain the following columns: ["Max Score", "Class", "Position", "Sequence Name"]. This is generated as output from the `find_max` and `find_max_by_category` functions.
     TSS : Dict[str, list[int, int]]
-        Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated.
+        specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated.
+    fontsize : float, optional
+        font size of plot, default is 18
+    pointsize : float, optional
+        size of points on plot, default is 5
+    opacity : float, optional
+        opacity of points on plot, default is 0.3
     """
     y, color = "Max Score", "Class"   
     fig = px.scatter(scores_prune, x="Position", y=y, color=color,
@@ -258,8 +264,8 @@ def plot_max(filename, scores_prune, TSS={}, yaxis_title="Max Score"):
     for num, (tss_desc, tss_pos) in enumerate(TSS.items()):
         val = -num*2 - 2 + bot
         fig.add_trace(go.Scatter(y=[val, val], x=tss_pos, mode="lines+text", name=tss_desc, line=dict(width=7)))
-    fig.update_layout(font=dict(size=18), yaxis_title=yaxis_title)
-    fig.update_traces(marker={'size': 5, 'opacity':0.3})
+    fig.update_layout(font=dict(size=fontsize), yaxis_title=yaxis_title)
+    fig.update_traces(marker={'size': pointsize, 'opacity':opacity})
     white_bg(fig)
     fig.write_html(filename)
     fig.show("png")

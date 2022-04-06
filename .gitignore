@@ -128,5 +128,10 @@ dmypy.json
 output.bed
 test
 chr10_89580225_89633389_diffs.h5
+chr12_115750000_116000000_sequence_class_scores.npy
+normalize.ipynb
+noramlized_PTEN.html
+DIS_v_pos.html
+max_v_pos.html
 # Pyre type checker
 .pyre/
