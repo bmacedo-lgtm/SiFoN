@@ -1,45 +1,158 @@
-
 <!DOCTYPE html>
-
-<html lang="en">
+<html  lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SiFoN.viz &#8212; SiFoN 0.0.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>SiFoN.viz</title>
     
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
-  </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SiFoN 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">SiFoN.viz</a></li> 
-      </ul>
-    </div>  
+          <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../../_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../../_static/theme-vendors.js"></script> -->
+      <script src="../../_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="../../genindex.html" />
+  <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../index.html" class="home-link">
+    
+      <span class="site-name">SiFoN</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../SiFoN.html#submodules">submodules</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.construct_FASTA.html" class="reference internal ">SiFoN.construct_FASTA module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.GWAS_enrichment.html" class="reference internal ">SiFoN.GWAS_enrichment module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.viz.html" class="reference internal ">SiFoN.viz module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.chrom_viz.html" class="reference internal ">SiFoN.chrom_viz module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.smoothing.html" class="reference internal ">SiFoN.smoothing module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.clinical_analysis.html" class="reference internal ">SiFoN.clinical_analysis module</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../index.html">Module code</a> &raquo;</li>
+    
+    <li>SiFoN.viz</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
             
   <h1>Source code for SiFoN.viz</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This module includes functions for visualizing sequence class scores along genomic regions. This module require Sei sequence class scores as input, and therefore assumes that predictions have already been calculated. </span>
+<span class="sd">This module includes functions for visualizing sequence class scores along genomic regions. This module requires Sei sequence class scores as input, and therefore assumes that predictions have already been calculated. </span>
 
 <span class="sd">Functions:</span>
 
@@ -73,7 +186,6 @@
 <span class="kn">from</span> <span class="nn">plotly.graph_objs</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
 
-<span class="c1"># TODO: add seqclass_names to github and directly link</span>
 <span class="n">seqclass</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../model_data/seqclass-names.txt&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 <span class="n">color_map</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;E&#39;</span><span class="p">:</span> <span class="s2">&quot;#984ef3&quot;</span><span class="p">,</span>
@@ -121,15 +233,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    scores_max :</span>
-<span class="sd">        type scores_max: NumPy Array</span>
+<span class="sd">    scores_max : NumPy Array</span>
+<span class="sd">        This array should be in the same format as the output to the `find_max ` function.</span>
+<span class="sd">        </span>
 <span class="sd">    seqclass_names : list of strings, optional</span>
-<span class="sd">        List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in &quot;model_data/seqclass-names.txt&quot;</span>
+<span class="sd">        List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in &quot;model_data/seqclass-names.txt&quot;.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    type</span>
-<span class="sd">        an updated version of `scores_max` that adds the columns “Sequence Index”, “Class” (e..g E, P, TF), “Color” (corresponding to the “Class” column), “Function” (whether a sequence class is associated with repressed or active chromatin). SNPs with a max score in the Low Impact category are also removed.</span>
+<span class="sd">    NumPy Array</span>
+<span class="sd">        An updated version of `scores_max` that adds the columns “Sequence Index”, “Class” (e..g E, P, TF), “Color” (corresponding to the “Class” column), “Function” (whether a sequence class is associated with repressed or active chromatin). SNPs with a max score in the Low Impact category are removed.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">seqclass_names</span> <span class="o">==</span> <span class="p">[]:</span> <span class="n">seqclass_names</span><span class="o">=</span><span class="n">seqclass</span>
@@ -148,13 +261,13 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    file : string</span>
-<span class="sd">        filename of NumPy sequence class scores</span>
+<span class="sd">        Filename of NumPy sequence class scores.</span>
 <span class="sd">    vcf : Pandas DataFrame</span>
 <span class="sd">        VCF of SNPs of interest, including “Position” column.</span>
 <span class="sd">    seqclass_names : list of strings, optional</span>
-<span class="sd">        List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in &quot;model_data/seqclass-names.txt&quot;</span>
+<span class="sd">        List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in &quot;model_data/seqclass-names.txt&quot;.</span>
 <span class="sd">    signed : Boolean, optional</span>
-<span class="sd">        signifies whether parameters are evaluated by absolute value (False) or not (True), default is True</span>
+<span class="sd">        Signifies whether parameters are evaluated by absolute value (False) or not (True), default is True.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -188,15 +301,14 @@
 <span class="sd">    scores : NumPy array</span>
 <span class="sd">        Takes the (abs) max sequence class score for each position/alteration. Should run the `preprocessing` function first. The output array has columns [“Max Score&quot;, &quot;Sequence Name&quot;] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the `postprocess` function.</span>
 <span class="sd">    signed : Boolean, optional</span>
-<span class="sd">        signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True</span>
+<span class="sd">        Signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True.</span>
 <span class="sd">    seqclass_names : list of strings, optional</span>
-<span class="sd">        List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in &quot;model_data/seqclass-names.txt&quot;</span>
+<span class="sd">        List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in &quot;model_data/seqclass-names.txt&quot;.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    Pandas DataFrame</span>
 <span class="sd">        Dataframe with one prediction per alteration, corresponding the maximum sequence class score and its corresponding sequence class name. Metadata used for graphing is also included in the dataframe.</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">seqclass_names</span> <span class="o">==</span> <span class="p">[]:</span> <span class="n">seqclass_names</span><span class="o">=</span><span class="n">seqclass</span>
     <span class="k">if</span> <span class="n">signed</span><span class="p">:</span>
@@ -218,9 +330,9 @@
 <span class="sd">    scores : NumPy array</span>
 <span class="sd">        Takes the (abs) max sequence class score within a category for each position/alteration. Should run the `preprocessing` function first. The output array has columns [“Max Score&quot;, &quot;Sequence Name&quot;] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the `postprocess` function.</span>
 <span class="sd">    signed : Boolean, optional</span>
-<span class="sd">        signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True</span>
+<span class="sd">        Signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True.</span>
 <span class="sd">    seqclass_names : list of strings, optional</span>
-<span class="sd">        List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in &quot;model_data/seqclass-names.txt&quot;</span>
+<span class="sd">        List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in &quot;model_data/seqclass-names.txt&quot;.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -246,21 +358,21 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    filename : string</span>
-<span class="sd">        name of file that figure will be saved as.</span>
+<span class="sd">        Name of file that figure will be saved as.</span>
 <span class="sd">    file : string</span>
-<span class="sd">        filename of NumPy sequence class scores</span>
+<span class="sd">        Filename of NumPy sequence class scores.</span>
 <span class="sd">    vcf : Pandas DataFrame</span>
 <span class="sd">        VCF of SNPs of interest, including “Position” column.</span>
 <span class="sd">    TSS : Dict[str, list[int, int]], optional</span>
-<span class="sd">        Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated, defaults to an empty dictionary</span>
+<span class="sd">        Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated, defaults to an empty dictionary.</span>
 <span class="sd">    category : string, optional</span>
-<span class="sd">        Determines which sets of predictions will be plotted. Should be one of the category names listed in the `color_map`. If set to &quot;All&quot; then the full set of predictions is plotted, default is &quot;All&quot;</span>
+<span class="sd">        Determines which sets of predictions will be plotted. Should be one of the category names listed in the `color_map`. If set to &quot;All&quot; then the full set of predictions is plotted, default is &quot;All&quot;.</span>
 <span class="sd">    signed : Boolean, optional</span>
-<span class="sd">        signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True</span>
+<span class="sd">        Signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True.</span>
 <span class="sd">    pre : Boolean, optional</span>
-<span class="sd">        determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.</span>
+<span class="sd">        Determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.</span>
 <span class="sd">    seqclass_names : list of strings, optional</span>
-<span class="sd">        List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in &quot;model_data/seqclass-names.txt&quot;</span>
+<span class="sd">        List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in &quot;model_data/seqclass-names.txt&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">seqclass_names</span> <span class="o">==</span> <span class="p">[]:</span> <span class="n">seqclass_names</span><span class="o">=</span><span class="n">seqclass</span>
     <span class="k">if</span> <span class="n">pre</span><span class="p">:</span> 
@@ -277,7 +389,7 @@
     <span class="n">plot_max</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">TSS</span><span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="n">category</span> <span class="o">+</span> <span class="s2">&quot; Scores&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">scores</span></div>
                 
-<div class="viewcode-block" id="plot_max"><a class="viewcode-back" href="../../SiFoN.viz.html#SiFoN.viz.plot_max">[docs]</a><span class="k">def</span> <span class="nf">plot_max</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">scores_prune</span><span class="p">,</span> <span class="n">TSS</span><span class="o">=</span><span class="p">{},</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Max Score&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_max"><a class="viewcode-back" href="../../SiFoN.viz.html#SiFoN.viz.plot_max">[docs]</a><span class="k">def</span> <span class="nf">plot_max</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">scores_prune</span><span class="p">,</span> <span class="n">TSS</span><span class="o">=</span><span class="p">{},</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Max Score&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">pointsize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Plots the maximum Sei classes along a genomic sequence.</span>
 
 <span class="sd">    Parameters</span>
@@ -285,9 +397,15 @@
 <span class="sd">    filename : string</span>
 <span class="sd">        name of file that figure will be saved as.</span>
 <span class="sd">    scores_prune : Pandas DataFrame</span>
-<span class="sd">        Dataframe that denotes the maximum Sei sequence classes along some region of the genome. Must contain the following columns: [&quot;Max Score&quot;, &quot;Class&quot;, &quot;Position&quot;, &quot;Sequence Name&quot;]. This is generated as output from the `find_max` and `find_max_by_category` functions.</span>
+<span class="sd">        dataframe that denotes the maximum Sei sequence classes along some region of the genome. Must contain the following columns: [&quot;Max Score&quot;, &quot;Class&quot;, &quot;Position&quot;, &quot;Sequence Name&quot;]. This is generated as output from the `find_max` and `find_max_by_category` functions.</span>
 <span class="sd">    TSS : Dict[str, list[int, int]]</span>
-<span class="sd">        Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated.</span>
+<span class="sd">        specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated.</span>
+<span class="sd">    fontsize : float, optional</span>
+<span class="sd">        font size of plot, default is 18</span>
+<span class="sd">    pointsize : float, optional</span>
+<span class="sd">        size of points on plot, default is 5</span>
+<span class="sd">    opacity : float, optional</span>
+<span class="sd">        opacity of points on plot, default is 0.3</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">y</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;Max Score&quot;</span><span class="p">,</span> <span class="s2">&quot;Class&quot;</span>   
     <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">scores_prune</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Position&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
@@ -298,8 +416,8 @@
     <span class="k">for</span> <span class="n">num</span><span class="p">,</span> <span class="p">(</span><span class="n">tss_desc</span><span class="p">,</span> <span class="n">tss_pos</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">TSS</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
         <span class="n">val</span> <span class="o">=</span> <span class="o">-</span><span class="n">num</span><span class="o">*</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">bot</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">val</span><span class="p">,</span> <span class="n">val</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="n">tss_pos</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;lines+text&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">tss_desc</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">7</span><span class="p">)))</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">),</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="n">yaxis_title</span><span class="p">)</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;opacity&#39;</span><span class="p">:</span><span class="mf">0.3</span><span class="p">})</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">fontsize</span><span class="p">),</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="n">yaxis_title</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="n">pointsize</span><span class="p">,</span> <span class="s1">&#39;opacity&#39;</span><span class="p">:</span><span class="n">opacity</span><span class="p">})</span>
     <span class="n">white_bg</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">write_html</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;png&quot;</span><span class="p">)</span></div>
@@ -310,21 +428,21 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    filename : string</span>
-<span class="sd">        name of file that figure will be saved as.</span>
+<span class="sd">        Name of file that figure will be saved as.</span>
 <span class="sd">    file : string</span>
-<span class="sd">        filename of NumPy sequence class scores</span>
+<span class="sd">        Filename of NumPy sequence class scores</span>
 <span class="sd">    vcf : Pandas DataFrame</span>
 <span class="sd">        VCF of SNPs of interest, including “Position” column.</span>
 <span class="sd">    TSS : Dict[str, list[int, int]], optional</span>
-<span class="sd">        Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated, defaults to an empty dictionary</span>
+<span class="sd">        Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated, defaults to an empty dictionary.</span>
 <span class="sd">    signed : Boolean, optional</span>
-<span class="sd">        signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True</span>
+<span class="sd">        Signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the `preprocessing` function, default is True.</span>
 <span class="sd">    plot_by : string, optional</span>
-<span class="sd">        Specifies whether the maximum of sequence class is plotted (&quot;class&quot;) or the maximim within each sequence category (&quot;category). Should be either &quot;class&quot; (calls `find_max`) or &quot;category&quot; (calls `find_max_by_category`), defaults to &quot;class&quot;</span>
+<span class="sd">        Specifies whether the maximum of sequence class is plotted (&quot;class&quot;) or the maximim within each sequence category (&quot;category). Should be either &quot;class&quot; (calls `find_max`) or &quot;category&quot; (calls `find_max_by_category`), defaults to &quot;class&quot;.</span>
 <span class="sd">    pre : Boolean, optional</span>
-<span class="sd">        determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.</span>
+<span class="sd">        Determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.</span>
 <span class="sd">    seqclass_names : list of strings, optional</span>
-<span class="sd">        List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in &quot;model_data/seqclass-names.txt&quot;</span>
+<span class="sd">        List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in &quot;model_data/seqclass-names.txt&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">seqclass_names</span> <span class="o">==</span> <span class="p">[]:</span> <span class="n">seqclass_names</span><span class="o">=</span><span class="n">seqclass</span>
     <span class="k">if</span> <span class="n">pre</span><span class="p">:</span> 
@@ -342,43 +460,19 @@
         
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2022, Briana Macedo.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
-<script>$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SiFoN 0.0.1 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">SiFoN.viz</a></li> 
-      </ul>
-    </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2022, Briana Macedo.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
-    </div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
   </body>
 </html>

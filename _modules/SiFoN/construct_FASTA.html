@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>SiFoN.construct_FASTA</title>
+    
+          <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../../_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../../_static/theme-vendors.js"></script> -->
+      <script src="../../_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="../../genindex.html" />
+  <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../index.html" class="home-link">
+    
+      <span class="site-name">SiFoN</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../SiFoN.html#submodules">submodules</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.construct_FASTA.html" class="reference internal ">SiFoN.construct_FASTA module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.GWAS_enrichment.html" class="reference internal ">SiFoN.GWAS_enrichment module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.viz.html" class="reference internal ">SiFoN.viz module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.chrom_viz.html" class="reference internal ">SiFoN.chrom_viz module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.smoothing.html" class="reference internal ">SiFoN.smoothing module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="../../SiFoN.clinical_analysis.html" class="reference internal ">SiFoN.clinical_analysis module</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../index.html">Module code</a> &raquo;</li>
+    
+    <li>SiFoN.construct_FASTA</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <h1>Source code for SiFoN.construct_FASTA</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot; This module includes functions that create FASTA files containing haplotypes as input into Sei&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">selene_sdk.sequences</span> <span class="kn">import</span> <span class="n">Genome</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">alt_allele</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span><span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">:</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">:</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span><span class="s2">&quot;T&quot;</span><span class="p">}</span>
+    
+<div class="viewcode-block" id="write_haps_of_pairs"><a class="viewcode-back" href="../../SiFoN.construct_FASTA.html#SiFoN.construct_FASTA.write_haps_of_pairs">[docs]</a><span class="k">def</span> <span class="nf">write_haps_of_pairs</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ref_filename</span><span class="p">,</span> <span class="n">alt_filename</span><span class="p">,</span> <span class="n">shift_filename</span><span class="p">,</span> <span class="n">centered_filename</span><span class="p">,</span>
+         <span class="n">chrm</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">gn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Give a VCF file of SNPs, this module will create a FASTA file containing haplotype sequences that consist of all pairs of SNPs within a `cutoff` distance from one another. These FASTA files are in a format that can be read by Sei.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : Pandas DataFrame </span>
+<span class="sd">        NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of </span>
+<span class="sd">    ref_filename : string</span>
+<span class="sd">        Filename for referance file</span>
+<span class="sd">    alt_filename : string</span>
+<span class="sd">        Filename for alternative file (containing all haplotype SNPs)</span>
+<span class="sd">    shift_filename : string</span>
+<span class="sd">        Filename for shifted file (only contains the off center SNP)</span>
+<span class="sd">    centered_filename : string</span>
+<span class="sd">        Filename for centered file (only contains the centered SNP)</span>
+<span class="sd">    chrm : string</span>
+<span class="sd">        Chromsome of haplotype. Should be in the format &quot;chr&quot; + number (e.g. chrm10).</span>
+<span class="sd">    cutoff : int</span>
+<span class="sd">        Specifies how far away two SNPs need to be to calculate a haplotype. The default is 2000. Since Sei works with 4kb input strings, this value should be &lt;= 2000. </span>
+<span class="sd">    gn : selene_sdk.sequences.Genome</span>
+<span class="sd">        Reference genome</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">alt_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">alt_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">ref_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">ref_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">shift_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">shift_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> 
+    <span class="n">centered_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">centered_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="mi">2048</span>
+    <span class="n">ID_to_alt_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;ID&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;ALT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">ID</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;POS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> 
+                            <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;ID&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+        
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">pairs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">cutoff</span><span class="p">):</span> <span class="k">continue</span> <span class="c1"># skip if snps are too far apart</span>
+        <span class="k">if</span> <span class="n">pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">pairs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="k">continue</span> <span class="c1"># skip if snps are at the same position</span>
+        <span class="n">write_to_file</span><span class="p">(</span><span class="n">pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pairs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">chrm</span><span class="p">,</span>
+                     <span class="n">ref_file</span><span class="p">,</span> <span class="n">alt_file</span><span class="p">,</span> <span class="n">shift_file</span><span class="p">,</span> <span class="n">centered_file</span><span class="p">,</span> 
+                                 <span class="n">ID</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ID</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ID_to_alt_dict</span><span class="p">,</span> <span class="n">gn</span><span class="p">)</span>
+        <span class="n">write_to_file</span><span class="p">(</span><span class="n">pairs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">chrm</span><span class="p">,</span>
+                     <span class="n">ref_file</span><span class="p">,</span> <span class="n">alt_file</span><span class="p">,</span> <span class="n">shift_file</span><span class="p">,</span> <span class="n">centered_file</span><span class="p">,</span> 
+                                 <span class="n">ID</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ID</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ID_to_alt_dict</span><span class="p">,</span> <span class="n">gn</span><span class="p">)</span>
+    <span class="n">ref_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">alt_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">shift_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">centered_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>   </div>
+
+<div class="viewcode-block" id="write_to_file"><a class="viewcode-back" href="../../SiFoN.construct_FASTA.html#SiFoN.construct_FASTA.write_to_file">[docs]</a><span class="k">def</span> <span class="nf">write_to_file</span><span class="p">(</span><span class="n">snp1</span><span class="p">,</span> <span class="n">snp2</span><span class="p">,</span> <span class="n">chrm</span><span class="p">,</span>
+                 <span class="n">ref_file</span><span class="p">,</span> <span class="n">alt_file</span><span class="p">,</span> <span class="n">shift_file</span><span class="p">,</span> <span class="n">centered_file</span><span class="p">,</span> 
+                 <span class="n">id1</span><span class="p">,</span> <span class="n">id2</span><span class="p">,</span> <span class="n">ID_to_alt_dict</span><span class="p">,</span> <span class="n">gn</span><span class="p">):</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="mi">2048</span>
+    <span class="n">seq</span> <span class="o">=</span> <span class="n">gn</span><span class="o">.</span><span class="n">get_sequence_from_coords</span><span class="p">(</span><span class="n">chrom</span> <span class="o">=</span> <span class="n">chrm</span><span class="p">,</span>
+                                 <span class="n">start</span> <span class="o">=</span> <span class="n">snp1</span> <span class="o">-</span> <span class="n">offset</span><span class="p">,</span>
+                                 <span class="n">end</span> <span class="o">=</span> <span class="n">snp1</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span>
+    <span class="n">preface</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">snp1</span><span class="p">)</span> <span class="o">+</span>  <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">snp2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">id1</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">id2</span><span class="p">)</span>
+    <span class="n">ref_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">preface</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">seq</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">seq_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span> 
+    
+    <span class="c1"># add shifted reference </span>
+    <span class="n">seq_list</span><span class="p">[</span><span class="n">offset</span> <span class="o">+</span> <span class="n">snp1</span> <span class="o">-</span> <span class="n">snp2</span><span class="p">]</span> <span class="o">=</span> <span class="n">ID_to_alt_dict</span><span class="p">[</span><span class="n">id2</span><span class="p">]</span>
+    <span class="n">mut_seq</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">seq_list</span><span class="p">)</span>
+    <span class="n">shift_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">preface</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">mut_seq</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># add centered reference</span>
+    <span class="n">seq_list2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+    <span class="n">seq_list2</span><span class="p">[</span><span class="n">offset</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">ID_to_alt_dict</span><span class="p">[</span><span class="n">id1</span><span class="p">]</span>
+    <span class="n">mut_seq</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">seq_list2</span><span class="p">)</span>
+    <span class="n">centered_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">preface</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">mut_seq</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># add haplotype</span>
+    <span class="n">seq_list</span><span class="p">[</span><span class="n">offset</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">ID_to_alt_dict</span><span class="p">[</span><span class="n">id1</span><span class="p">]</span>
+    <span class="n">mut_seq</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">seq_list</span><span class="p">)</span>
+    <span class="n">alt_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">preface</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">mut_seq</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">preface</span></div>
+</pre></div>
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2022, Briana Macedo.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

@@ -22,7 +22,8 @@
     
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
-  <link rel="prev" title="SiFoN.construst_FASTA module" href="SiFoN.construst_FASTA.html" /> 
+  <link rel="next" title="SiFoN.chrom_viz module" href="SiFoN.chrom_viz.html" />
+  <link rel="prev" title="SiFoN.GWAS_enrichment module" href="SiFoN.GWAS_enrichment.html" /> 
   </head>
 
   <body>
@@ -75,34 +76,16 @@
         
           <li class="toctree-l1 ">
             
+              <a href="SiFoN.construct_FASTA.html" class="reference internal ">SiFoN.construct_FASTA module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="SiFoN.GWAS_enrichment.html" class="reference internal ">SiFoN.GWAS_enrichment module</a>
-            
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 ">
-            
-              <a href="SiFoN.chrom_viz.html" class="reference internal ">SiFoN.chrom_viz module</a>
-            
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 ">
-            
-              <a href="SiFoN.clinical_analysis.html" class="reference internal ">SiFoN.clinical_analysis module</a>
-            
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 ">
-            
-              <a href="SiFoN.construst_FASTA.html" class="reference internal ">SiFoN.construst_FASTA module</a>
             
 
             
@@ -120,6 +103,33 @@
                   <li class="toctree-l2"><a href="#module-SiFoN.viz" class="reference internal">SiFoN.viz module</a></li>
                 
               </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="SiFoN.chrom_viz.html" class="reference internal ">SiFoN.chrom_viz module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="SiFoN.smoothing.html" class="reference internal ">SiFoN.smoothing module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="SiFoN.clinical_analysis.html" class="reference internal ">SiFoN.clinical_analysis module</a>
+            
+
             
           </li>
 
@@ -144,8 +154,12 @@
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="SiFoN.construst_FASTA.html"
-       title="previous chapter">← SiFoN.construst_FASTA module</a>
+    <a href="SiFoN.GWAS_enrichment.html"
+       title="previous chapter">← SiFoN.GWAS_enrichment module</a>
+  </li>
+  <li class="next">
+    <a href="SiFoN.chrom_viz.html"
+       title="next chapter">SiFoN.chrom_viz module →</a>
   </li>
 </ul>
   
@@ -155,7 +169,7 @@
             
   <section id="module-SiFoN.viz">
 <span id="sifon-viz-module"></span><h1>SiFoN.viz module<a class="headerlink" href="#module-SiFoN.viz" title="Permalink to this headline">¶</a></h1>
-<p>This module includes functions for visualizing sequence class scores along genomic regions. This module require Sei sequence class scores as input, and therefore assumes that predictions have already been calculated.</p>
+<p>This module includes functions for visualizing sequence class scores along genomic regions. This module requires Sei sequence class scores as input, and therefore assumes that predictions have already been calculated.</p>
 <p>Functions:</p>
 <blockquote>
 <div><p>white_bg</p>
@@ -181,8 +195,8 @@ class_map</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>scores</strong> (<em>NumPy array</em>) – Takes the (abs) max sequence class score for each position/alteration. Should run the <cite>preprocessing</cite> function first. The output array has columns [“Max Score”, “Sequence Name”] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the <cite>postprocess</cite> function.</p></li>
-<li><p><strong>signed</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the <cite>preprocessing</cite> function, default is True</p></li>
-<li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”</p></li>
+<li><p><strong>signed</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – Signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the <cite>preprocessing</cite> function, default is True.</p></li>
+<li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -202,8 +216,8 @@ class_map</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>scores</strong> (<em>NumPy array</em>) – Takes the (abs) max sequence class score within a category for each position/alteration. Should run the <cite>preprocessing</cite> function first. The output array has columns [“Max Score”, “Sequence Name”] corresponding the (abs) max score and the corresponding sequence class. This array is then past through the <cite>postprocess</cite> function.</p></li>
-<li><p><strong>signed</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the <cite>preprocessing</cite> function, default is True</p></li>
-<li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”</p></li>
+<li><p><strong>signed</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – Signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the <cite>preprocessing</cite> function, default is True.</p></li>
+<li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -217,14 +231,17 @@ class_map</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SiFoN.viz.plot_max">
-<span class="sig-prename descclassname"><span class="pre">SiFoN.viz.</span></span><span class="sig-name descname"><span class="pre">plot_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scores_prune</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TSS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaxis_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Max</span> <span class="pre">Score'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/viz.html#plot_max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.viz.plot_max" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">SiFoN.viz.</span></span><span class="sig-name descname"><span class="pre">plot_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scores_prune</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TSS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaxis_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Max</span> <span class="pre">Score'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">18</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/viz.html#plot_max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.viz.plot_max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots the maximum Sei classes along a genomic sequence.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> (<em>string</em>) – name of file that figure will be saved as.</p></li>
-<li><p><strong>scores_prune</strong> (<em>Pandas DataFrame</em>) – Dataframe that denotes the maximum Sei sequence classes along some region of the genome. Must contain the following columns: [“Max Score”, “Class”, “Position”, “Sequence Name”]. This is generated as output from the <cite>find_max</cite> and <cite>find_max_by_category</cite> functions.</p></li>
-<li><p><strong>TSS</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em>) – Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated.</p></li>
+<li><p><strong>scores_prune</strong> (<em>Pandas DataFrame</em>) – dataframe that denotes the maximum Sei sequence classes along some region of the genome. Must contain the following columns: [“Max Score”, “Class”, “Position”, “Sequence Name”]. This is generated as output from the <cite>find_max</cite> and <cite>find_max_by_category</cite> functions.</p></li>
+<li><p><strong>TSS</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em>) – specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated.</p></li>
+<li><p><strong>fontsize</strong> (<em>float</em><em>, </em><em>optional</em>) – font size of plot, default is 18</p></li>
+<li><p><strong>pointsize</strong> (<em>float</em><em>, </em><em>optional</em>) – size of points on plot, default is 5</p></li>
+<li><p><strong>opacity</strong> (<em>float</em><em>, </em><em>optional</em>) – opacity of points on plot, default is 0.3</p></li>
 </ul>
 </dd>
 </dl>
@@ -237,14 +254,14 @@ class_map</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>string</em>) – name of file that figure will be saved as.</p></li>
-<li><p><strong>file</strong> (<em>string</em>) – filename of NumPy sequence class scores</p></li>
+<li><p><strong>filename</strong> (<em>string</em>) – Name of file that figure will be saved as.</p></li>
+<li><p><strong>file</strong> (<em>string</em>) – Filename of NumPy sequence class scores</p></li>
 <li><p><strong>vcf</strong> (<em>Pandas DataFrame</em>) – VCF of SNPs of interest, including “Position” column.</p></li>
-<li><p><strong>TSS</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated, defaults to an empty dictionary</p></li>
-<li><p><strong>signed</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the <cite>preprocessing</cite> function, default is True</p></li>
-<li><p><strong>plot_by</strong> (<em>string</em><em>, </em><em>optional</em>) – Specifies whether the maximum of sequence class is plotted (“class”) or the maximim within each sequence category (“category). Should be either “class” (calls <cite>find_max</cite>) or “category” (calls <cite>find_max_by_category</cite>), defaults to “class”</p></li>
-<li><p><strong>pre</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.</p></li>
-<li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”</p></li>
+<li><p><strong>TSS</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated, defaults to an empty dictionary.</p></li>
+<li><p><strong>signed</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – Signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the <cite>preprocessing</cite> function, default is True.</p></li>
+<li><p><strong>plot_by</strong> (<em>string</em><em>, </em><em>optional</em>) – Specifies whether the maximum of sequence class is plotted (“class”) or the maximim within each sequence category (“category). Should be either “class” (calls <cite>find_max</cite>) or “category” (calls <cite>find_max_by_category</cite>), defaults to “class”.</p></li>
+<li><p><strong>pre</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – Determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.</p></li>
+<li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”.</p></li>
 </ul>
 </dd>
 </dl>
@@ -257,14 +274,14 @@ class_map</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>string</em>) – name of file that figure will be saved as.</p></li>
-<li><p><strong>file</strong> (<em>string</em>) – filename of NumPy sequence class scores</p></li>
+<li><p><strong>filename</strong> (<em>string</em>) – Name of file that figure will be saved as.</p></li>
+<li><p><strong>file</strong> (<em>string</em>) – Filename of NumPy sequence class scores.</p></li>
 <li><p><strong>vcf</strong> (<em>Pandas DataFrame</em>) – VCF of SNPs of interest, including “Position” column.</p></li>
-<li><p><strong>TSS</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated, defaults to an empty dictionary</p></li>
-<li><p><strong>category</strong> (<em>string</em><em>, </em><em>optional</em>) – Determines which sets of predictions will be plotted. Should be one of the category names listed in the <cite>color_map</cite>. If set to “All” then the full set of predictions is plotted, default is “All”</p></li>
-<li><p><strong>signed</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the <cite>preprocessing</cite> function, default is True</p></li>
-<li><p><strong>pre</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.</p></li>
-<li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”</p></li>
+<li><p><strong>TSS</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Specifies regions of the genome to annotate in the figure. The first element of the dictionary (str) will be the name or label of the annotation which will appear in the legend. The list of ints will denote the end points of the region to be annotated, defaults to an empty dictionary.</p></li>
+<li><p><strong>category</strong> (<em>string</em><em>, </em><em>optional</em>) – Determines which sets of predictions will be plotted. Should be one of the category names listed in the <cite>color_map</cite>. If set to “All” then the full set of predictions is plotted, default is “All”.</p></li>
+<li><p><strong>signed</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – Signifies whether parameters are evaluated by absolute value (False) or not (True). This should be set to the same value as in the <cite>preprocessing</cite> function, default is True.</p></li>
+<li><p><strong>pre</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – Determines whether to run preprocessing or not. If there is already only one alteration per position, then this should be set to False, default is False.</p></li>
+<li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”.</p></li>
 </ul>
 </dd>
 </dl>
@@ -277,15 +294,15 @@ class_map</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>scores_max</strong> – type scores_max: NumPy Array</p></li>
-<li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”</p></li>
+<li><p><strong>scores_max</strong> (<em>NumPy Array</em>) – This array should be in the same format as the output to the <a href="#id1"><span class="problematic" id="id2">`</span></a>find_max ` function.</p></li>
+<li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>an updated version of <cite>scores_max</cite> that adds the columns “Sequence Index”, “Class” (e..g E, P, TF), “Color” (corresponding to the “Class” column), “Function” (whether a sequence class is associated with repressed or active chromatin). SNPs with a max score in the Low Impact category are also removed.</p>
+<dd class="field-even"><p>An updated version of <cite>scores_max</cite> that adds the columns “Sequence Index”, “Class” (e..g E, P, TF), “Color” (corresponding to the “Class” column), “Function” (whether a sequence class is associated with repressed or active chromatin). SNPs with a max score in the Low Impact category are removed.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>type</p>
+<dd class="field-odd"><p>NumPy Array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -297,10 +314,10 @@ class_map</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<em>string</em>) – filename of NumPy sequence class scores</p></li>
+<li><p><strong>file</strong> (<em>string</em>) – Filename of NumPy sequence class scores.</p></li>
 <li><p><strong>vcf</strong> (<em>Pandas DataFrame</em>) – VCF of SNPs of interest, including “Position” column.</p></li>
-<li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”</p></li>
-<li><p><strong>signed</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – signifies whether parameters are evaluated by absolute value (False) or not (True), default is True</p></li>
+<li><p><strong>seqclass_names</strong> (<em>list of strings</em><em>, </em><em>optional</em>) – List of names for profiles. Sei sequence classes names or chromatin profile names. Should have length equal to the number of rows in`scores_max`, defaults to Sei sequence class names found in “model_data/seqclass-names.txt”.</p></li>
+<li><p><strong>signed</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – Signifies whether parameters are evaluated by absolute value (False) or not (True), default is True.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -324,8 +341,12 @@ class_map</p>
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="SiFoN.construst_FASTA.html"
-       title="previous chapter">← SiFoN.construst_FASTA module</a>
+    <a href="SiFoN.GWAS_enrichment.html"
+       title="previous chapter">← SiFoN.GWAS_enrichment module</a>
+  </li>
+  <li class="next">
+    <a href="SiFoN.chrom_viz.html"
+       title="next chapter">SiFoN.chrom_viz module →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2022, Briana Macedo.

@@ -22,8 +22,8 @@
     
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="SiFoN.clinical_analysis module" href="SiFoN.clinical_analysis.html" />
-  <link rel="prev" title="SiFoN.GWAS_enrichment module" href="SiFoN.GWAS_enrichment.html" /> 
+  <link rel="next" title="SiFoN.smoothing module" href="SiFoN.smoothing.html" />
+  <link rel="prev" title="SiFoN.viz module" href="SiFoN.viz.html" /> 
   </head>
 
   <body>
@@ -76,7 +76,25 @@
         
           <li class="toctree-l1 ">
             
+              <a href="SiFoN.construct_FASTA.html" class="reference internal ">SiFoN.construct_FASTA module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="SiFoN.GWAS_enrichment.html" class="reference internal ">SiFoN.GWAS_enrichment module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="SiFoN.viz.html" class="reference internal ">SiFoN.viz module</a>
             
 
             
@@ -100,25 +118,16 @@
         
           <li class="toctree-l1 ">
             
+              <a href="SiFoN.smoothing.html" class="reference internal ">SiFoN.smoothing module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="SiFoN.clinical_analysis.html" class="reference internal ">SiFoN.clinical_analysis module</a>
-            
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 ">
-            
-              <a href="SiFoN.construst_FASTA.html" class="reference internal ">SiFoN.construst_FASTA module</a>
-            
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 ">
-            
-              <a href="SiFoN.viz.html" class="reference internal ">SiFoN.viz module</a>
             
 
             
@@ -145,12 +154,12 @@
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="SiFoN.GWAS_enrichment.html"
-       title="previous chapter">← SiFoN.GWAS_enrichment module</a>
+    <a href="SiFoN.viz.html"
+       title="previous chapter">← SiFoN.viz module</a>
   </li>
   <li class="next">
-    <a href="SiFoN.clinical_analysis.html"
-       title="next chapter">SiFoN.clinical_analysis module →</a>
+    <a href="SiFoN.smoothing.html"
+       title="next chapter">SiFoN.smoothing module →</a>
   </li>
 </ul>
   
@@ -162,7 +171,7 @@
 <h1>SiFoN.chrom_viz module<a class="headerlink" href="#sifon-chrom-viz-module" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<span class="target" id="module-SiFoN.chrom_viz"></span><p>This module includes functions for visualizing chromatin profile scores along genomic regions. This module require Sei chromatin profile scoes as input, and therefore assumes that predictions have already been calculated.</p>
+<span class="target" id="module-SiFoN.chrom_viz"></span><p>This module includes functions for visualizing chromatin profile scores along genomic regions. This module requires Sei chromatin profile scoes as input and therefore assumes that predictions have already been calculated.</p>
 <dl>
 <dt>Functions:</dt><dd><p>white_bg</p>
 <p>preprocess_diff</p>
@@ -178,14 +187,13 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>NumPy array</em>) – NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</p></li>
-<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [“chrom”, “pos”, “name”, “ref”, “alt”]. Must have the same number of rows as <cite>data</cite>.</p></li>
-<li><p><strong>loc</strong> (<em>int</em>) – the chromosomal position of the SNP of interest.</p></li>
-<li><p><strong>loc_index</strong> (<em>int</em>) – the index of the SNP of interest in the <cite>data</cite> array.</p></li>
-<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
-<li><p><strong>top_X</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be <cite>top_X</cite> * <cite>pos_window</cite> rows and pos_window columns, defaults to 5.</p></li>
-<li><p><strong>window</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of to the right and left of <cite>loc</cite> that will be plotted, defaults to 5</p></li>
-<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – fontsize for graph, defaults to 8</p></li>
-<li><p><strong>pos_window</strong> – Default value = 5)</p></li>
+<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – Contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [“chrom”, “pos”, “name”, “ref”, “alt”]. Must have the same number of rows as <cite>data</cite>.</p></li>
+<li><p><strong>loc</strong> (<em>int</em>) – The chromosomal position of the SNP of interest.</p></li>
+<li><p><strong>loc_index</strong> (<em>int</em>) – The index of the SNP of interest in the <cite>data</cite> array.</p></li>
+<li><p><strong>figname</strong> (<em>string</em>) – Name of file that figure will be saved as.</p></li>
+<li><p><strong>top_X</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be <cite>top_X</cite> * <cite>pos_window</cite> rows and pos_window columns, defaults to 5.</p></li>
+<li><p><strong>pos_window</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of SNPs to the right and left of <cite>loc</cite> that will be plotted. For example, if window = 5, then 10 SNPs will be plotted, defaults to 5.</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – Fontsize for graph, defaults to 8.</p></li>
 </ul>
 </dd>
 </dl>
@@ -199,11 +207,11 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>diff</strong> (<em>NumPy array</em>) – NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</p></li>
-<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – contains metadata about the rows (and the SNPs described by the rows) in the <cite>diff</cite> array.</p></li>
+<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – Contains metadata about the rows (and the SNPs described by the rows) in the <cite>diff</cite> array.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Returns filtered <cite>diff</cite> and <cite>row_labels</cite></p>
+<dd class="field-even"><p>Returns filtered <cite>diff</cite> and <cite>row_labels</cite> as (<cite>diff</cite>, <cite>row_labels</cite>)</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>NumPy array, Pandas DataFrame</p>
@@ -214,17 +222,17 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="SiFoN.chrom_viz.rank_scatter_plot">
 <span class="sig-prename descclassname"><span class="pre">SiFoN.chrom_viz.</span></span><span class="sig-name descname"><span class="pre">rank_scatter_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">18</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/chrom_viz.html#rank_scatter_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.chrom_viz.rank_scatter_plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates, displays, and saves a scatter plot of ranked chromatin profiles at for a particular SNP. Each point corresponds to a chromatin profile, with hover data specifying: rank, score, profile name, and tissue of origin.</p>
+<dd><p>Creates, displays, and saves a scatter plot of the ranked chromatin profiles of a particular SNP. Profiles are ranked by magnitude of score. Each point corresponds to a chromatin profile, with hover data specifying: rank, score, profile name, and tissue of origin.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>diff</strong> (<em>NumPy array</em>) – NumPy array of Sei chromatin profile scores. Should have shape (X, 21907), where 21,907 corresponds to the number of chromatin profiles and X corresponds to the number of alterations.</p></li>
-<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [“chrom”, “pos”, “name”, “ref”, “alt”]. Must have the same number of rows as <cite>data</cite>.</p></li>
-<li><p><strong>loc</strong> (<em>int</em>) – the chromosomal position of the SNP of interest.</p></li>
-<li><p><strong>loc_index</strong> (<em>int</em>) – the index of the SNP of interest in the <cite>data</cite> array.</p></li>
-<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saves as.</p></li>
-<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – fontsize for graph, defaults to 8</p></li>
-<li><p><strong>static</strong> – species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False</p></li>
+<li><p><strong>row_labels</strong> (<em>Pandas DataFrame</em>) – Contains metadata to describe the SNPs being analyzed. Should have at least the following columns: [“chrom”, “pos”, “name”, “ref”, “alt”]. Must have the same number of rows as <cite>data</cite>.</p></li>
+<li><p><strong>loc</strong> (<em>int</em>) – The chromosomal position of the SNP of interest.</p></li>
+<li><p><strong>loc_index</strong> (<em>int</em>) – The index of the SNP of interest in the <cite>data</cite> array.</p></li>
+<li><p><strong>figname</strong> (<em>string</em>) – Name of file that figure will be saved as.</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional.</em>) – Fontsize for graph, defaults to 8.</p></li>
+<li><p><strong>static</strong> – Specifies whether to output a static png image (True) or an interactive HTML image in your notebook (False), defaults to False.</p></li>
 </ul>
 </dd>
 </dl>
@@ -233,10 +241,10 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="SiFoN.chrom_viz.white_bg">
 <span class="sig-prename descclassname"><span class="pre">SiFoN.chrom_viz.</span></span><span class="sig-name descname"><span class="pre">white_bg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/chrom_viz.html#white_bg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.chrom_viz.white_bg" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function changes a plotly figure <cite>fig</cite> to have a white background. Changes the figure object.</p>
+<dd><p>This function changes a plotly figure object <cite>fig</cite> to have a white background.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>fig</strong> (<em>plotly figure</em>) – plotly figure</p>
+<dd class="field-odd"><p><strong>fig</strong> (<em>Plotly figure</em>) – Plotly figure.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -248,12 +256,12 @@
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="SiFoN.GWAS_enrichment.html"
-       title="previous chapter">← SiFoN.GWAS_enrichment module</a>
+    <a href="SiFoN.viz.html"
+       title="previous chapter">← SiFoN.viz module</a>
   </li>
   <li class="next">
-    <a href="SiFoN.clinical_analysis.html"
-       title="next chapter">SiFoN.clinical_analysis module →</a>
+    <a href="SiFoN.smoothing.html"
+       title="next chapter">SiFoN.smoothing module →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2022, Briana Macedo.
