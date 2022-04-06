@@ -112,7 +112,7 @@ def seq_class_t_tests(df, figname, fontsize=18, markersize=7):
         pvals[ind] = pval   
     pvals_df = pd.DataFrame({"Sequence Class" : seqclass_names.flatten(), "P-value" : pvals})
     pvals_df.sort_values(by="P-value", ascending=True, inplace=True)
-    pvals_df["Class"] =  [viz.get_category(index) for index in pvals_df["Sequence Class"]]
+    pvals_df["Class"] =  [viz._get_category(index) for index in pvals_df["Sequence Class"]]
     pvals_df["Color"] =  [viz.color_map[index] for index in pvals_df["Class"]]
     pvals_df["Rank"] = range(0, len(pvals_df))
     pvals_df.head(5)
