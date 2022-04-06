@@ -76,6 +76,15 @@
         
           <li class="toctree-l1 ">
             
+              <a href="SiFoN.construct_FASTA.html" class="reference internal ">SiFoN.construct_FASTA module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="SiFoN.GWAS_enrichment.html" class="reference internal ">SiFoN.GWAS_enrichment module</a>
             
 
@@ -162,17 +171,24 @@
 <h1>SiFoN.smoothing module<a class="headerlink" href="#sifon-smoothing-module" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<span class="target" id="module-SiFoN.smoothing"></span><dl class="py function">
+<span class="target" id="module-SiFoN.smoothing"></span><p>This module includes functions to smooth data and then visualize the effects of smoothing.</p>
+<dl>
+<dt>Functions:</dt><dd><p>smooth_class</p>
+<p>plot_smooth_v_raw</p>
+<p>smooth_all_scores</p>
+</dd>
+</dl>
+<dl class="py function">
 <dt class="sig sig-object py" id="SiFoN.smoothing.plot_smooth_v_raw">
 <span class="sig-prename descclassname"><span class="pre">SiFoN.smoothing.</span></span><span class="sig-name descname"><span class="pre">plot_smooth_v_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence_class_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SiFoN/smoothing.html#plot_smooth_v_raw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SiFoN.smoothing.plot_smooth_v_raw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots smooth and raw sequence class scores side by side to compare visualizations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – dataframe with the columns “Raw Scores”, “Smoothed Scores”, and “Position”.</p></li>
-<li><p><strong>figname</strong> (<em>string</em>) – name of file that figure will be saved as.</p></li>
-<li><p><strong>sequence_class_name</strong> (<em>string</em>) – the name of the sequence class to apply rolling average to.</p></li>
-<li><p><strong>s</strong> (<em>float</em><em>, </em><em>optional</em>) – size of data points, default is 0.2</p></li>
+<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – Dataframe with the columns “Raw Scores”, “Smoothed Scores”, and “Position”.</p></li>
+<li><p><strong>figname</strong> (<em>string</em>) – Name of file that figure will be saved as.</p></li>
+<li><p><strong>sequence_class_name</strong> (<em>string</em>) – The name of the sequence class to apply rolling average to.</p></li>
+<li><p><strong>s</strong> (<em>float</em><em>, </em><em>optional</em>) – Size of data points, default is 0.2.</p></li>
 </ul>
 </dd>
 </dl>
@@ -185,11 +201,11 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – dataframe with the columns “Raw Scores”, “Smoothed Scores”, and “Position”.</p></li>
-<li><p><strong>window_length</strong> (<em>int</em><em>, </em><em>optional</em>) – the length of the Savitzy-Golay filter window, default is 801</p></li>
-<li><p><strong>polyorder</strong> (<em>int</em><em>, </em><em>optional</em>) – the order of the polynomial used to fit the samples in Savitzy-Golay filter, default is 4</p></li>
-<li><p><strong>sav</strong> (<em>Boolean</em>) – whether or not to apply Savitzy-Golay filtering, default is True</p></li>
-<li><p><strong>sm</strong> (<em>Boolean</em>) – whether or not to apply Softmax, default is True</p></li>
+<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – Dataframe with the columns “Raw Scores”, “Smoothed Scores”, and “Position”.</p></li>
+<li><p><strong>window_length</strong> (<em>int</em><em>, </em><em>optional</em>) – The length of the Savitzy-Golay filter window, default is 801.</p></li>
+<li><p><strong>polyorder</strong> (<em>int</em><em>, </em><em>optional</em>) – The order of the polynomial used to fit the samples in Savitzy-Golay filter, default is 4.</p></li>
+<li><p><strong>sav</strong> (<em>Boolean</em>) – Whether or not to apply Savitzy-Golay filtering, default is True.</p></li>
+<li><p><strong>sm</strong> (<em>Boolean</em>) – Whether or not to apply Softmax, default is True.</p></li>
 </ul>
 </dd>
 </dl>
@@ -202,9 +218,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – dataframe with the columns “Raw Scores”, “Sequence Class”, and “Position”. “Raw scores” are Sei sequence class scores and “Sequence Class” denotes the corresponding sequence class of the score. It is assumed that all SNPs are along the same chromosome, allowing for smoothing via adjacency. “Position” denotes the position of the SNP on the genome.</p></li>
-<li><p><strong>sequence_class_name</strong> (<em>string</em>) – the name of the sequence class to apply rolling average to.</p></li>
-<li><p><strong>window</strong> (<em>int</em><em>, </em><em>optional</em>) – window of rolling average, default is 15.</p></li>
+<li><p><strong>df</strong> (<em>Pandas DataFrame</em>) – Dataframe with the columns “Raw Scores”, “Sequence Class”, and “Position”. This function is designed for SNPs that are all adjacent to one another. “Raw scores” are Sei sequence class scores and “Sequence Class” denotes the corresponding sequence class of the score. It is assumed that all SNPs are along the same chromosome, allowing for smoothing via adjacency. “Position” denotes the position of the SNP on the genome.</p></li>
+<li><p><strong>sequence_class_name</strong> (<em>string</em>) – The name of the sequence class to apply rolling average to.</p></li>
+<li><p><strong>window</strong> (<em>int</em><em>, </em><em>optional</em>) – Window of rolling average, default is 15.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

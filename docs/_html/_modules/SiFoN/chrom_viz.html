@@ -73,6 +73,15 @@
         
           <li class="toctree-l1 ">
             
+              <a href="../../SiFoN.construct_FASTA.html" class="reference internal ">SiFoN.construct_FASTA module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="../../SiFoN.GWAS_enrichment.html" class="reference internal ">SiFoN.GWAS_enrichment module</a>
             
 
@@ -143,7 +152,7 @@
             
   <h1>Source code for SiFoN.chrom_viz</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This module includes functions for visualizing chromatin profile scores along genomic regions. This module require Sei chromatin profile scoes as input, and therefore assumes that predictions have already been calculated. </span>
+<span class="sd">This module includes functions for visualizing chromatin profile scores along genomic regions. This module requires Sei chromatin profile scoes as input and therefore assumes that predictions have already been calculated. </span>
 
 <span class="sd">Functions:</span>
 <span class="sd">    white_bg</span>
@@ -165,12 +174,12 @@
 
 <span class="c1">### Heatmap</span>
 <div class="viewcode-block" id="white_bg"><a class="viewcode-back" href="../../SiFoN.chrom_viz.html#SiFoN.chrom_viz.white_bg">[docs]</a><span class="k">def</span> <span class="nf">white_bg</span><span class="p">(</span><span class="n">fig</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This function changes a plotly figure `fig` to have a white background. Changes the figure object.</span>
+    <span class="sd">&quot;&quot;&quot;This function changes a plotly figure object `fig` to have a white background.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    fig : plotly figure</span>
-<span class="sd">        plotly figure</span>
+<span class="sd">    fig : Plotly figure</span>
+<span class="sd">        Plotly figure.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">({</span><span class="s2">&quot;plot_bgcolor&quot;</span><span class="p">:</span> <span class="s2">&quot;rgba(0, 0, 0, 0)&quot;</span><span class="p">,</span>
@@ -192,7 +201,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    NumPy array, Pandas DataFrame</span>
-<span class="sd">        Returns filtered `diff` and `row_labels`</span>
+<span class="sd">        Returns filtered `diff` and `row_labels` as (`diff`, `row_labels`)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     
@@ -205,7 +214,7 @@
 
 
 <div class="viewcode-block" id="rank_scatter_plot"><a class="viewcode-back" href="../../SiFoN.chrom_viz.html#SiFoN.chrom_viz.rank_scatter_plot">[docs]</a><span class="k">def</span> <span class="nf">rank_scatter_plot</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="n">row_labels</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">loc_index</span><span class="p">,</span> <span class="n">figname</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">static</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Creates, displays, and saves a scatter plot of ranked chromatin profiles at for a particular SNP. Each point corresponds to a chromatin profile, with hover data specifying: rank, score, profile name, and tissue of origin.</span>
+    <span class="sd">&quot;&quot;&quot;Creates, displays, and saves a scatter plot of the ranked chromatin profiles of a particular SNP. Profiles are ranked by magnitude of score. Each point corresponds to a chromatin profile, with hover data specifying: rank, score, profile name, and tissue of origin.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -218,11 +227,11 @@
 <span class="sd">    loc_index : int</span>
 <span class="sd">        The index of the SNP of interest in the `data` array.</span>
 <span class="sd">    figname : string</span>
-<span class="sd">        Name of file that figure will be saves as.</span>
+<span class="sd">        Name of file that figure will be saved as.</span>
 <span class="sd">    fontsize : int, optional.</span>
-<span class="sd">        Fontsize for graph, defaults to 8</span>
+<span class="sd">        Fontsize for graph, defaults to 8.</span>
 <span class="sd">    static :</span>
-<span class="sd">        Species whether to output a static png image (True) or an interactive html image in your notebook (False), defaults to False</span>
+<span class="sd">        Specifies whether to output a static png image (True) or an interactive HTML image in your notebook (False), defaults to False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">chrom_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../model_data/target_names.txt&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
     <span class="n">chrom_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">chrom_names</span><span class="p">]</span>
@@ -262,15 +271,13 @@
 <span class="sd">    loc_index : int</span>
 <span class="sd">        The index of the SNP of interest in the `data` array.</span>
 <span class="sd">    figname : string</span>
-<span class="sd">        Name of file that figure will be saves as.</span>
+<span class="sd">        Name of file that figure will be saved as.</span>
 <span class="sd">    top_X : int, optional</span>
 <span class="sd">        The number of top scoring chromatin profiles to plot for each SNP. Increasing top_X increases the height of plot. There will be `top_X` * `pos_window` rows and pos_window columns, defaults to 5.</span>
-<span class="sd">    window : int, optional</span>
-<span class="sd">        The number of to the right and left of `loc` that will be plotted, defaults to 5</span>
+<span class="sd">    pos_window : int, optional</span>
+<span class="sd">        The number of SNPs to the right and left of `loc` that will be plotted. For example, if window = 5, then 10 SNPs will be plotted, defaults to 5.</span>
 <span class="sd">    fontsize : int, optional.</span>
-<span class="sd">        Fontsize for graph, defaults to 8</span>
-<span class="sd">    pos_window :</span>
-<span class="sd">        Default value = 5)</span>
+<span class="sd">        Fontsize for graph, defaults to 8.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">chrom_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../model_data/target_names.txt&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>

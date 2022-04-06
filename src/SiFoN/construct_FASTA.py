@@ -1,3 +1,5 @@
+""" This module includes functions that create FASTA files containing haplotypes as input into Sei"""
+
 from selene_sdk.sequences import Genome
 import pandas as pd
 import itertools
@@ -7,7 +9,7 @@ alt_allele = {"A":"G", "G":"A", "T":"C", "C":"T"}
     
 def write_haps_of_pairs(data, ref_filename, alt_filename, shift_filename, centered_filename,
          chrm, cutoff, gn):
-        """Give a VCF file of SNPs, this module will create a FASTA file containing haplotype sequences that consist of all pairs of SNPs within a `cutoff` distance from one another. These FASTA files are in a format that can be read by Sei.
+    """Give a VCF file of SNPs, this module will create a FASTA file containing haplotype sequences that consist of all pairs of SNPs within a `cutoff` distance from one another. These FASTA files are in a format that can be read by Sei.
 
     Parameters
     ----------
@@ -48,27 +50,7 @@ def write_haps_of_pairs(data, ref_filename, alt_filename, shift_filename, center
     ref_file.close()
     alt_file.close()
     shift_file.close()
-    centered_file.close()
-     
-def writes_haps_around_SNP(ref_filename, alt_filename, shift_filename, centered_filename,
-         chrm, rng, center, gn):
-    alt_file = open(alt_filename, "w")
-    ref_file = open(ref_filename, "w")
-    shift_file = open(shift_filename, "w") 
-    centered_file = open(centered_filename, "w")
-    offset = 2048
-    for pairs in itertools.combinations(range(-rng, rng), 2):
-        write_to_file(center + pairs[0], center + pairs[1], chrm,
-                     ref_file, alt_file, shift_file, centered_file, 
-                     center + pairs[1], center + pairs[0], gn)
-
-        write_to_file(center + pairs[1], center + pairs[0], chrm,
-                     ref_file, alt_file, shift_file, centered_file, 
-                      center + pairs[1], center + pairs[0], gn)  
-    ref_file.close()
-    alt_file.close()
-    shift_file.close()
-    centered_file.close()
+    centered_file.close()   
 
 def write_to_file(snp1, snp2, chrm,
                  ref_file, alt_file, shift_file, centered_file, 
@@ -97,15 +79,3 @@ def write_to_file(snp1, snp2, chrm,
     mut_seq = "".join(seq_list)
     alt_file.write(">" + str(preface) + "\n" + mut_seq + "\n")
     return preface
-
-def write_to_file_smooth(snp1, snp2, ref_file, alt_file, window=16):
-    seq = genome.get_sequence_from_coords(chrom = chrm,
-                                 start = snp1 - offset,
-                                 end = snp1 + offset)
-
-    for i in range(-window, window):
-        ref_file.write(">" + str(snp1) +  "_" + str(snp2) + "_" + str(i + window) + "\n" + seq + "\n")
-        seq_list2 = list(seq)
-        seq_list2[offset - 1 + i] = alt_allele[seq_list2[offset - 1 + i].upper().upper()]
-        mut_seq = "".join(seq_list2)
-        alt_file.write(">" + str(snp1) +  "_" + str(snp2) + "_" + str(i + window) + "\n" + mut_seq + "\n")

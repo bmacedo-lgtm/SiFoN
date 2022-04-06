@@ -23,7 +23,7 @@
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
   <link rel="next" title="SiFoN.viz module" href="SiFoN.viz.html" />
-  <link rel="prev" title="SiFoN package" href="SiFoN.html" /> 
+  <link rel="prev" title="SiFoN.construct_FASTA module" href="SiFoN.construct_FASTA.html" /> 
   </head>
 
   <body>
@@ -73,6 +73,15 @@
         <span class="caption-text"><a href="SiFoN.html#submodules">submodules</a></span>
       </p>
       <ul class="current">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="SiFoN.construct_FASTA.html" class="reference internal ">SiFoN.construct_FASTA module</a>
+            
+
+            
+          </li>
+
         
           <li class="toctree-l1 current">
             
@@ -145,8 +154,8 @@
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="SiFoN.html"
-       title="previous chapter">← SiFoN package</a>
+    <a href="SiFoN.construct_FASTA.html"
+       title="previous chapter">← SiFoN.construct_FASTA module</a>
   </li>
   <li class="next">
     <a href="SiFoN.viz.html"
@@ -172,15 +181,15 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ccv</strong> (<em>Pandas DataFrame</em>) – Pandas DataFrame in BED format of loci with credible causal variants. Must include at least the following columns: Chrom, Start, End, SNP [identifier/name of sequence])</p></li>
+<li><p><strong>ccv</strong> (<em>Pandas DataFrame</em>) – Pandas DataFrame in BED format containing disease risk loci. Must include at least the following columns: Chrom, Start, End, SNP (identifier/name of sequence).</p></li>
 <li><p><strong>ref_bed</strong> (<em>pyranges BED object</em>) – Should contain sequence class labels across (nearly) the entire genome to allow for background sequence class proportion calculations. Should use the same genomic coordinate system (e.g. hg19 or hg38) as <cite>ccv</cite>.</p></li>
-<li><p><strong>figname</strong> (<em>string</em>) – Name of file that figure will be saves as.</p></li>
-<li><p><strong>vmin</strong> (<em>float</em><em>, </em><em>optional</em>) – Value corresponding to minimum color in heatmap, default is 0.1</p></li>
-<li><p><strong>vmax</strong> (<em>float</em><em>, </em><em>optional</em>) – Value corresponding to minimum color in heatmap, default is 10^1</p></li>
+<li><p><strong>figname</strong> (<em>string</em>) – Name of file that figure will be saved as.</p></li>
+<li><p><strong>vmin</strong> (<em>float</em><em>, </em><em>optional</em>) – Value corresponding to minimum color in heatmap, default is 0.1.</p></li>
+<li><p><strong>vmax</strong> (<em>float</em><em>, </em><em>optional</em>) – Value corresponding to minimum color in heatmap, default is 10^1.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Sequence class enrichment dataframe. Rows correspond to risk loci sequence and the indices are the “SNP” column of <cite>ccv</cite> (the name/ID for each sequence). Columns correspond to the 40 sequence classes.</p>
+<dd class="field-even"><p>Sequence class enrichment dataframe. Rows correspond to risk loci and the indices are the “SNP” column of <cite>ccv</cite> (the name/ID for each sequence). Columns correspond to the 40 sequence classes.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Pandas DataFrame</p>
@@ -195,8 +204,8 @@
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="SiFoN.html"
-       title="previous chapter">← SiFoN package</a>
+    <a href="SiFoN.construct_FASTA.html"
+       title="previous chapter">← SiFoN.construct_FASTA module</a>
   </li>
   <li class="next">
     <a href="SiFoN.viz.html"

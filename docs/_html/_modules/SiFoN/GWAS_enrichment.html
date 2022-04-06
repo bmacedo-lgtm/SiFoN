@@ -73,6 +73,15 @@
         
           <li class="toctree-l1 ">
             
+              <a href="../../SiFoN.construct_FASTA.html" class="reference internal ">SiFoN.construct_FASTA module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="../../SiFoN.GWAS_enrichment.html" class="reference internal ">SiFoN.GWAS_enrichment module</a>
             
 
@@ -167,20 +176,20 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    ccv : Pandas DataFrame</span>
-<span class="sd">        Pandas DataFrame in BED format of loci with credible causal variants. Must include at least the following columns: Chrom, Start, End, SNP [identifier/name of sequence])</span>
+<span class="sd">        Pandas DataFrame in BED format containing disease risk loci. Must include at least the following columns: Chrom, Start, End, SNP (identifier/name of sequence).</span>
 <span class="sd">    ref_bed : pyranges BED object</span>
 <span class="sd">        Should contain sequence class labels across (nearly) the entire genome to allow for background sequence class proportion calculations. Should use the same genomic coordinate system (e.g. hg19 or hg38) as `ccv`.</span>
 <span class="sd">    figname : string</span>
-<span class="sd">        Name of file that figure will be saves as.</span>
+<span class="sd">        Name of file that figure will be saved as.</span>
 <span class="sd">    vmin : float, optional</span>
-<span class="sd">        Value corresponding to minimum color in heatmap, default is 0.1</span>
+<span class="sd">        Value corresponding to minimum color in heatmap, default is 0.1.</span>
 <span class="sd">    vmax : float, optional</span>
-<span class="sd">        Value corresponding to minimum color in heatmap, default is 10^1</span>
+<span class="sd">        Value corresponding to minimum color in heatmap, default is 10^1.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    Pandas DataFrame</span>
-<span class="sd">        Sequence class enrichment dataframe. Rows correspond to risk loci sequence and the indices are the &quot;SNP&quot; column of `ccv` (the name/ID for each sequence). Columns correspond to the 40 sequence classes.</span>
+<span class="sd">        Sequence class enrichment dataframe. Rows correspond to risk loci and the indices are the &quot;SNP&quot; column of `ccv` (the name/ID for each sequence). Columns correspond to the 40 sequence classes.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">intersect_bed</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">PyRanges</span><span class="p">(</span><span class="n">ccv</span><span class="p">)</span>
